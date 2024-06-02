@@ -4,6 +4,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 from .views import (
     CustomTokenObtainPairView,
+    LogoutAllDevicesView,
     PasswordChangeView,
     RegisterUserAPIView,
     UserApiViewSet,
@@ -18,4 +19,5 @@ urlpatterns = [
     path("auth/login-refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("auth/login-access/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("auth/change-password/", PasswordChangeView.as_view(), name="change_password"),
+    path("auth/logout-all/", LogoutAllDevicesView.as_view(), name="logout_all"),
 ]

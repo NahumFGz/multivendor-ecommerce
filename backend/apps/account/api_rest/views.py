@@ -65,3 +65,22 @@ class PasswordChangeView(APIView):
                 {"detail": "Password has been changed successfully."}, status=status.HTTP_200_OK
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogoutAllDevicesView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            user = request.user
+            user.session_id += 1
+            user.save()
+            return Response(
+                {"detail": "Sesión cerrada en todos los dispositivos."},
+                status=status.HTTP_200_OK,
+            )
+        except Exception as e:
+            return Response(
+                {"detail": f"Error al cerrar sesión en todos los dispositivos: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
