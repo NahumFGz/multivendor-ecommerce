@@ -1,7 +1,6 @@
 import React from 'react'
-import { Switch } from '@nextui-org/react'
+import { Switch, cn } from '@nextui-org/react'
 
-import { cn } from './cn'
 import PlaceListItem from './place-list-item'
 import places from './places'
 

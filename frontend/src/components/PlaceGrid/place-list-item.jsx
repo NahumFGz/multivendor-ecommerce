@@ -1,10 +1,8 @@
 'use client'
 
 import React from 'react'
-import { Button, Image, Skeleton } from '@nextui-org/react'
+import { Button, Image, Skeleton, cn } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-
-import { cn } from './cn'
 
 const PlaceListItem = React.forwardRef(
   (
