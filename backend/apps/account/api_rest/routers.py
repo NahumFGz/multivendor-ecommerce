@@ -9,6 +9,7 @@ from .views import (
     PasswordResetConfirmView,
     PasswordResetView,
     RegisterUserAPIView,
+    UserApiAuthMeView,
     UserApiViewSet,
 )
 
@@ -17,6 +18,7 @@ router.register(prefix="account", viewset=UserApiViewSet, basename="account")
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("auth/me/", UserApiAuthMeView.as_view(), name="auth_me"),
     path("auth/register/", RegisterUserAPIView.as_view(), name="register"),
     path("auth/login-refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("auth/login-access/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
