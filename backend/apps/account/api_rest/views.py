@@ -1,7 +1,5 @@
-from rest_framework import generics, status
-from rest_framework.exceptions import PermissionDenied, ValidationError
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from ..models import User
@@ -19,3 +17,9 @@ class UserApiViewSet(ModelViewSet):
         if not user.is_superuser:
             raise PermissionDenied("You do not have permission to delete this user.")
         return super().destroy(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        if not user.is_superuser:
+            raise PermissionDenied("You do not have permission to create a user.")
+        return super().create(request, *args, **kwargs)
