@@ -1,5 +1,5 @@
+from apps.account.managers import UserManager
 from apps.core.models import TimeStampModel
-from apps.user.managers import UserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 

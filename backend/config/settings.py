@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "thumbnails",
     # Local apps
-    "apps.user",
+    "apps.account",
 ]
 
 MIDDLEWARE = [
@@ -141,7 +141,7 @@ MEDIA_ROOT = BASE_DIR / "assets" / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom User model
-AUTH_USER_MODEL = "user.User"
+AUTH_USER_MODEL = "account.User"
 
 
 # Cors headers

@@ -1,10 +1,10 @@
-from apps.user.models import User
+from apps.account.models import User
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 
 @admin.register(User)
-class UserAdmin(BaseUserAdmin):
+class AccountAdmin(BaseUserAdmin):
     list_display = (
         "email",
         "first_name",
