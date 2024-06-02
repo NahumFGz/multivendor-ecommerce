@@ -1,5 +1,8 @@
+from rest_framework import status
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from ..models import User
@@ -23,3 +26,15 @@ class UserApiViewSet(ModelViewSet):
         if not user.is_superuser:
             raise PermissionDenied("You do not have permission to create a user.")
         return super().create(request, *args, **kwargs)
+
+
+class RegisterUserAPIView(APIView):
+    serializer_class = UserSerializer
+    permission_classes = []
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
