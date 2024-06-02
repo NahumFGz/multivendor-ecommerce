@@ -172,7 +172,7 @@ SWAGGER_SETTINGS = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(minutes=1),
+    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(minutes=50),
     "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=3),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,

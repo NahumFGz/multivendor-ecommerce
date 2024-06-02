@@ -9,6 +9,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from ..models import User
 from .serializers import (
     CustomTokenObtainPairSerializer,
+    LogoutAllDevicesSerializer,
     PasswordChangeSerializer,
     UserSerializer,
 )
@@ -71,10 +72,9 @@ class LogoutAllDevicesView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
+        serializer = LogoutAllDevicesSerializer()
         try:
-            user = request.user
-            user.session_id += 1
-            user.save()
+            serializer.update_session_id(request.user)
             return Response(
                 {"detail": "Sesión cerrada en todos los dispositivos."},
                 status=status.HTTP_200_OK,

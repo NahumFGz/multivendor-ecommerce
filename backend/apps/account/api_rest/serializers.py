@@ -109,3 +109,10 @@ class PasswordChangeSerializer(serializers.Serializer):
         user.set_password(self.validated_data["new_password"])
         user.save()
         return user
+
+
+class LogoutAllDevicesSerializer(serializers.Serializer):
+    def update_session_id(self, user):
+        user.session_id += 1
+        user.save()
+        return user
