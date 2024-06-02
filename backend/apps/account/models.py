@@ -32,6 +32,7 @@ class User(AbstractUser, TimeStampModel):
     password_reset_token = models.CharField(max_length=255, blank=True, null=True)
     password_reset_sent_at = models.DateTimeField(blank=True, null=True)
     session_id = models.IntegerField(default=0)
+    is_email_verified = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
