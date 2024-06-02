@@ -7,7 +7,11 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from ..models import User
-from .serializers import CustomTokenObtainPairSerializer, UserSerializer
+from .serializers import (
+    CustomTokenObtainPairSerializer,
+    PasswordChangeSerializer,
+    UserSerializer,
+)
 
 
 class UserApiViewSet(ModelViewSet):
@@ -47,3 +51,17 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         return response
+
+
+class PasswordChangeView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PasswordChangeSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={"request": request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"detail": "Password has been changed successfully."}, status=status.HTTP_200_OK
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
