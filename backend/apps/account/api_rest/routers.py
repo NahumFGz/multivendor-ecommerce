@@ -6,6 +6,8 @@ from .views import (
     CustomTokenObtainPairView,
     LogoutAllDevicesView,
     PasswordChangeView,
+    PasswordResetConfirmView,
+    PasswordResetView,
     RegisterUserAPIView,
     UserApiViewSet,
 )
@@ -20,4 +22,10 @@ urlpatterns = [
     path("auth/login-access/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("auth/change-password/", PasswordChangeView.as_view(), name="change_password"),
     path("auth/logout-all/", LogoutAllDevicesView.as_view(), name="logout_all"),
+    path("auth/password-reset/", PasswordResetView.as_view(), name="password_reset"),
+    path(
+        "auth/password-reset-confirm/<uidb64>/<token>/",
+        PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
 ]
