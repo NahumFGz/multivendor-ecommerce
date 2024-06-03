@@ -1,32 +1,33 @@
 # backend/apps/account/api_graphql/schema.py
 
 import graphene
-import graphql_jwt
-from apps.account.api_graphql.mutations import (
-    DeleteUser,
-    LoginUser,
-    RegisterUser,
-    UpdateUser,
-)
-from apps.account.api_graphql.types import UserType
-from graphql_jwt.decorators import login_required
+from apps.account.models import User
+from graphene_django.types import DjangoObjectType
+
+from .mutations import ChangePassword, CreateUser, DeleteUser, UpdateUser
+
+
+class UserType(DjangoObjectType):
+    class Meta:
+        model = User
 
 
 class Query(graphene.ObjectType):
-    me = graphene.Field(UserType)
+    all_users = graphene.List(UserType)
+    user = graphene.Field(UserType, id=graphene.Int())
 
-    @login_required
-    def resolve_me(self, info):
-        return info.context.user
+    def resolve_all_users(self, info, **kwargs):
+        return User.objects.all()
+
+    def resolve_user(self, info, id):
+        return User.objects.get(pk=id)
 
 
 class Mutation(graphene.ObjectType):
-    register_user = RegisterUser.Field()
+    create_user = CreateUser.Field()
     update_user = UpdateUser.Field()
     delete_user = DeleteUser.Field()
-    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
-    verify_token = graphql_jwt.Verify.Field()
-    refresh_token = graphql_jwt.Refresh.Field()
+    change_password = ChangePassword.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
