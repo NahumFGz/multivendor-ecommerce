@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     "django_filters",
     "corsheaders",
     "thumbnails",
-    "graphene_django",
     # Local apps
     "apps.account",
 ]
@@ -247,17 +246,3 @@ THUMBNAILS = {
         },
     },
 }
-
-# Configuración de Graphene
-# https://docs.graphene-python.org/projects/django/en/latest/tutorial-plain/
-GRAPHENE = {
-    "SCHEMA": "apps.account.api_graphql.schema.schema",
-    "MIDDLEWARE": [
-        "graphql_jwt.middleware.JSONWebTokenMiddleware",
-    ],
-}
-
-AUTHENTICATION_BACKENDS = [
-    "graphql_jwt.backends.JSONWebTokenBackend",
-    "django.contrib.auth.backends.ModelBackend",
-]
