@@ -247,3 +247,9 @@ THUMBNAILS = {
         },
     },
 }
+
+# Configuración de Graphene
+# https://docs.graphene-python.org/projects/django/en/latest/tutorial-plain/
+GRAPHENE = {
+    "SCHEMA": "apps.account.api_graphql.schema.schema",
+}
