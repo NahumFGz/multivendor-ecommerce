@@ -13,6 +13,7 @@ from .serializers import (
     PasswordChangeSerializer,
     PasswordResetConfirmSerializer,
     PasswordResetSerializer,
+    UserMeSerializer,
     UserSerializer,
 )
 
@@ -52,7 +53,7 @@ class UserApiAuthMeView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        serializer = UserSerializer(request.user)
+        serializer = UserMeSerializer(request.user)
         return Response(serializer.data)
 
 

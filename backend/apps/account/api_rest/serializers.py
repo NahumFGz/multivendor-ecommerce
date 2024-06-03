@@ -87,6 +87,12 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
 
 
+class UserMeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id", "email", "first_name", "last_name", "birth_date", "is_email_verified")
+
+
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     @classmethod
