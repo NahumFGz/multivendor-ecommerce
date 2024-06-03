@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "thumbnails",
     # Local apps
     "apps.account",
+    "apps.product",
 ]
 
 MIDDLEWARE = [
