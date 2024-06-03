@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django_filters",
     "corsheaders",
     "thumbnails",
+    "graphene_django",
     # Local apps
     "apps.account",
 ]
