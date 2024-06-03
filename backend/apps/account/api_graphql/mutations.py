@@ -3,6 +3,8 @@
 import graphene
 from apps.account.api_graphql.types import UserType
 from apps.account.models import User
+from django.contrib.auth.hashers import make_password
+from graphql_jwt.decorators import login_required
 from graphql_jwt.shortcuts import create_refresh_token, get_token
 
 
@@ -15,6 +17,7 @@ class RegisterUser(graphene.Mutation):
         first_name = graphene.String()
         last_name = graphene.String()
 
+    @login_required
     def mutate(self, info, email, password, first_name=None, last_name=None):
         user = User(
             email=email,
@@ -40,6 +43,7 @@ class UpdateUser(graphene.Mutation):
         phone_country_code = graphene.String()
         phone_number = graphene.String()
 
+    @login_required
     def mutate(self, info, id, **kwargs):
         user = User.objects.get(pk=id)
         for key, value in kwargs.items():
@@ -54,6 +58,7 @@ class DeleteUser(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
 
+    @login_required
     def mutate(self, info, id):
         user = User.objects.get(pk=id)
         user.delete()
