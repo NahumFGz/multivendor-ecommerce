@@ -1,15 +1,12 @@
 import { PlaceGrid } from './components/PlaceGrid/PlaceGrid'
-import { ProductTest } from './components/ProductTest'
+import { Header } from './features/Home/components/Header/Header'
 
 function App () {
   return (
     <>
-      <p className='text-red-500'>
-        Hola mundo!
-      </p>
-      <ProductTest />
-      <p>Wawawa</p>
+      <Header />
       <PlaceGrid />
+
     </>
   )
 }
