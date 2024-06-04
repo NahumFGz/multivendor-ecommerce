@@ -9,7 +9,7 @@ from tinymce import models as tinymce_models
 
 class Category(TimeStampModel):
     name = models.CharField(max_length=200, unique=True)
-    image = ImageField(upload_to="category", blank=True, null=True)
+    image = ImageField(upload_to="product/category/", blank=True, null=True)
     slug = models.SlugField(max_length=200, blank=True, null=True)
 
     class Meta:
@@ -46,7 +46,7 @@ class KindProduct(TimeStampModel):
     )
     name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, blank=True, null=True)
-    principal_image = ImageField(upload_to="kind", blank=True, null=True)
+    principal_image = ImageField(upload_to="product/kind/", blank=True, null=True)
 
     class Meta:
         verbose_name = "Kind"
@@ -102,7 +102,7 @@ class Product(TimeStampUUIDModel):
     description = tinymce_models.HTMLField(default="", blank=True, null=True)
     views = models.IntegerField(default=0)
     rating = models.FloatField(default=0)
-    image_principal = ImageField(upload_to="product", blank=True, null=True)
+    image_principal = ImageField(upload_to="product/product/", blank=True, null=True)
 
     class Meta:
         verbose_name = "Product"

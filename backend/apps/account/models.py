@@ -19,7 +19,7 @@ class User(AbstractUser, TimeStampModel):
 
     username = None
     email = models.EmailField(unique=True)
-    profile_picture = models.ImageField(upload_to="profile_pictures", blank=True, null=True)
+    profile_picture = models.ImageField(upload_to="account/profile_pictures", blank=True, null=True)
 
     first_name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
