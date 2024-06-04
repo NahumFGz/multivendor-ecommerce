@@ -16,9 +16,19 @@ class KindProductSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    images = serializers.SerializerMethodField()
+
     class Meta:
         model = Category
-        fields = "__all__"
+        fields = ("id", "name", "slug", "images", "updated_at")
+
+    def get_images(self, obj):
+        return {
+            "principal": obj.image.url if obj.image else None,
+            "small": obj.image_small_size if obj.image else None,
+            "medium": obj.image_medium_size if obj.image else None,
+            "large": obj.image_large_size if obj.image else None,
+        }
 
 
 class ProductSerializer(serializers.ModelSerializer):
