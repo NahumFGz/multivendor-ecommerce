@@ -2,6 +2,7 @@ from apps.account.managers import UserManager
 from apps.core.models import TimeStampModel
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from thumbnails.fields import ImageField
 
 
 class User(AbstractUser, TimeStampModel):
@@ -19,7 +20,7 @@ class User(AbstractUser, TimeStampModel):
 
     username = None
     email = models.EmailField(unique=True)
-    profile_image = models.ImageField(upload_to="account/profile_image/", blank=True, null=True)
+    profile_image = ImageField(upload_to="account/profile_image/", blank=True, null=True)
 
     first_name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
@@ -42,3 +43,8 @@ class User(AbstractUser, TimeStampModel):
 
     def __str__(self):
         return self.email
+
+    @property
+    def profile_image_tiny_size(self):
+        tiny_url = self.profile_image.thumbnails.tiny.url
+        return tiny_url

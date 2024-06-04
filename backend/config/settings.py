@@ -204,6 +204,16 @@ THUMBNAILS = {
         # You can also use Amazon S3 or any other Django storage backends
     },
     "SIZES": {
+        "tiny": {
+            "PROCESSORS": [{"PATH": "thumbnails.processors.resize", "width": 100}],
+            "POST_PROCESSORS": [
+                {
+                    "PATH": "thumbnails.post_processors.optimize",
+                    "png_command": 'optipng -force -o7 "%(filename)s"',
+                    "jpg_command": 'jpegoptim -f --strip-all "%(filename)s"',
+                },
+            ],
+        },
         "small": {
             "PROCESSORS": [{"PATH": "thumbnails.processors.resize", "width": 500}],
             "POST_PROCESSORS": [

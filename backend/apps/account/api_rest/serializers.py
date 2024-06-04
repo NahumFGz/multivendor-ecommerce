@@ -89,17 +89,25 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserMeSerializer(serializers.ModelSerializer):
+    profile_images = serializers.SerializerMethodField()
+
     class Meta:
         model = User
         fields = (
             "id",
             "email",
-            "profile_image",
+            "profile_images",
             "first_name",
             "last_name",
             "birth_date",
             "is_email_verified",
         )
+
+    def get_profile_images(self, obj):
+        return {
+            "principal": obj.profile_image.url if obj.profile_image else None,
+            "tiny": obj.profile_image_tiny_size if obj.profile_image else None,
+        }
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
