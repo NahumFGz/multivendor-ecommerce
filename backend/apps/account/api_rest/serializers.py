@@ -43,6 +43,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "email",
+            "profile_picture",
             "first_name",
             "last_name",
             "birth_date",
@@ -90,7 +91,15 @@ class UserSerializer(serializers.ModelSerializer):
 class UserMeSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "email", "first_name", "last_name", "birth_date", "is_email_verified")
+        fields = (
+            "id",
+            "email",
+            "profile_picture",
+            "first_name",
+            "last_name",
+            "birth_date",
+            "is_email_verified",
+        )
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
