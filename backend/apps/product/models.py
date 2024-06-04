@@ -51,6 +51,7 @@ class KindProduct(TimeStampModel):
     class Meta:
         verbose_name = "Kind"
         verbose_name_plural = "Kinds"
+        ordering = ["-updated_at"]
 
     def __str__(self):
         return self.name
@@ -102,6 +103,10 @@ class Product(TimeStampUUIDModel):
     views = models.IntegerField(default=0)
     rating = models.FloatField(default=0)
     image_principal = ImageField(upload_to="product", blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Product"
+        verbose_name_plural = "Products"
 
     def __str__(self):
         return str(self.title)
