@@ -43,6 +43,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("apps.account.api_rest.routers")),
     path("api/", include("apps.product.api_rest.routers")),
+    path("api/", include("apps.product_vendor.api_rest.routers")),
 ]
 
 if settings.DEBUG:
