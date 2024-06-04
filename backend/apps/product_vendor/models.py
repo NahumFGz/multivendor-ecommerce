@@ -11,10 +11,15 @@ from django.utils.text import slugify
 User = get_user_model()
 
 
-# Create your models here.
+DAYS_IN_PUBLICATION_CHOICES = [
+    (30, "30"),
+    (60, "60"),
+]
+
+
 class ProductVendor(Product):
     vendor = models.ForeignKey(User, related_name="products", on_delete=models.CASCADE)
-    days_in_publication = models.PositiveIntegerField(default=30)
+    days_in_publication = models.IntegerField(choices=DAYS_IN_PUBLICATION_CHOICES, default=30)
     last_date_in_publication = models.DateTimeField(blank=True, null=True)
 
     class Meta:
@@ -34,7 +39,6 @@ def pre_save_product(sender, instance, **kwargs):
 @receiver(signals.pre_save, sender=ProductVendor)
 def pre_save_product_vendor(sender, instance, **kwargs):
     if instance.last_date_in_publication is None:
-        instance.last_date_in_publication = timezone.now()
-    instance.last_date_in_publication = instance.last_date_in_publication + timedelta(
-        days=instance.days_in_publication
-    )
+        instance.last_date_in_publication = timezone.now() + timedelta(
+            days=instance.days_in_publication
+        )
