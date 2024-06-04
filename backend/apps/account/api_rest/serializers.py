@@ -43,7 +43,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "email",
-            "profile_picture",
+            "profile_image",
             "first_name",
             "last_name",
             "birth_date",
@@ -94,7 +94,7 @@ class UserMeSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "email",
-            "profile_picture",
+            "profile_image",
             "first_name",
             "last_name",
             "birth_date",
