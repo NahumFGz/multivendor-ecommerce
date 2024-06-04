@@ -136,31 +136,33 @@ export function Header () {
         <NavbarMenu>
           <NavbarMenuItem>
             <Link className='w-full' color='foreground' href='#'>
-              Dashboard
+              Home
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem isActive>
             <Link aria-current='page' className='w-full' color='primary' href='#'>
-              Deployments
+              Products
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
             <Link className='w-full' color='foreground' href='#'>
-              Analytics
+              Juegos de mesa
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
             <Link className='w-full' color='foreground' href='#'>
-              Team
+              Marketplace
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
             <Link className='w-full' color='foreground' href='#'>
-              Settings
+              Promos
             </Link>
           </NavbarMenuItem>
         </NavbarMenu>
       </Navbar>
+
+      {/* Main Menu */}
       <main className='flex w-full justify-center lg:mt-6'>
         <ScrollShadow
           hideScrollBar
@@ -178,20 +180,19 @@ export function Header () {
             radius='full'
             variant='underlined'
           >
-            <Tab key='dashboard' title='Dashboard' />
+            <Tab key='home' title='Home' />
+            <Tab key='products' title='Productos' />
+            <Tab key='boardgames' title='Juegos de mesa' />
+            <Tab key='marketplace' title='Marketplace' />
             <Tab
-              key='deployments'
+              key='promos'
               title={
                 <div className='flex items-center gap-2'>
-                  <p>Deployments</p>
+                  <p>Promos</p>
                   <Chip size='sm'>9</Chip>
                 </div>
               }
             />
-
-            <Tab key='analytics' title='Analytics' />
-            <Tab key='team' title='Team' />
-            <Tab key='settings' title='Settings' />
           </Tabs>
         </ScrollShadow>
       </main>
