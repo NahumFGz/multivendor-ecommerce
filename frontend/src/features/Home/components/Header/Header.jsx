@@ -27,10 +27,12 @@ import {
 import { Icon } from '@iconify/react'
 import { AcmeIcon } from './social'
 import NotificationsCard from './notifications-card'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { homeUrls } from '../../../../routes/urls/homeUrls'
 
 export function Header () {
+  const location = useLocation()
+
   return (
     <div className='w-full'>
       <Navbar
@@ -133,27 +135,27 @@ export function Header () {
 
         {/* Mobile Menu */}
         <NavbarMenu>
-          <NavbarMenuItem>
+          <NavbarMenuItem isActive={location.pathname === homeUrls.home}>
             <Link className='w-full' color='foreground' to={homeUrls.home}>
               Home
             </Link>
           </NavbarMenuItem>
-          <NavbarMenuItem isActive>
-            <Link aria-current='page' className='w-full' color='primary' to={homeUrls.products}>
+          <NavbarMenuItem isActive={location.pathname === homeUrls.products}>
+            <Link className='w-full' to={homeUrls.products}>
               Products
             </Link>
           </NavbarMenuItem>
-          <NavbarMenuItem>
+          <NavbarMenuItem isActive={location.pathname === homeUrls.boardGames}>
             <Link className='w-full' color='foreground' to={homeUrls.boardGames}>
               Juegos de mesa
             </Link>
           </NavbarMenuItem>
-          <NavbarMenuItem>
+          <NavbarMenuItem isActive={location.pathname === homeUrls.marketplace}>
             <Link className='w-full' color='foreground' to={homeUrls.marketplace}>
               Marketplace
             </Link>
           </NavbarMenuItem>
-          <NavbarMenuItem>
+          <NavbarMenuItem isActive={location.pathname === homeUrls.promos}>
             <Link className='w-full' color='foreground' to={homeUrls.promos}>
               Promos
             </Link>
