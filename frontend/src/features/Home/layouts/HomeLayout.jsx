@@ -6,7 +6,6 @@ export function HomeLayout ({ children }) {
       <Header />
       <div className='flex-1 overflow-y-auto'>
         {children}
-        <p>Home Layout</p>
       </div>
     </div>
   )

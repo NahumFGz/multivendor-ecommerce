@@ -6,7 +6,6 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-  Link,
   Button,
   Dropdown,
   DropdownTrigger,
@@ -26,10 +25,10 @@ import {
   Badge
 } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-
 import { AcmeIcon } from './social'
-
 import NotificationsCard from './notifications-card'
+import { Link } from 'react-router-dom'
+import { homeUrls } from '../../../../routes/urls/homeUrls'
 
 export function Header () {
   return (
@@ -135,27 +134,27 @@ export function Header () {
         {/* Mobile Menu */}
         <NavbarMenu>
           <NavbarMenuItem>
-            <Link className='w-full' color='foreground' href='#'>
+            <Link className='w-full' color='foreground' to={homeUrls.home}>
               Home
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem isActive>
-            <Link aria-current='page' className='w-full' color='primary' href='#'>
+            <Link aria-current='page' className='w-full' color='primary' to={homeUrls.products}>
               Products
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
-            <Link className='w-full' color='foreground' href='#'>
+            <Link className='w-full' color='foreground' to={homeUrls.boardGames}>
               Juegos de mesa
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
-            <Link className='w-full' color='foreground' href='#'>
+            <Link className='w-full' color='foreground' to={homeUrls.marketplace}>
               Marketplace
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
-            <Link className='w-full' color='foreground' href='#'>
+            <Link className='w-full' color='foreground' to={homeUrls.promos}>
               Promos
             </Link>
           </NavbarMenuItem>
@@ -180,17 +179,19 @@ export function Header () {
             radius='full'
             variant='underlined'
           >
-            <Tab key='home' title='Home' />
-            <Tab key='products' title='Productos' />
-            <Tab key='boardgames' title='Juegos de mesa' />
-            <Tab key='marketplace' title='Marketplace' />
+            <Tab key='home' title={<Link to={homeUrls.home}>Home</Link>} />
+            <Tab key='products' title={<Link to={homeUrls.products}>Productos</Link>} />
+            <Tab key='boardgames' title={<Link to={homeUrls.boardGames}>Juegos de mesa</Link>} />
+            <Tab key='marketplace' title={<Link to={homeUrls.marketplace}>Marketplace</Link>} />
             <Tab
               key='promos'
               title={
-                <div className='flex items-center gap-2'>
-                  <p>Promos</p>
-                  <Chip size='sm'>9</Chip>
-                </div>
+                <Link to={homeUrls.promos}>
+                  <div className='flex items-center gap-2'>
+                    <p>Promos</p>
+                    <Chip size='sm'>9</Chip>
+                  </div>
+                </Link>
               }
             />
           </Tabs>
