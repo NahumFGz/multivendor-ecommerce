@@ -1,12 +1,22 @@
-import { PlaceGrid } from './components/PlaceGrid/PlaceGrid'
-import { Header } from './features/Home/components/Header/Header'
+import { Navigation } from './routes/Navigation'
+import { ToastContainer } from 'react-toastify'
 
 function App () {
   return (
     <>
-      <Header />
-      <PlaceGrid />
-
+      <Navigation />
+      <ToastContainer
+        position='bottom-center'
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        limit={1}
+      />
     </>
   )
 }
