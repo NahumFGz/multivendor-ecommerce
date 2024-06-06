@@ -37,7 +37,7 @@ export function Header () {
     <div className='w-full'>
       <Navbar
         classNames={{
-          base: 'pt-2 lg:pt-4 lg:bg-transparent lg:backdrop-filter-none',
+          base: 'pt-2 lg:pt-2 lg:pb-4 lg:bg-transparent lg:backdrop-filter-none',
           wrapper: 'px-4 sm:px-6',
           item: 'data-[active=true]:text-primary'
         }}
