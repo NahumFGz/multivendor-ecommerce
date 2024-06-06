@@ -128,23 +128,14 @@ export function Header () {
                   <p className='font-semibold'>Signed in as</p>
                   <p className='font-semibold'>johndoe@example.com</p>
                 </DropdownItem>
-                <DropdownItem key='settings' textValue='Settings'>
-                  My Settings
+                <DropdownItem key='my_account' textValue='Settings'>
+                  Mi cuenta
                 </DropdownItem>
                 <DropdownItem key='team_settings' textValue='Team Settings'>
-                  Team Settings
+                  Ver compras
                 </DropdownItem>
                 <DropdownItem key='analytics' textValue='Analytics'>
-                  Analytics
-                </DropdownItem>
-                <DropdownItem key='system' textValue='System'>
-                  System
-                </DropdownItem>
-                <DropdownItem key='configurations' textValue='Configurations'>
-                  Configurations
-                </DropdownItem>
-                <DropdownItem key='help_and_feedback' textValue='Help & Feedback'>
-                  Help & Feedback
+                  Publicar un producto
                 </DropdownItem>
                 {isSmallScreen && (
                   theme === 'dark'
@@ -160,7 +151,7 @@ export function Header () {
                       )
                 )}
                 <DropdownItem key='logout' color='danger' textValue='Log Out'>
-                  Log Out
+                  Cerrar sesion
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
