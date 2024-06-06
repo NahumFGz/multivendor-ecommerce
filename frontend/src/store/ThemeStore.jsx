@@ -29,5 +29,5 @@ export function useSwapTheme () {
     }
   }, [theme])
 
-  return { handleSwapTheme: toggleTheme }
+  return { handleSwapTheme: toggleTheme, theme }
 }

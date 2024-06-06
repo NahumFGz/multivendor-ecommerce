@@ -29,9 +29,11 @@ import { AcmeIcon } from './social'
 import NotificationsCard from './notifications-card'
 import { Link, useLocation } from 'react-router-dom'
 import { homeUrls } from '../../../../routes/urls/homeUrls'
+import { useSwapTheme } from '../../../../store/ThemeStore'
 
 export function Header () {
   const location = useLocation()
+  const { handleSwapTheme, theme } = useSwapTheme()
 
   return (
     <div className='w-full'>
@@ -55,9 +57,9 @@ export function Header () {
         </Breadcrumbs>
 
         {/* Right Menu */}
-        <NavbarContent className='ml-auto h-12 max-w-fit items-center gap-0' justify='end'>
+        <NavbarContent className='ml-auto h-12 max-w-fit items-center gap-0' justify='center'>
           {/* Search */}
-          <NavbarItem className='mr-2 hidden sm:flex'>
+          <NavbarItem className='mr-2'>
             <Input
               aria-label='Search'
               classNames={{
@@ -71,15 +73,14 @@ export function Header () {
               }
             />
           </NavbarItem>
-          <NavbarItem className='hidden sm:flex'>
-            <Button isIconOnly radius='full' variant='light'>
-              <Icon className='text-default-500' icon='solar:sun-linear' width={24} />
-            </Button>
-          </NavbarItem>
           {/* Settings */}
-          <NavbarItem className='hidden sm:flex'>
-            <Button isIconOnly radius='full' variant='light'>
-              <Icon className='text-default-500' icon='solar:settings-linear' width={24} />
+          <NavbarItem className='hidden md:flex'>
+            <Button isIconOnly radius='full' variant='light' onClick={handleSwapTheme}>
+              {
+                theme === 'dark'
+                  ? <Icon className='text-default-500' icon='solar:sun-linear' width={24} />
+                  : <Icon className='text-default-500' icon='solar:moon-linear' width={22} />
+              }
             </Button>
           </NavbarItem>
           {/* Notifications */}
@@ -94,7 +95,7 @@ export function Header () {
                   variant='light'
                 >
                   <Badge color='danger' content='5' showOutline={false} size='md'>
-                    <Icon className='text-default-500' icon='solar:bell-linear' width={22} />
+                    <Icon className='text-default-500' icon='solar:shop-linear' width={22} />
                   </Badge>
                 </Button>
               </PopoverTrigger>
@@ -124,6 +125,18 @@ export function Header () {
                 <DropdownItem key='system' textValue='System'>System</DropdownItem>
                 <DropdownItem key='configurations' textValue='Configurations'>Configurations</DropdownItem>
                 <DropdownItem key='help_and_feedback' textValue='Help & Feedback'>Help & Feedback</DropdownItem>
+                {
+                  theme === 'dark'
+                    ? (
+                      <DropdownItem key='light' textValue='Light Mode' onClick={handleSwapTheme}>
+                        Light Mode
+                      </DropdownItem>)
+                    : (
+                      <DropdownItem key='dark' textValue='Dark Mode' onClick={handleSwapTheme}>
+                        Dark Mode
+                      </DropdownItem>
+                      )
+                }
                 <DropdownItem key='logout' color='danger' textValue='Log Out'>
                   Log Out
                 </DropdownItem>
