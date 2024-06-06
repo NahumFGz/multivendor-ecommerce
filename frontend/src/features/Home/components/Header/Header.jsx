@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -30,10 +31,12 @@ import NotificationsCard from './notifications-card'
 import { Link, useLocation } from 'react-router-dom'
 import { homeUrls } from '../../../../routes/urls/homeUrls'
 import { useSwapTheme } from '../../../../store/ThemeStore'
+import { useMediaQuery } from 'react-responsive'
 
 export function Header () {
   const location = useLocation()
   const { handleSwapTheme, theme } = useSwapTheme()
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 640px)' })
 
   return (
     <div className='w-full'>
@@ -74,15 +77,21 @@ export function Header () {
             />
           </NavbarItem>
           {/* Settings */}
-          <NavbarItem className='hidden md:flex'>
-            <Button isIconOnly radius='full' variant='light' onClick={handleSwapTheme}>
-              {
-                theme === 'dark'
-                  ? <Icon className='text-default-500' icon='solar:sun-linear' width={24} />
-                  : <Icon className='text-default-500' icon='solar:moon-linear' width={22} />
-              }
-            </Button>
-          </NavbarItem>
+          {isSmallScreen && (
+            <NavbarItem className='hidden md:flex'>
+              <Button isIconOnly radius='full' variant='light' onClick={handleSwapTheme}>
+                {
+                  theme === 'dark'
+                    ? (
+                      <Icon className='text-default-500' icon='solar:sun-linear' width={24} />
+                      )
+                    : (
+                      <Icon className='text-default-500' icon='solar:moon-linear' width={22} />
+                      )
+                }
+              </Button>
+            </NavbarItem>
+          )}
           {/* Notifications */}
           <NavbarItem className='flex'>
             <Popover offset={12} placement='bottom-end'>
@@ -119,29 +128,41 @@ export function Header () {
                   <p className='font-semibold'>Signed in as</p>
                   <p className='font-semibold'>johndoe@example.com</p>
                 </DropdownItem>
-                <DropdownItem key='settings' textValue='Settings'>My Settings</DropdownItem>
-                <DropdownItem key='team_settings' textValue='Team Settings'>Team Settings</DropdownItem>
-                <DropdownItem key='analytics' textValue='Analytics'>Analytics</DropdownItem>
-                <DropdownItem key='system' textValue='System'>System</DropdownItem>
-                <DropdownItem key='configurations' textValue='Configurations'>Configurations</DropdownItem>
-                <DropdownItem key='help_and_feedback' textValue='Help & Feedback'>Help & Feedback</DropdownItem>
-                {
+                <DropdownItem key='settings' textValue='Settings'>
+                  My Settings
+                </DropdownItem>
+                <DropdownItem key='team_settings' textValue='Team Settings'>
+                  Team Settings
+                </DropdownItem>
+                <DropdownItem key='analytics' textValue='Analytics'>
+                  Analytics
+                </DropdownItem>
+                <DropdownItem key='system' textValue='System'>
+                  System
+                </DropdownItem>
+                <DropdownItem key='configurations' textValue='Configurations'>
+                  Configurations
+                </DropdownItem>
+                <DropdownItem key='help_and_feedback' textValue='Help & Feedback'>
+                  Help & Feedback
+                </DropdownItem>
+                {isSmallScreen && (
                   theme === 'dark'
                     ? (
                       <DropdownItem key='light' textValue='Light Mode' onClick={handleSwapTheme}>
                         Light Mode
-                      </DropdownItem>)
+                      </DropdownItem>
+                      )
                     : (
                       <DropdownItem key='dark' textValue='Dark Mode' onClick={handleSwapTheme}>
                         Dark Mode
                       </DropdownItem>
                       )
-                }
+                )}
                 <DropdownItem key='logout' color='danger' textValue='Log Out'>
                   Log Out
                 </DropdownItem>
               </DropdownMenu>
-
             </Dropdown>
           </NavbarItem>
         </NavbarContent>
