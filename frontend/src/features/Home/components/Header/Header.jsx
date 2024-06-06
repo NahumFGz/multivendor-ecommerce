@@ -77,10 +77,9 @@ export function Header () {
             />
           </NavbarItem>
           {/* Settings */}
-          {isSmallScreen && (
-            <NavbarItem className='hidden md:flex'>
-              <Button isIconOnly radius='full' variant='light' onClick={handleSwapTheme}>
-                {
+          <NavbarItem className='hidden md:flex'>
+            <Button isIconOnly radius='full' variant='light' onClick={handleSwapTheme}>
+              {
                   theme === 'dark'
                     ? (
                       <Icon className='text-default-500' icon='solar:sun-linear' width={24} />
@@ -89,9 +88,8 @@ export function Header () {
                       <Icon className='text-default-500' icon='solar:moon-linear' width={22} />
                       )
                 }
-              </Button>
-            </NavbarItem>
-          )}
+            </Button>
+          </NavbarItem>
           {/* Notifications */}
           <NavbarItem className='flex'>
             <Popover offset={12} placement='bottom-end'>
