@@ -17,6 +17,13 @@ import { SellingHistoryPage } from '../features/Account/pages/SellingHistoryPage
 import { ShoppinghistoryPage } from '../features/Account/pages/ShoppinghistoryPage'
 import { SecurityPage } from '../features/Account/pages/SecurityPage'
 
+import { authUrls } from './urls/authUrls'
+import { AuthLayout } from '../features/Auth/layouts/AuthLayout'
+import { LoginPage } from '../features/Auth/pages/LoginPage'
+import { RegisterPage } from '../features/Auth/pages/RegisterPage'
+import { PasswordResetPage } from '../features/Auth/pages/PasswordResetPage'
+import { ForgotPasswordPage } from '../features/Auth/pages/ForgotPasswordPage'
+
 export function Navigation () {
   return (
     <BrowserRouter>
@@ -27,6 +34,12 @@ export function Navigation () {
         <Route path={homeUrls.boardGames} element={<HomeLayout><BoardGamesPage /></HomeLayout>} />
         <Route path={homeUrls.marketplace} element={<HomeLayout><Marketplace /></HomeLayout>} />
         <Route path={homeUrls.promos} element={<HomeLayout><PromosPage /></HomeLayout>} />
+
+        <Route path={authUrls.base} element={<Navigate to={authUrls.login} />} />
+        <Route path={authUrls.login} element={<AuthLayout><LoginPage /></AuthLayout>} />
+        <Route path={authUrls.register} element={<AuthLayout><RegisterPage /></AuthLayout>} />
+        <Route path={authUrls.forgotPassword} element={<AuthLayout><ForgotPasswordPage /></AuthLayout>} />
+        <Route path={authUrls.passwordReset} element={<AuthLayout><PasswordResetPage /></AuthLayout>} />
 
         <Route path={accountUrls.base} element={<Navigate to={accountUrls.dashboard} />} />
         <Route path={accountUrls.dashboard} element={<AccountLayout><DashboardPage /></AccountLayout>} />
