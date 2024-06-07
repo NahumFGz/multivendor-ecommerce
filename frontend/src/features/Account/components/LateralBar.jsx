@@ -3,7 +3,7 @@ import { Avatar, Button, Spacer, useDisclosure } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 import { useLocation } from 'react-router-dom'
 
-import { AcmeLogo } from './acme'
+import { AcmeLogo } from '../../../assets/AcmeLogo'
 import { sectionItems } from './sidebar-items'
 import SidebarDrawer from './sidebar-drawer'
 import Sidebar from './sidebar'
