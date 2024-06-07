@@ -1,28 +1,36 @@
 import React from 'react'
 import { Avatar, Button, Spacer, useDisclosure } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
+import { useLocation } from 'react-router-dom'
 
 import { AcmeLogo } from './acme'
 import { sectionItemsWithTeams } from './sidebar-items'
 import SidebarDrawer from './sidebar-drawer'
-
 import Sidebar from './sidebar'
+import { accountUrls } from '../../../routes/urls/accountUrls'
 
-/**
- * 💡 TIP: You can use the usePathname hook from Next.js App Router to get the current pathname
- * and use it as the active key for the Sidebar component.
- *
- * ```tsx
- * import {usePathname} from "next/navigation";
- *
- * const pathname = usePathname();
- * const currentPath = pathname.split("/")?.[1]
- *
- * <Sidebar defaultSelectedKey="home" selectedKeys={[currentPath]} />
- * ```
- */
 export function LateralBar ({ children }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const location = useLocation()
+
+  const getPageTitle = () => {
+    switch (location.pathname) {
+      case accountUrls.dashboard:
+        return 'Dashboard'
+      case accountUrls.directions:
+        return 'Directions'
+      case accountUrls.profile:
+        return 'Profile'
+      case accountUrls.selling:
+        return 'Mis ventas'
+      case accountUrls.shopping:
+        return 'Mis compras'
+      case accountUrls.security:
+        return 'Seguridad'
+      default:
+        return 'Overview'
+    }
+  }
 
   const content = (
     <div className='relative flex h-full w-72 flex-1 flex-col p-6'>
@@ -93,7 +101,7 @@ export function LateralBar ({ children }) {
               width={24}
             />
           </Button>
-          <h2 className='text-medium font-medium text-default-700'>Overview</h2>
+          <h2 className='text-medium font-medium text-default-700'>{getPageTitle()}</h2>
         </header>
         <main className='mt-4 h-full w-full overflow-visible'>
           <div className='flex h-[90%] w-full flex-col gap-4 rounded-medium border-small border-divider'>
