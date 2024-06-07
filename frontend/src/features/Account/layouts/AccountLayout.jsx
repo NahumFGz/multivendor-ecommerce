@@ -3,11 +3,11 @@ import { LateralBar } from '../components/LateralBar'
 export function AccountLayout ({ children }) {
   return (
     <>
-      <h1>Account Layout</h1>
-      <LateralBar />
-      <div>
-        {children}
-      </div>
+      <LateralBar>
+        <div className='m-4'>
+          {children}
+        </div>
+      </LateralBar>
     </>
   )
 }

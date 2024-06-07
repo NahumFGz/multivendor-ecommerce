@@ -21,7 +21,7 @@ import Sidebar from './sidebar'
  * <Sidebar defaultSelectedKey="home" selectedKeys={[currentPath]} />
  * ```
  */
-export function LateralBar () {
+export function LateralBar ({ children }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const content = (
@@ -96,7 +96,9 @@ export function LateralBar () {
           <h2 className='text-medium font-medium text-default-700'>Overview</h2>
         </header>
         <main className='mt-4 h-full w-full overflow-visible'>
-          <div className='flex h-[90%] w-full flex-col gap-4 rounded-medium border-small border-divider' />
+          <div className='flex h-[90%] w-full flex-col gap-4 rounded-medium border-small border-divider'>
+            {children}
+          </div>
         </main>
       </div>
     </div>
