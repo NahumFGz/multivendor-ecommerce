@@ -54,7 +54,7 @@ const Sidebar = React.forwardRef(
 
         if (isNestType) {
           // Is a nest type item , so we need to remove the href
-          delete item.href
+          delete item.to
         }
 
         return (
@@ -233,7 +233,7 @@ const Sidebar = React.forwardRef(
                 </Tooltip>
                 )
               : null}
-            <Link to={item.href} key={item.key}>
+            <Link to={item.to} key={item.key}>
               {item.title}
             </Link>
           </ListboxItem>

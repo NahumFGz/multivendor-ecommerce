@@ -9,13 +9,13 @@ export const sectionItems = [
     items: [
       {
         key: 'dashboard',
-        href: accountUrls.dashboard,
+        to: accountUrls.dashboard,
         icon: 'solar:home-2-linear',
         title: 'Dashboard'
       },
       {
         key: 'directions',
-        href: accountUrls.directions,
+        to: accountUrls.directions,
         icon: 'solar:widget-2-outline',
         title: 'Directions',
         endContent: (
@@ -24,7 +24,7 @@ export const sectionItems = [
       },
       {
         key: 'tasks',
-        href: '#',
+        to: '#',
         icon: 'solar:checklist-minimalistic-outline',
         title: 'Tasks',
         endContent: (
@@ -33,13 +33,13 @@ export const sectionItems = [
       },
       {
         key: 'team',
-        href: '#',
+        to: '#',
         icon: 'solar:users-group-two-rounded-outline',
         title: 'Team'
       },
       {
         key: 'tracker',
-        href: '#',
+        to: '#',
         icon: 'solar:sort-by-time-linear',
         title: 'Tracker',
         endContent: (
@@ -56,36 +56,36 @@ export const sectionItems = [
     items: [
       {
         key: 'cap_table',
-        href: '#',
+        to: '#',
         title: 'Cap Table',
         icon: 'solar:pie-chart-2-outline',
         items: [
           {
             key: 'shareholders',
-            href: '#',
+            to: '#',
             title: 'Shareholders'
           },
           {
             key: 'note_holders',
-            href: '#',
+            to: '#',
             title: 'Note Holders'
           },
           {
             key: 'transactions_log',
-            href: '#',
+            to: '#',
             title: 'Transactions Log'
           }
         ]
       },
       {
         key: 'analytics',
-        href: '#',
+        to: '#',
         icon: 'solar:chart-outline',
         title: 'Analytics'
       },
       {
         key: 'perks',
-        href: '/perks',
+        to: '/perks',
         icon: 'solar:gift-linear',
         title: 'Perks',
         endContent: (
@@ -96,13 +96,13 @@ export const sectionItems = [
       },
       {
         key: 'expenses',
-        href: '#',
+        to: '#',
         icon: 'solar:bill-list-outline',
         title: 'Expenses'
       },
       {
         key: 'settings',
-        href: '/settings',
+        to: '/settings',
         icon: 'solar:settings-outline',
         title: 'Settings'
       }
