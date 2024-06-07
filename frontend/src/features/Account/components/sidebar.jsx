@@ -1,10 +1,10 @@
 import { Accordion, AccordionItem, Listbox, Tooltip, ListboxItem, ListboxSection, cn } from '@nextui-org/react'
 import React from 'react'
 import { Icon } from '@iconify/react'
+import { Link } from 'react-router-dom'
 
 export const SidebarItemType = /* #__PURE__ */ (function (SidebarItemType) {
   SidebarItemType.Nest = 'nest'
-
   return SidebarItemType
 })({})
 
@@ -138,7 +138,6 @@ const Sidebar = React.forwardRef(
                             icon={item.icon}
                             width={24}
                           />
-
                           <span className='text-small font-medium text-default-500 group-data-[selected=true]:text-foreground'>
                             {item.title}
                           </span>
@@ -234,6 +233,9 @@ const Sidebar = React.forwardRef(
                 </Tooltip>
                 )
               : null}
+            <Link to={item.href} key={item.key}>
+              {item.title}
+            </Link>
           </ListboxItem>
         )
       },
