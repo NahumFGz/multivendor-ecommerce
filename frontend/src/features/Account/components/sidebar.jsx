@@ -1,12 +1,11 @@
 import { Accordion, AccordionItem, Listbox, Tooltip, ListboxItem, ListboxSection, cn } from '@nextui-org/react'
 import React from 'react'
 import { Icon } from '@iconify/react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-export const SidebarItemType = /* #__PURE__ */ (function (SidebarItemType) {
-  SidebarItemType.Nest = 'nest'
-  return SidebarItemType
-})({})
+export const SidebarItemType = {
+  Nest: 'nest'
+}
 
 const Sidebar = React.forwardRef(
   (
@@ -26,6 +25,11 @@ const Sidebar = React.forwardRef(
     ref
   ) => {
     const [selected, setSelected] = React.useState(defaultSelectedKey)
+    const navigate = useNavigate()
+
+    const handleClick = (to) => {
+      navigate(to)
+    }
 
     const sectionClasses = {
       ...sectionClassesProp,
@@ -47,58 +51,140 @@ const Sidebar = React.forwardRef(
       })
     }
 
-    const renderNestItem = React.useCallback(
-      (item) => {
-        const isNestType =
-          item.items && item.items?.length > 0 && item?.type === SidebarItemType.Nest
+    const renderItem = (item) => {
+      const isNestType =
+        item.items && item.items?.length > 0 && item?.type === SidebarItemType.Nest
 
-        if (isNestType) {
-          // Is a nest type item , so we need to remove the href
-          delete item.to
-        }
+      if (isNestType) {
+        return renderNestItem(item)
+      }
 
-        return (
-          <ListboxItem
-            {...item}
-            key={item.key}
-            aria-label='Listbox Item'
-            classNames={{
-              base: cn(
-                {
-                  'h-auto p-0': !isCompact && isNestType
-                },
-                {
-                  'inline-block w-11': isCompact && isNestType
-                }
+      return (
+        <ListboxItem
+          {...item}
+          key={item.key}
+          aria-label='Listbox Item'
+          endContent={isCompact || hideEndContent ? null : item.endContent ?? null}
+          startContent={
+            isCompact
+              ? null
+              : item.icon
+                ? (
+                  <Icon
+                    className={cn(
+                      'text-default-500 group-data-[selected=true]:text-foreground',
+                      iconClassName
+                    )}
+                    icon={item.icon}
+                    width={24}
+                  />
+                  )
+                : (
+                    item.startContent ?? null
+                  )
+          }
+          textValue={item.title}
+          title={isCompact ? null : item.title}
+          onClick={() => handleClick(item.to)}
+        >
+          <div>
+            {item.icon && (
+              <Icon
+                className={cn(
+                  'text-default-500 group-data-[selected=true]:text-foreground',
+                  iconClassName
+                )}
+                icon={item.icon}
+                width={24}
+              />
+            )}
+            {item.title}
+          </div>
+        </ListboxItem>
+      )
+    }
+
+    const renderNestItem = (item) => {
+      const isNestType =
+        item.items && item.items?.length > 0 && item?.type === SidebarItemType.Nest
+
+      if (isNestType) {
+        delete item.to
+      }
+
+      return (
+        <ListboxItem
+          {...item}
+          key={item.key}
+          aria-label='Listbox Item'
+          classNames={{
+            base: cn(
+              {
+                'h-auto p-0': !isCompact && isNestType
+              },
+              {
+                'inline-block w-11': isCompact && isNestType
+              }
+            )
+          }}
+          endContent={isCompact || isNestType || hideEndContent ? null : item.endContent ?? null}
+          startContent={
+            isCompact || isNestType
+              ? null
+              : item.icon
+                ? (
+                  <Icon
+                    className={cn(
+                      'text-default-500 group-data-[selected=true]:text-foreground',
+                      iconClassName
+                    )}
+                    icon={item.icon}
+                    width={24}
+                  />
+                  )
+                : (
+                    item.startContent ?? null
+                  )
+          }
+          title={isCompact || isNestType ? null : item.title}
+        >
+          {isCompact
+            ? (
+              <Tooltip content={item.title} placement='right'>
+                <div className='flex w-full items-center justify-center'>
+                  {item.icon
+                    ? (
+                      <Icon
+                        className={cn(
+                          'text-default-500 group-data-[selected=true]:text-foreground',
+                          iconClassName
+                        )}
+                        icon={item.icon}
+                        width={24}
+                      />
+                      )
+                    : (
+                        item.startContent ?? null
+                      )}
+                </div>
+              </Tooltip>
               )
-            }}
-            endContent={isCompact || isNestType || hideEndContent ? null : item.endContent ?? null}
-            startContent={
-              isCompact || isNestType
-                ? null
-                : item.icon
-                  ? (
-                    <Icon
-                      className={cn(
-                        'text-default-500 group-data-[selected=true]:text-foreground',
-                        iconClassName
-                      )}
-                      icon={item.icon}
-                      width={24}
-                    />
-                    )
-                  : (
-                      item.startContent ?? null
-                    )
-            }
-            title={isCompact || isNestType ? null : item.title}
-          >
-            {isCompact
-              ? (
-                <Tooltip content={item.title} placement='right'>
-                  <div className='flex w-full items-center justify-center'>
-                    {item.icon
-                      ? (
+            : null}
+          {!isCompact && isNestType
+            ? (
+              <Accordion className='p-0'>
+                <AccordionItem
+                  key={item.key}
+                  aria-label={item.title}
+                  classNames={{
+                    heading: 'pr-3',
+                    trigger: 'p-0',
+                    content: 'py-0 pl-4'
+                  }}
+                  title={
+                  item.icon
+                    ? (
+                      <div className='flex h-11 items-center gap-2 px-2 py-1.5'>
                         <Icon
                           className={cn(
                             'text-default-500 group-data-[selected=true]:text-foreground',
@@ -107,140 +193,40 @@ const Sidebar = React.forwardRef(
                           icon={item.icon}
                           width={24}
                         />
-                        )
-                      : (
-                          item.startContent ?? null
-                        )}
-                  </div>
-                </Tooltip>
-                )
-              : null}
-            {!isCompact && isNestType
-              ? (
-                <Accordion className='p-0'>
-                  <AccordionItem
-                    key={item.key}
-                    aria-label={item.title}
-                    classNames={{
-                      heading: 'pr-3',
-                      trigger: 'p-0',
-                      content: 'py-0 pl-4'
-                    }}
-                    title={
-                    item.icon
-                      ? (
-                        <div className='flex h-11 items-center gap-2 px-2 py-1.5'>
-                          <Icon
-                            className={cn(
-                              'text-default-500 group-data-[selected=true]:text-foreground',
-                              iconClassName
-                            )}
-                            icon={item.icon}
-                            width={24}
-                          />
-                          <span className='text-small font-medium text-default-500 group-data-[selected=true]:text-foreground'>
-                            {item.title}
-                          </span>
-                        </div>
-                        )
-                      : (
-                          item.startContent ?? null
-                        )
-                  }
-                  >
-                    {item.items && item.items?.length > 0
-                      ? (
-                        <Listbox
-                          className='mt-0.5'
-                          classNames={{
-                            list: cn('border-l border-default-200 pl-4')
-                          }}
-                          items={item.items}
-                          variant='flat'
-                          aria-label='Listbox Item'
-                        >
-                          {item.items.map(renderItem)}
-                        </Listbox>
-                        )
-                      : (
-                          renderItem(item)
-                        )}
-                  </AccordionItem>
-                </Accordion>
-                )
-              : null}
-          </ListboxItem>
-        )
-      },
-      [isCompact, hideEndContent, iconClassName, items]
-    )
-
-    const renderItem = React.useCallback(
-      (item) => {
-        const isNestType =
-          item.items && item.items?.length > 0 && item?.type === SidebarItemType.Nest
-
-        if (isNestType) {
-          return renderNestItem(item)
-        }
-
-        return (
-          <ListboxItem
-            {...item}
-            key={item.key}
-            aria-label='Listbox Item'
-            endContent={isCompact || hideEndContent ? null : item.endContent ?? null}
-            startContent={
-              isCompact
-                ? null
-                : item.icon
-                  ? (
-                    <Icon
-                      className={cn(
-                        'text-default-500 group-data-[selected=true]:text-foreground',
-                        iconClassName
+                        <span className='text-small font-medium text-default-500 group-data-[selected=true]:text-foreground'>
+                          {item.title}
+                        </span>
+                      </div>
+                      )
+                    : (
+                        item.startContent ?? null
+                      )
+                }
+                >
+                  {item.items && item.items?.length > 0
+                    ? (
+                      <Listbox
+                        className='mt-0.5'
+                        classNames={{
+                          list: cn('border-l border-default-200 pl-4')
+                        }}
+                        items={item.items}
+                        variant='flat'
+                        aria-label='Listbox Item'
+                      >
+                        {item.items.map(renderItem)}
+                      </Listbox>
+                      )
+                    : (
+                        renderItem(item)
                       )}
-                      icon={item.icon}
-                      width={24}
-                    />
-                    )
-                  : (
-                      item.startContent ?? null
-                    )
-            }
-            textValue={item.title}
-            title={isCompact ? null : item.title}
-          >
-            {isCompact
-              ? (
-                <Tooltip content={item.title} placement='right'>
-                  <div className='flex w-full items-center justify-center'>
-                    {item.icon
-                      ? (
-                        <Icon
-                          className={cn(
-                            'text-default-500 group-data-[selected=true]:text-foreground',
-                            iconClassName
-                          )}
-                          icon={item.icon}
-                          width={24}
-                        />
-                        )
-                      : (
-                          item.startContent ?? null
-                        )}
-                  </div>
-                </Tooltip>
-                )
-              : null}
-            <Link to={item.to} key={item.key}>
-              {item.title}
-            </Link>
-          </ListboxItem>
-        )
-      },
-      [isCompact, hideEndContent, iconClassName, itemClasses?.base]
-    )
+                </AccordionItem>
+              </Accordion>
+              )
+            : null}
+        </ListboxItem>
+      )
+    }
 
     return (
       <Listbox
@@ -272,33 +258,27 @@ const Sidebar = React.forwardRef(
         variant='flat'
         onSelectionChange={(keys) => {
           const key = Array.from(keys)[0]
-
           setSelected(key)
           onSelect?.(key)
         }}
         {...props}
       >
-        {(item) => {
-          return item.items && item.items?.length > 0 && item?.type === SidebarItemType.Nest
+        {(item) =>
+          item.items && item.items.length > 0
             ? (
-                renderNestItem(item)
+              <ListboxSection
+                key={item.key}
+                classNames={sectionClasses}
+                showDivider={isCompact}
+                title={item.title}
+                aria-label='Listbox Section'
+              >
+                {item.items.map(renderItem)}
+              </ListboxSection>
               )
-            : item.items && item.items?.length > 0
-              ? (
-                <ListboxSection
-                  key={item.key}
-                  classNames={sectionClasses}
-                  showDivider={isCompact}
-                  title={item.title}
-                  aria-label='Listbox Section'
-                >
-                  {item.items.map(renderItem)}
-                </ListboxSection>
-                )
-              : (
-                  renderItem(item)
-                )
-        }}
+            : (
+                renderItem(item)
+              )}
       </Listbox>
     )
   }
