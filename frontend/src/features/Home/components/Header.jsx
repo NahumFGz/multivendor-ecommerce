@@ -30,6 +30,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { homeUrls } from '../../../routes/urls/homeUrls'
 import { useSwapTheme } from '../../../store/ThemeStore'
 import { useMediaQuery } from 'react-responsive'
+import { Cart } from './Cart'
 
 export function Header () {
   const location = useLocation()
@@ -83,6 +84,27 @@ export function Header () {
                       )
                 }
             </Button>
+          </NavbarItem>
+          {/* Shopping Cart */}
+          <NavbarItem className='flex'>
+            <Popover offset={12} placement='bottom-end'>
+              <PopoverTrigger>
+                <Button
+                  disableRipple
+                  isIconOnly
+                  className='overflow-visible'
+                  radius='full'
+                  variant='light'
+                >
+                  <Badge color='danger' content='9' showOutline={false} size='md'>
+                    <Icon className='text-default-500' icon='solar:cart-linear' width={22} />
+                  </Badge>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className='max-w-[90vw] p-0 sm:max-w-[380px]'>
+                <Cart className='w-full shadow-none' />
+              </PopoverContent>
+            </Popover>
           </NavbarItem>
           {/* Notifications */}
           <NavbarItem className='flex'>
