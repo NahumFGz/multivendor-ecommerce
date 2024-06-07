@@ -20,8 +20,6 @@ import {
   Avatar,
   Chip,
   ScrollShadow,
-  Breadcrumbs,
-  BreadcrumbItem,
   Input,
   Badge
 } from '@nextui-org/react'
@@ -53,11 +51,6 @@ export function Header () {
           <AcmeIcon />
           <p className='font-bold text-inherit'>ACME</p>
         </NavbarBrand>
-        <Breadcrumbs className='hidden lg:flex' radius='full'>
-          <BreadcrumbItem>Apps</BreadcrumbItem>
-          <BreadcrumbItem>iOS App</BreadcrumbItem>
-          <BreadcrumbItem>TestFlight</BreadcrumbItem>
-        </Breadcrumbs>
 
         {/* Right Menu */}
         <NavbarContent className='ml-auto h-12 max-w-fit items-center gap-0' justify='center'>
@@ -71,6 +64,7 @@ export function Header () {
               labelPlacement='outside'
               placeholder='Search...'
               radius='full'
+              className='w-48 sm:w-64 md:w-80 lg:w-96'
               startContent={
                 <Icon className='text-default-500' icon='solar:magnifer-linear' width={20} />
               }
@@ -101,8 +95,8 @@ export function Header () {
                   radius='full'
                   variant='light'
                 >
-                  <Badge color='danger' content='5' showOutline={false} size='md'>
-                    <Icon className='text-default-500' icon='solar:shop-linear' width={22} />
+                  <Badge color='danger' content='' showOutline={false} size='md'>
+                    <Icon className='text-default-500' icon='solar:bell-linear' width={22} />
                   </Badge>
                 </Button>
               </PopoverTrigger>
@@ -139,12 +133,12 @@ export function Header () {
                   theme === 'dark'
                     ? (
                       <DropdownItem key='light' textValue='Light Mode' onClick={handleSwapTheme}>
-                        Light Mode
+                        Light mode
                       </DropdownItem>
                       )
                     : (
                       <DropdownItem key='dark' textValue='Dark Mode' onClick={handleSwapTheme}>
-                        Dark Mode
+                        Dark mode
                       </DropdownItem>
                       )
                 )}
