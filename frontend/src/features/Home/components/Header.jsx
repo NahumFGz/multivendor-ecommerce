@@ -26,11 +26,11 @@ import {
   Badge
 } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-import { AcmeIcon } from './social'
-import NotificationsCard from './notifications-card'
+import { AcmeIcon } from '../../../assets/Social'
+import { NotificationsCard } from './NotificationsCard'
 import { Link, useLocation } from 'react-router-dom'
-import { homeUrls } from '../../../../routes/urls/homeUrls'
-import { useSwapTheme } from '../../../../store/ThemeStore'
+import { homeUrls } from '../../../routes/urls/homeUrls'
+import { useSwapTheme } from '../../../store/ThemeStore'
 import { useMediaQuery } from 'react-responsive'
 
 export function Header () {

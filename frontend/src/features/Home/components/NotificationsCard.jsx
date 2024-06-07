@@ -12,7 +12,7 @@ import {
 } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 
-import NotificationItem from './notification-item'
+import NotificationItem from './NotificationItem'
 // eslint-disable-next-line no-var
 var NotificationTabs = /* #__PURE__ */ (function (NotificationTabs) {
   NotificationTabs.All = 'all'
@@ -109,7 +109,7 @@ const notifications = {
   archive: []
 }
 
-export default function Component (props) {
+export function NotificationsCard (props) {
   const [activeTab, setActiveTab] = React.useState(NotificationTabs.All)
 
   const activeNotifications = notifications[activeTab]
