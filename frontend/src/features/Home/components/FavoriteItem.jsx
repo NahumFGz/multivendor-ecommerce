@@ -3,7 +3,7 @@ import { Avatar, Button, cn } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 
 const FavoriteItem = React.forwardRef(
-  ({ image, name, price, className, ...props }, ref) => {
+  ({ image, name, price, onAddToCart, className, ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -22,6 +22,9 @@ const FavoriteItem = React.forwardRef(
           </p>
           <p className='text-tiny text-default-400'>${price}</p>
         </div>
+        <Button isIconOnly radius='full' variant='light' onClick={onAddToCart}>
+          <Icon className='text-default-500' icon='solar:cart-plus-outline' width={22} />
+        </Button>
         <Button isIconOnly radius='full' variant='light'>
           <Icon className='text-default-500' icon='solar:trash-bin-minimalistic-broken' width={22} />
         </Button>

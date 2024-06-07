@@ -28,9 +28,13 @@ const initialFavoriteItems = [
   // Agrega más productos según sea necesario
 ]
 
-export function Favorites (props) {
+export function Favorites ({ cartItems, setCartItems, ...props }) {
   // eslint-disable-next-line no-unused-vars
   const [favoriteItems, setFavoriteItems] = useState(initialFavoriteItems)
+
+  const addToCart = (item) => {
+    console.log('Adding to cart:', item)
+  }
 
   const totalItems = favoriteItems.length
 
@@ -57,6 +61,7 @@ export function Favorites (props) {
                   <FavoriteItem
                     key={item.id}
                     {...item}
+                    onAddToCart={() => addToCart(item)}
                   />
                 ))
               )

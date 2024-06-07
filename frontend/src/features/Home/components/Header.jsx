@@ -25,7 +25,7 @@ import {
 } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 import { AcmeIcon } from '../../../assets/Social'
-import { NotificationsCard } from './NotificationsCard'
+import { Notifications } from './Notifications'
 import { Link, useLocation } from 'react-router-dom'
 import { homeUrls } from '../../../routes/urls/homeUrls'
 import { useSwapTheme } from '../../../store/ThemeStore'
@@ -66,13 +66,13 @@ export function Header () {
               labelPlacement='outside'
               placeholder='Search...'
               radius='full'
-              className='w-48 sm:w-64 md:w-80 lg:w-96'
+              className='w-32 sm:w-64 md:w-80 lg:w-96'
               startContent={
                 <Icon className='text-default-500' icon='solar:magnifer-linear' width={20} />
               }
             />
           </NavbarItem>
-          {/* Settings */}
+          {/* Swap theme */}
           <NavbarItem className='hidden md:flex'>
             <Button isIconOnly radius='full' variant='light' onClick={handleSwapTheme}>
               {
@@ -86,29 +86,8 @@ export function Header () {
                 }
             </Button>
           </NavbarItem>
-          {/* Shopping Cart */}
-          <NavbarItem className='flex'>
-            <Popover offset={12} placement='bottom-end'>
-              <PopoverTrigger>
-                <Button
-                  disableRipple
-                  isIconOnly
-                  className='overflow-visible'
-                  radius='full'
-                  variant='light'
-                >
-                  <Badge color='danger' content='9' showOutline={false} size='md'>
-                    <Icon className='text-default-500' icon='solar:cart-linear' width={22} />
-                  </Badge>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className='max-w-[90vw] p-0 sm:max-w-[380px]'>
-                <Cart className='w-full shadow-none' />
-              </PopoverContent>
-            </Popover>
-          </NavbarItem>
           {/* Notifications */}
-          <NavbarItem className='flex'>
+          <NavbarItem className='hidden md:flex'>
             <Popover offset={12} placement='bottom-end'>
               <PopoverTrigger>
                 <Button
@@ -124,11 +103,32 @@ export function Header () {
                 </Button>
               </PopoverTrigger>
               <PopoverContent className='max-w-[90vw] p-0 sm:max-w-[380px]'>
-                <NotificationsCard className='w-full shadow-none' />
+                <Notifications className='w-full shadow-none' />
               </PopoverContent>
             </Popover>
           </NavbarItem>
           {/* Favorites */}
+          <NavbarItem className='hidden md:flex'>
+            <Popover offset={12} placement='bottom-end'>
+              <PopoverTrigger>
+                <Button
+                  disableRipple
+                  isIconOnly
+                  className='overflow-visible'
+                  radius='full'
+                  variant='light'
+                >
+                  <Badge color='' content='' showOutline={false} size='md'>
+                    <Icon className='text-default-500' icon='carbon:favorite' width={22} />
+                  </Badge>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className='max-w-[90vw] p-0 sm:max-w-[380px]'>
+                <Favorites className='w-full shadow-none' />
+              </PopoverContent>
+            </Popover>
+          </NavbarItem>
+          {/* Shopping Cart */}
           <NavbarItem className='flex'>
             <Popover offset={12} placement='bottom-end'>
               <PopoverTrigger>
@@ -139,13 +139,13 @@ export function Header () {
                   radius='full'
                   variant='light'
                 >
-                  <Badge color='success' content='' showOutline={false} size='md'>
-                    <Icon className='text-default-500' icon='carbon:favorite' width={22} />
+                  <Badge color='danger' content='9' showOutline={false} size='md'>
+                    <Icon className='text-default-500' icon='solar:cart-plus-outline' width={24} />
                   </Badge>
                 </Button>
               </PopoverTrigger>
               <PopoverContent className='max-w-[90vw] p-0 sm:max-w-[380px]'>
-                <Favorites className='w-full shadow-none' />
+                <Cart className='w-full shadow-none' />
               </PopoverContent>
             </Popover>
           </NavbarItem>
@@ -195,7 +195,7 @@ export function Header () {
         </NavbarContent>
 
         {/* Mobile Menu */}
-        <NavbarMenu>
+        <NavbarMenu className='flex gap-4'>
           <NavbarMenuItem isActive={location.pathname === homeUrls.home}>
             <Link className='w-full' color='foreground' to={homeUrls.home}>
               Home

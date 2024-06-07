@@ -109,7 +109,7 @@ const notifications = {
   archive: []
 }
 
-export function NotificationsCard (props) {
+export function Notifications (props) {
   const [activeTab, setActiveTab] = React.useState(NotificationTabs.All)
 
   const activeNotifications = notifications[activeTab]
