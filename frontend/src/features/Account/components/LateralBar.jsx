@@ -5,22 +5,8 @@ import { Icon } from '@iconify/react'
 import { AcmeLogo } from './acme'
 import { sectionItemsWithTeams } from './sidebar-items'
 import SidebarDrawer from './sidebar-drawer'
-
 import Sidebar from './sidebar'
 
-/**
- * 💡 TIP: You can use the usePathname hook from Next.js App Router to get the current pathname
- * and use it as the active key for the Sidebar component.
- *
- * ```tsx
- * import {usePathname} from "next/navigation";
- *
- * const pathname = usePathname();
- * const currentPath = pathname.split("/")?.[1]
- *
- * <Sidebar defaultSelectedKey="home" selectedKeys={[currentPath]} />
- * ```
- */
 export function LateralBar () {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
@@ -54,6 +40,7 @@ export function LateralBar () {
             <Icon className='text-default-500' icon='solar:info-circle-line-duotone' width={24} />
           }
           variant='light'
+          aria-label='Help & Information'
         >
           Help & Information
         </Button>
@@ -67,6 +54,7 @@ export function LateralBar () {
             />
           }
           variant='light'
+          aria-label='Log Out'
         >
           Log Out
         </Button>
@@ -85,7 +73,14 @@ export function LateralBar () {
       </SidebarDrawer>
       <div className='w-full flex-1 flex-col p-4'>
         <header className='flex h-16 items-center gap-2 rounded-medium border-small border-divider px-4'>
-          <Button isIconOnly className='flex sm:hidden' size='sm' variant='light' onPress={onOpen}>
+          <Button
+            isIconOnly
+            className='flex sm:hidden'
+            size='sm'
+            variant='light'
+            onPress={onOpen}
+            aria-label='Open menu'
+          >
             <Icon
               className='text-default-500'
               height={24}

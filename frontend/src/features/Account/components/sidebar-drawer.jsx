@@ -80,6 +80,7 @@ const SidebarDrawer = React.forwardRef(
             '--sidebar-width': `${sidebarWidth}px`
           }}
           onOpenChange={onOpenChange}
+          aria-label='Sidebar Drawer'
         >
           <ModalContent>
             <ModalBody>{children}</ModalBody>
@@ -90,6 +91,7 @@ const SidebarDrawer = React.forwardRef(
             'hidden h-full max-w-[var(--sidebar-width)] overflow-x-hidden overflow-y-scroll sm:flex',
             className
           )}
+          aria-label='Sidebar Drawer Content'
         >
           {children}
         </div>
