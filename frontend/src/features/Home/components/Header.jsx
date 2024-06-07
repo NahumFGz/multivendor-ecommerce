@@ -31,6 +31,7 @@ import { homeUrls } from '../../../routes/urls/homeUrls'
 import { useSwapTheme } from '../../../store/ThemeStore'
 import { useMediaQuery } from 'react-responsive'
 import { Cart } from './Cart'
+import { Favorites } from './Favorites'
 
 export function Header () {
   const location = useLocation()
@@ -124,6 +125,27 @@ export function Header () {
               </PopoverTrigger>
               <PopoverContent className='max-w-[90vw] p-0 sm:max-w-[380px]'>
                 <NotificationsCard className='w-full shadow-none' />
+              </PopoverContent>
+            </Popover>
+          </NavbarItem>
+          {/* Favorites */}
+          <NavbarItem className='flex'>
+            <Popover offset={12} placement='bottom-end'>
+              <PopoverTrigger>
+                <Button
+                  disableRipple
+                  isIconOnly
+                  className='overflow-visible'
+                  radius='full'
+                  variant='light'
+                >
+                  <Badge color='success' content='' showOutline={false} size='md'>
+                    <Icon className='text-default-500' icon='carbon:favorite' width={22} />
+                  </Badge>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className='max-w-[90vw] p-0 sm:max-w-[380px]'>
+                <Favorites className='w-full shadow-none' />
               </PopoverContent>
             </Popover>
           </NavbarItem>
