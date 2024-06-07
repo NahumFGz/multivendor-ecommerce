@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react'
 import { useLocation } from 'react-router-dom'
 
 import { AcmeLogo } from './acme'
-import { sectionItemsWithTeams } from './sidebar-items'
+import { sectionItems } from './sidebar-items'
 import SidebarDrawer from './sidebar-drawer'
 import Sidebar from './sidebar'
 import { accountUrls } from '../../../routes/urls/accountUrls'
@@ -51,7 +51,7 @@ export function LateralBar ({ children }) {
 
       <Spacer y={8} />
 
-      <Sidebar defaultSelectedKey='home' items={sectionItemsWithTeams} />
+      <Sidebar defaultSelectedKey='home' items={sectionItems} />
 
       <Spacer y={8} />
       <div className='mt-auto flex flex-col'>
