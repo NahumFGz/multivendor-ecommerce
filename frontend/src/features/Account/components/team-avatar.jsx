@@ -14,7 +14,6 @@ const TeamAvatar = React.forwardRef(({ name, className, classNames = {}, ...prop
     name={name}
     radius='md'
     size='sm'
-    aria-label={`Avatar for ${name}`}
   />
 ))
 

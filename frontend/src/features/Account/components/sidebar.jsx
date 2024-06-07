@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react'
 
 export const SidebarItemType = /* #__PURE__ */ (function (SidebarItemType) {
   SidebarItemType.Nest = 'nest'
+
   return SidebarItemType
 })({})
 
@@ -52,7 +53,7 @@ const Sidebar = React.forwardRef(
           item.items && item.items?.length > 0 && item?.type === SidebarItemType.Nest
 
         if (isNestType) {
-          // Es un elemento de tipo nest, por lo que necesitamos eliminar el href
+          // Is a nest type item , so we need to remove the href
           delete item.href
         }
 
@@ -60,7 +61,7 @@ const Sidebar = React.forwardRef(
           <ListboxItem
             {...item}
             key={item.key}
-            aria-label={item.title}
+            aria-label='Listbox Item'
             classNames={{
               base: cn(
                 {
@@ -84,7 +85,6 @@ const Sidebar = React.forwardRef(
                       )}
                       icon={item.icon}
                       width={24}
-                      aria-label={item.title}
                     />
                     )
                   : (
@@ -106,7 +106,6 @@ const Sidebar = React.forwardRef(
                           )}
                           icon={item.icon}
                           width={24}
-                          aria-label={item.title}
                         />
                         )
                       : (
@@ -138,8 +137,8 @@ const Sidebar = React.forwardRef(
                             )}
                             icon={item.icon}
                             width={24}
-                            aria-label={item.title}
                           />
+
                           <span className='text-small font-medium text-default-500 group-data-[selected=true]:text-foreground'>
                             {item.title}
                           </span>
@@ -159,6 +158,7 @@ const Sidebar = React.forwardRef(
                           }}
                           items={item.items}
                           variant='flat'
+                          aria-label='Listbox Item'
                         >
                           {item.items.map(renderItem)}
                         </Listbox>
@@ -189,7 +189,7 @@ const Sidebar = React.forwardRef(
           <ListboxItem
             {...item}
             key={item.key}
-            aria-label={item.title}
+            aria-label='Listbox Item'
             endContent={isCompact || hideEndContent ? null : item.endContent ?? null}
             startContent={
               isCompact
@@ -203,7 +203,6 @@ const Sidebar = React.forwardRef(
                       )}
                       icon={item.icon}
                       width={24}
-                      aria-label={item.title}
                     />
                     )
                   : (
@@ -226,7 +225,6 @@ const Sidebar = React.forwardRef(
                           )}
                           icon={item.icon}
                           width={24}
-                          aria-label={item.title}
                         />
                         )
                       : (
@@ -246,6 +244,7 @@ const Sidebar = React.forwardRef(
       <Listbox
         key={isCompact ? 'compact' : 'default'}
         ref={ref}
+        aria-label='Listbox'
         hideSelectedIcon
         as='nav'
         className={cn('list-none', className)}
@@ -271,6 +270,7 @@ const Sidebar = React.forwardRef(
         variant='flat'
         onSelectionChange={(keys) => {
           const key = Array.from(keys)[0]
+
           setSelected(key)
           onSelect?.(key)
         }}
@@ -288,7 +288,7 @@ const Sidebar = React.forwardRef(
                   classNames={sectionClasses}
                   showDivider={isCompact}
                   title={item.title}
-                  aria-label={item.title}
+                  aria-label='Listbox Section'
                 >
                   {item.items.map(renderItem)}
                 </ListboxSection>
