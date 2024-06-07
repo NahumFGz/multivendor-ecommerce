@@ -1,5 +1,6 @@
 import { Chip } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
+import { accountUrls } from '../../../routes/urls/accountUrls'
 
 export const sectionItems = [
   {
@@ -7,16 +8,16 @@ export const sectionItems = [
     title: 'Overview',
     items: [
       {
-        key: 'home',
-        href: '#',
+        key: 'dashboard',
+        href: accountUrls.dashboard,
         icon: 'solar:home-2-linear',
-        title: 'Home'
+        title: 'Dashboard'
       },
       {
-        key: 'projects',
-        href: '#',
+        key: 'directions',
+        href: accountUrls.directions,
         icon: 'solar:widget-2-outline',
-        title: 'Projects',
+        title: 'Directions',
         endContent: (
           <Icon className='text-default-400' icon='solar:add-circle-line-duotone' width={24} />
         )
