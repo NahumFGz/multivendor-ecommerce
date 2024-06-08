@@ -1,7 +1,7 @@
 import React from 'react'
 import { Avatar, Button, Spacer, useDisclosure } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { AcmeLogo } from '../../../assets/AcmeLogo'
 import { sectionItems } from './sidebar-items'
@@ -9,11 +9,13 @@ import SidebarDrawer from './sidebar-drawer'
 import Sidebar from './sidebar'
 import { accountUrls } from '../../../routes/urls/accountUrls'
 import { useSwapTheme } from '../../../store/ThemeStore'
+import { homeUrls } from '../../../routes/urls/homeUrls'
 
 export function LateralBar ({ children }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
-  const location = useLocation()
   const { handleSwapTheme, theme } = useSwapTheme()
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const getPageTitle = () => {
     switch (location.pathname) {
@@ -83,6 +85,7 @@ export function LateralBar ({ children }) {
         </Button>
         <Button
           fullWidth
+          onClick={() => navigate(homeUrls.home)}
           color='success'
           className='justify-start text-default-500 data-[hover=true]:text-foreground'
           startContent={
