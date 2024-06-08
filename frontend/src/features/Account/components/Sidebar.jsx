@@ -1,7 +1,7 @@
 import { Accordion, AccordionItem, Listbox, Tooltip, ListboxItem, ListboxSection, cn } from '@nextui-org/react'
 import React from 'react'
 import { Icon } from '@iconify/react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 export const SidebarItemType = {
   Nest: 'nest'
@@ -24,6 +24,7 @@ const Sidebar = React.forwardRef(
     },
     ref
   ) => {
+    const location = useLocation()
     const [selected, setSelected] = React.useState(defaultSelectedKey)
     const navigate = useNavigate()
 
@@ -32,6 +33,14 @@ const Sidebar = React.forwardRef(
         navigate(to)
       }
     }
+
+    React.useEffect(() => {
+      const currentPath = location.pathname
+      const selectedItem = items.flatMap(section => section.items).find(item => item.to === currentPath)
+      if (selectedItem) {
+        setSelected(selectedItem.key)
+      }
+    }, [location, items])
 
     const sectionClasses = {
       ...sectionClassesProp,
