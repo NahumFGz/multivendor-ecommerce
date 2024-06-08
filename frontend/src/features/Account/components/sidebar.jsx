@@ -28,7 +28,9 @@ const Sidebar = React.forwardRef(
     const navigate = useNavigate()
 
     const handleClick = (to) => {
-      navigate(to)
+      if (to !== '') {
+        navigate(to)
+      }
     }
 
     const sectionClasses = {

@@ -26,7 +26,7 @@ export const sectionItems = [
       },
       {
         key: 'payments',
-        to: accountUrls.payments,
+        to: '',
         icon: 'solar:wallet-outline',
         title: 'Formas de pago',
         endContent: (
@@ -67,7 +67,7 @@ export const sectionItems = [
       },
       {
         key: 'tracking',
-        to: accountUrls.tracking,
+        to: '',
         icon: 'solar:pin-outline',
         title: 'Tracking',
         endContent: (
