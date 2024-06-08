@@ -26,7 +26,7 @@ import {
 import { Icon } from '@iconify/react'
 import { AcmeIcon } from '../../../assets/Social'
 import { Notifications } from './Notifications'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { homeUrls } from '../../../routes/urls/homeUrls'
 import { useSwapTheme } from '../../../store/ThemeStore'
 import { useMediaQuery } from 'react-responsive'
@@ -36,10 +36,18 @@ import { accountUrls } from '../../../routes/urls/accountUrls'
 
 export function Header () {
   const location = useLocation()
+  const navigate = useNavigate()
   const { handleSwapTheme, theme } = useSwapTheme()
   const isSmallScreen = useMediaQuery({ query: '(max-width: 640px)' })
 
-  // Determine the active tab based on the current path
+  const handleDropdownClick = (url) => {
+    navigate(url)
+  }
+
+  const handleTabClick = (url) => {
+    navigate(url)
+  }
+
   const getActiveTab = () => {
     if (location.pathname.startsWith(homeUrls.products)) return 'products'
     if (location.pathname.startsWith(homeUrls.boardGames)) return 'boardgames'
@@ -85,15 +93,9 @@ export function Header () {
           {/* Swap theme */}
           <NavbarItem className='hidden md:flex'>
             <Button isIconOnly radius='full' variant='light' onClick={handleSwapTheme}>
-              {
-                  theme === 'dark'
-                    ? (
-                      <Icon className='text-default-500' icon='solar:sun-linear' width={24} />
-                      )
-                    : (
-                      <Icon className='text-default-500' icon='solar:moon-linear' width={22} />
-                      )
-                }
+              {theme === 'dark'
+                ? <Icon className='text-default-500' icon='solar:sun-linear' width={24} />
+                : <Icon className='text-default-500' icon='solar:moon-linear' width={22} />}
             </Button>
           </NavbarItem>
           {/* Notifications */}
@@ -174,33 +176,19 @@ export function Header () {
                   <p className='font-semibold'>Signed in as</p>
                   <p className='font-semibold'>johndoe@example.com</p>
                 </DropdownItem>
-                <DropdownItem key='my_account' textValue='Settings'>
-                  <Link to={accountUrls.profile}>
-                    Mi cuenta
-                  </Link>
+                <DropdownItem key='my_account' textValue='Settings' onClick={() => handleDropdownClick(accountUrls.profile)}>
+                  Mi cuenta
                 </DropdownItem>
-                <DropdownItem key='team_settings' textValue='Team Settings'>
-                  <Link to={accountUrls.shopping}>
-                    Ver compras
-                  </Link>
+                <DropdownItem key='team_settings' textValue='Team Settings' onClick={() => handleDropdownClick(accountUrls.shopping)}>
+                  Ver compras
                 </DropdownItem>
-                <DropdownItem key='analytics' textValue='Analytics'>
-                  <Link to={accountUrls.publishProduct}>
-                    Publicar un producto
-                  </Link>
+                <DropdownItem key='analytics' textValue='Analytics' onClick={() => handleDropdownClick(accountUrls.publishProduct)}>
+                  Publicar un producto
                 </DropdownItem>
                 {isSmallScreen && (
                   theme === 'dark'
-                    ? (
-                      <DropdownItem key='light' textValue='Light Mode' onClick={handleSwapTheme}>
-                        Light mode
-                      </DropdownItem>
-                      )
-                    : (
-                      <DropdownItem key='dark' textValue='Dark Mode' onClick={handleSwapTheme}>
-                        Dark mode
-                      </DropdownItem>
-                      )
+                    ? <DropdownItem key='light' textValue='Light Mode' onClick={handleSwapTheme}>Light mode</DropdownItem>
+                    : <DropdownItem key='dark' textValue='Dark Mode' onClick={handleSwapTheme}>Dark mode</DropdownItem>
                 )}
                 <DropdownItem key='logout' color='danger' textValue='Log Out'>
                   Cerrar sesion
@@ -259,19 +247,19 @@ export function Header () {
             variant='underlined'
             selectedKey={getActiveTab()}
           >
-            <Tab key='home' title={<Link to={homeUrls.home}>Home</Link>} />
-            <Tab key='products' title={<Link to={homeUrls.products}>Productos</Link>} />
-            <Tab key='boardgames' title={<Link to={homeUrls.boardGames}>Juegos de mesa</Link>} />
-            <Tab key='marketplace' title={<Link to={homeUrls.marketplace}>Marketplace</Link>} />
+            <Tab key='home' title={<span onClick={() => handleTabClick(homeUrls.home)}>Home</span>} />
+            <Tab key='products' title={<span onClick={() => handleTabClick(homeUrls.products)}>Productos</span>} />
+            <Tab key='boardgames' title={<span onClick={() => handleTabClick(homeUrls.boardGames)}>Juegos de mesa</span>} />
+            <Tab key='marketplace' title={<span onClick={() => handleTabClick(homeUrls.marketplace)}>Marketplace</span>} />
             <Tab
               key='promos'
               title={
-                <Link to={homeUrls.promos}>
+                <span onClick={() => handleTabClick(homeUrls.promos)}>
                   <div className='flex items-center gap-2'>
                     <p>Promos</p>
                     <Chip size='sm'>9</Chip>
                   </div>
-                </Link>
+                </span>
               }
             />
           </Tabs>
