@@ -9,25 +9,25 @@ export const sectionItems = [
       {
         key: 'profile',
         to: accountUrls.profile,
-        icon: 'solar:home-2-linear',
+        icon: 'solar:user-circle-linear',
         title: 'Profile'
       },
       {
         key: 'directions',
         to: accountUrls.directions,
-        icon: 'solar:widget-2-outline',
+        icon: 'solar:route-outline',
         title: 'Directions'
       },
       {
         key: 'security',
         to: accountUrls.security,
-        icon: 'solar:checklist-minimalistic-outline',
+        icon: 'solar:shield-check-linear',
         title: 'Security'
       },
       {
         key: 'payments',
         to: '#',
-        icon: 'solar:users-group-two-rounded-outline',
+        icon: 'solar:wallet-outline',
         title: 'Payments',
         endContent: (
           <Chip size='sm' variant='flat'>
@@ -50,20 +50,19 @@ export const sectionItems = [
       {
         key: 'selling',
         to: accountUrls.selling,
-        icon: 'solar:gift-linear',
+        icon: 'solar:tag-outline',
         title: 'Selling'
-
       },
       {
         key: 'shopping',
         to: accountUrls.shopping,
-        icon: 'solar:bill-list-outline',
+        icon: 'solar:cart-linear',
         title: 'Shopping'
       },
       {
         key: 'tracking',
         to: '#',
-        icon: 'solar:settings-outline',
+        icon: 'solar:pin-outline',
         title: 'Tracking',
         endContent: (
           <Chip size='sm' variant='flat'>
