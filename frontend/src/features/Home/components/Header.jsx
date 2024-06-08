@@ -39,6 +39,15 @@ export function Header () {
   const { handleSwapTheme, theme } = useSwapTheme()
   const isSmallScreen = useMediaQuery({ query: '(max-width: 640px)' })
 
+  // Determine the active tab based on the current path
+  const getActiveTab = () => {
+    if (location.pathname.startsWith(homeUrls.products)) return 'products'
+    if (location.pathname.startsWith(homeUrls.boardGames)) return 'boardgames'
+    if (location.pathname.startsWith(homeUrls.marketplace)) return 'marketplace'
+    if (location.pathname.startsWith(homeUrls.promos)) return 'promos'
+    return 'home'
+  }
+
   return (
     <div className='w-full'>
       <Navbar
@@ -248,6 +257,7 @@ export function Header () {
             }}
             radius='full'
             variant='underlined'
+            selectedKey={getActiveTab()}
           >
             <Tab key='home' title={<Link to={homeUrls.home}>Home</Link>} />
             <Tab key='products' title={<Link to={homeUrls.products}>Productos</Link>} />
