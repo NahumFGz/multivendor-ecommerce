@@ -1,110 +1,75 @@
 import { Chip } from '@nextui-org/react'
-import { Icon } from '@iconify/react'
 import { accountUrls } from '../../../routes/urls/accountUrls'
 
 export const sectionItems = [
   {
-    key: 'overview',
-    title: 'Overview',
+    key: 'account',
+    title: 'Account',
     items: [
       {
-        key: 'dashboard',
-        to: accountUrls.dashboard,
+        key: 'profile',
+        to: accountUrls.profile,
         icon: 'solar:home-2-linear',
-        title: 'Dashboard'
+        title: 'Profile'
       },
       {
         key: 'directions',
         to: accountUrls.directions,
         icon: 'solar:widget-2-outline',
-        title: 'Directions',
-        endContent: (
-          <Icon className='text-default-400' icon='solar:add-circle-line-duotone' width={24} />
-        )
+        title: 'Directions'
       },
       {
-        key: 'tasks',
-        to: '#',
+        key: 'security',
+        to: accountUrls.security,
         icon: 'solar:checklist-minimalistic-outline',
-        title: 'Tasks',
-        endContent: (
-          <Icon className='text-default-400' icon='solar:add-circle-line-duotone' width={24} />
-        )
+        title: 'Security'
       },
       {
-        key: 'team',
+        key: 'payments',
         to: '#',
         icon: 'solar:users-group-two-rounded-outline',
-        title: 'Team'
-      },
-      {
-        key: 'tracker',
-        to: '#',
-        icon: 'solar:sort-by-time-linear',
-        title: 'Tracker',
+        title: 'Payments',
         endContent: (
           <Chip size='sm' variant='flat'>
-            New
+            Soon
           </Chip>
         )
       }
     ]
   },
   {
-    key: 'organization',
-    title: 'Organization',
+    key: 'marketplace',
+    title: 'Marketplace',
     items: [
       {
-        key: 'cap_table',
-        to: '#',
-        title: 'Cap Table',
-        icon: 'solar:pie-chart-2-outline',
-        items: [
-          {
-            key: 'shareholders',
-            to: '#',
-            title: 'Shareholders'
-          },
-          {
-            key: 'note_holders',
-            to: '#',
-            title: 'Note Holders'
-          },
-          {
-            key: 'transactions_log',
-            to: '#',
-            title: 'Transactions Log'
-          }
-        ]
-      },
-      {
-        key: 'analytics',
-        to: '#',
+        key: 'dashboard',
+        to: accountUrls.dashboard,
         icon: 'solar:chart-outline',
-        title: 'Analytics'
+        title: 'Dashboard'
       },
       {
-        key: 'perks',
-        to: '/perks',
+        key: 'selling',
+        to: accountUrls.selling,
         icon: 'solar:gift-linear',
-        title: 'Perks',
+        title: 'Selling'
+
+      },
+      {
+        key: 'shopping',
+        to: accountUrls.shopping,
+        icon: 'solar:bill-list-outline',
+        title: 'Shopping'
+      },
+      {
+        key: 'tracking',
+        to: '#',
+        icon: 'solar:settings-outline',
+        title: 'Tracking',
         endContent: (
           <Chip size='sm' variant='flat'>
-            3
+            Soon
           </Chip>
         )
-      },
-      {
-        key: 'expenses',
-        to: '#',
-        icon: 'solar:bill-list-outline',
-        title: 'Expenses'
-      },
-      {
-        key: 'settings',
-        to: '/settings',
-        icon: 'solar:settings-outline',
-        title: 'Settings'
       }
     ]
   }
