@@ -8,10 +8,12 @@ import { sectionItems } from './sidebar-items'
 import SidebarDrawer from './sidebar-drawer'
 import Sidebar from './sidebar'
 import { accountUrls } from '../../../routes/urls/accountUrls'
+import { useSwapTheme } from '../../../store/ThemeStore'
 
 export function LateralBar ({ children }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const location = useLocation()
+  const { handleSwapTheme, theme } = useSwapTheme()
 
   const getPageTitle = () => {
     switch (location.pathname) {
@@ -56,16 +58,43 @@ export function LateralBar ({ children }) {
       <Spacer y={8} />
       <div className='mt-auto flex flex-col'>
         <Button
-          fullWidth
           className='justify-start text-default-500 data-[hover=true]:text-foreground'
           startContent={
-            <Icon className='text-default-500' icon='solar:info-circle-line-duotone' width={24} />
+        theme === 'dark'
+          ? (
+            <Icon
+              className='text-default-500'
+              icon='solar:sun-line-duotone'
+              width={24}
+            />
+            )
+          : (
+            <Icon
+              className='text-default-500'
+              icon='solar:moon-line-duotone'
+              width={20}
+            />
+            )
+      }
+          variant='light'
+          onClick={handleSwapTheme}
+        >
+          {theme === 'dark' ? 'Light Theme' : 'Dark Theme'}
+        </Button>
+        <Button
+          fullWidth
+          color='success'
+          className='justify-start text-default-500 data-[hover=true]:text-foreground'
+          startContent={
+            <Icon className='text-default-500' icon='solar:home-2-line-duotone' width={24} />
           }
           variant='light'
         >
-          Help & Information
+          Go home
         </Button>
         <Button
+          fullWidth
+          color='danger'
           className='justify-start text-default-500 data-[hover=true]:text-foreground'
           startContent={
             <Icon
