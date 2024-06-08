@@ -23,6 +23,9 @@ import { LoginPage } from '../features/Auth/pages/LoginPage'
 import { RegisterPage } from '../features/Auth/pages/RegisterPage'
 import { PasswordResetPage } from '../features/Auth/pages/PasswordResetPage'
 import { ForgotPasswordPage } from '../features/Auth/pages/ForgotPasswordPage'
+import { PaymentsPage } from '../features/Account/pages/PaymentsPage'
+import { TrackingPage } from '../features/Account/pages/TrackingPage'
+import { PublishProductPage } from '../features/Account/pages/PublishProductPage'
 
 export function Navigation () {
   return (
@@ -48,6 +51,9 @@ export function Navigation () {
         <Route path={accountUrls.selling} element={<AccountLayout><SellingHistoryPage /></AccountLayout>} />
         <Route path={accountUrls.shopping} element={<AccountLayout><ShoppinghistoryPage /></AccountLayout>} />
         <Route path={accountUrls.security} element={<AccountLayout><SecurityPage /></AccountLayout>} />
+        <Route path={accountUrls.payments} element={<AccountLayout><PaymentsPage /></AccountLayout>} />
+        <Route path={accountUrls.tracking} element={<AccountLayout><TrackingPage /></AccountLayout>} />
+        <Route path={accountUrls.publishProduct} element={<AccountLayout><PublishProductPage /></AccountLayout>} />
       </Routes>
     </BrowserRouter>
   )

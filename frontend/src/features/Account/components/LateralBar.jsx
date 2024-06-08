@@ -31,6 +31,8 @@ export function LateralBar ({ children }) {
         return 'Mis compras'
       case accountUrls.security:
         return 'Seguridad'
+      case accountUrls.payments:
+        return 'Payments'
       default:
         return 'Overview'
     }

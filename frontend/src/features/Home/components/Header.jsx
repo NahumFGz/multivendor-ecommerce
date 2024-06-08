@@ -32,6 +32,7 @@ import { useSwapTheme } from '../../../store/ThemeStore'
 import { useMediaQuery } from 'react-responsive'
 import { Cart } from './Cart'
 import { Favorites } from './Favorites'
+import { accountUrls } from '../../../routes/urls/accountUrls'
 
 export function Header () {
   const location = useLocation()
@@ -165,13 +166,19 @@ export function Header () {
                   <p className='font-semibold'>johndoe@example.com</p>
                 </DropdownItem>
                 <DropdownItem key='my_account' textValue='Settings'>
-                  Mi cuenta
+                  <Link to={accountUrls.profile}>
+                    Mi cuenta
+                  </Link>
                 </DropdownItem>
                 <DropdownItem key='team_settings' textValue='Team Settings'>
-                  Ver compras
+                  <Link to={accountUrls.shopping}>
+                    Ver compras
+                  </Link>
                 </DropdownItem>
                 <DropdownItem key='analytics' textValue='Analytics'>
-                  Publicar un producto
+                  <Link to={accountUrls.selling}>
+                    Publicar un producto
+                  </Link>
                 </DropdownItem>
                 {isSmallScreen && (
                   theme === 'dark'

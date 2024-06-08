@@ -7,5 +7,8 @@ export const accountUrls = {
   profile: `${accountBasePath}/profile`,
   selling: `${accountBasePath}/selling`,
   shopping: `${accountBasePath}/shopping`,
-  security: `${accountBasePath}/security`
+  security: `${accountBasePath}/security`,
+  payments: `${accountBasePath}/payments`,
+  tracking: `${accountBasePath}/tracking`,
+  publishProduct: `${accountBasePath}/publish-product`
 }

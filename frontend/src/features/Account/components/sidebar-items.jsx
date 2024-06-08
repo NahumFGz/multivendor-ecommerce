@@ -10,25 +10,25 @@ export const sectionItems = [
         key: 'profile',
         to: accountUrls.profile,
         icon: 'solar:user-circle-linear',
-        title: 'Profile'
+        title: 'Perfil'
       },
       {
         key: 'directions',
         to: accountUrls.directions,
         icon: 'solar:route-outline',
-        title: 'Directions'
+        title: 'Direcciones'
       },
       {
         key: 'security',
         to: accountUrls.security,
         icon: 'solar:shield-check-linear',
-        title: 'Security'
+        title: 'Seguridad'
       },
       {
         key: 'payments',
-        to: '#',
+        to: accountUrls.payments,
         icon: 'solar:wallet-outline',
-        title: 'Payments',
+        title: 'Formas de pago',
         endContent: (
           <Chip size='sm' variant='flat'>
             Soon
@@ -42,26 +42,32 @@ export const sectionItems = [
     title: 'Marketplace',
     items: [
       {
-        key: 'dashboard',
+        key: 'statistics',
         to: accountUrls.dashboard,
         icon: 'solar:chart-outline',
-        title: 'Dashboard'
+        title: 'Mis estadísticas'
+      },
+      {
+        key: 'publish_product',
+        to: accountUrls.publishProduct,
+        icon: 'solar:upload-outline',
+        title: 'Publicar producto'
       },
       {
         key: 'selling',
         to: accountUrls.selling,
         icon: 'solar:tag-outline',
-        title: 'Selling'
+        title: 'Mis ventas'
       },
       {
         key: 'shopping',
         to: accountUrls.shopping,
         icon: 'solar:cart-linear',
-        title: 'Shopping'
+        title: 'Mis compras'
       },
       {
         key: 'tracking',
-        to: '#',
+        to: accountUrls.tracking,
         icon: 'solar:pin-outline',
         title: 'Tracking',
         endContent: (
