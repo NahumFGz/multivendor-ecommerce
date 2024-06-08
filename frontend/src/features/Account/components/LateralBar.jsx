@@ -1,15 +1,15 @@
 import React from 'react'
 import { Avatar, Button, Spacer, useDisclosure } from '@nextui-org/react'
-import { Icon } from '@iconify/react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { Icon } from '@iconify/react'
 
 import { AcmeLogo } from '../../../assets/AcmeLogo'
 import { sectionItems } from './SidebarItems'
-import SidebarDrawer from './SidebarDrawer'
-import Sidebar from './Sidebar'
 import { accountUrls } from '../../../routes/urls/accountUrls'
 import { useSwapTheme } from '../../../store/ThemeStore'
 import { homeUrls } from '../../../routes/urls/homeUrls'
+import SidebarDrawer from './SidebarDrawer'
+import Sidebar from './Sidebar'
 
 export function LateralBar ({ children }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -24,7 +24,7 @@ export function LateralBar ({ children }) {
       case accountUrls.directions:
         return 'Directions'
       case accountUrls.profile:
-        return 'Profile'
+        return 'Perfil de usuario'
       case accountUrls.selling:
         return 'Mis ventas'
       case accountUrls.shopping:
