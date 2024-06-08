@@ -1,5 +1,5 @@
 import { Accordion, AccordionItem, Listbox, Tooltip, ListboxItem, ListboxSection, cn } from '@nextui-org/react'
-import React from 'react'
+import { useState, useEffect, forwardRef } from 'react'
 import { Icon } from '@iconify/react'
 import { useNavigate, useLocation } from 'react-router-dom'
 
@@ -7,7 +7,7 @@ export const SidebarItemType = {
   Nest: 'nest'
 }
 
-const Sidebar = React.forwardRef(
+const Sidebar = forwardRef(
   (
     {
       items,
@@ -25,7 +25,7 @@ const Sidebar = React.forwardRef(
     ref
   ) => {
     const location = useLocation()
-    const [selected, setSelected] = React.useState(defaultSelectedKey)
+    const [selected, setSelected] = useState(defaultSelectedKey)
     const navigate = useNavigate()
 
     const handleClick = (to) => {
@@ -34,7 +34,7 @@ const Sidebar = React.forwardRef(
       }
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
       const currentPath = location.pathname
       const selectedItem = items.flatMap(section => section.items).find(item => item.to === currentPath)
       if (selectedItem) {
@@ -193,26 +193,26 @@ const Sidebar = React.forwardRef(
                     content: 'py-0 pl-4'
                   }}
                   title={
-                  item.icon
-                    ? (
-                      <div className='flex h-11 items-center gap-2 px-2 py-1.5'>
-                        <Icon
-                          className={cn(
-                            'text-default-500 group-data-[selected=true]:text-foreground',
-                            iconClassName
-                          )}
-                          icon={item.icon}
-                          width={24}
-                        />
-                        <span className='text-small font-medium text-default-500 group-data-[selected=true]:text-foreground'>
-                          {item.title}
-                        </span>
-                      </div>
-                      )
-                    : (
-                        item.startContent ?? null
-                      )
-                }
+                    item.icon
+                      ? (
+                        <div className='flex h-11 items-center gap-2 px-2 py-1.5'>
+                          <Icon
+                            className={cn(
+                              'text-default-500 group-data-[selected=true]:text-foreground',
+                              iconClassName
+                            )}
+                            icon={item.icon}
+                            width={24}
+                          />
+                          <span className='text-small font-medium text-default-500 group-data-[selected=true]:text-foreground'>
+                            {item.title}
+                          </span>
+                        </div>
+                        )
+                      : (
+                          item.startContent ?? null
+                        )
+                  }
                 >
                   {item.items && item.items?.length > 0
                     ? (
