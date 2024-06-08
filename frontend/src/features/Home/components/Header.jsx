@@ -176,7 +176,7 @@ export function Header () {
                   </Link>
                 </DropdownItem>
                 <DropdownItem key='analytics' textValue='Analytics'>
-                  <Link to={accountUrls.selling}>
+                  <Link to={accountUrls.publishProduct}>
                     Publicar un producto
                   </Link>
                 </DropdownItem>

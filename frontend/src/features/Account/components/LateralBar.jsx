@@ -32,7 +32,11 @@ export function LateralBar ({ children }) {
       case accountUrls.security:
         return 'Seguridad'
       case accountUrls.payments:
-        return 'Payments'
+        return 'Formas de pago'
+      case accountUrls.tracking:
+        return 'Tracking'
+      case accountUrls.publishProduct:
+        return 'Publicar producto'
       default:
         return 'Overview'
     }
