@@ -11,8 +11,8 @@ export function Register () {
   const toggleConfirmVisibility = () => setIsConfirmVisible(!isConfirmVisible)
 
   const genderOptions = [
-    { label: 'S', value: 'S' },
     { label: 'M', value: 'M' },
+    { label: 'F', value: 'F' },
     { label: 'Other', value: 'Other' }
   ]
 
@@ -55,7 +55,6 @@ export function Register () {
             label='Gender'
             placeholder='Select your gender'
             variant='bordered'
-            isRequired
           >
             {genderOptions.map(gender => (
               <SelectItem key={gender.value} value={gender.value}>
