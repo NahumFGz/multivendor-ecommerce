@@ -109,20 +109,6 @@ export function Register () {
           <p className='shrink-0 text-tiny text-default-500'>OR</p>
           <Divider className='flex-1' />
         </div>
-        <div className='flex flex-col gap-2'>
-          <Button
-            startContent={<Icon icon='flat-color-icons:google' width={24} />}
-            variant='bordered'
-          >
-            Continue with Google
-          </Button>
-          <Button
-            startContent={<Icon className='text-default-500' icon='fe:github' width={24} />}
-            variant='bordered'
-          >
-            Continue with Github
-          </Button>
-        </div>
         <p className='text-center text-small'>
           Already have an account?&nbsp;
           <Link href='#' size='sm'>

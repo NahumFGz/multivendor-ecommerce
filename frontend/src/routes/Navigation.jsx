@@ -16,6 +16,9 @@ import { ProfilePage } from '../features/Account/pages/ProfilePage'
 import { SellingHistoryPage } from '../features/Account/pages/SellingHistoryPage'
 import { ShoppinghistoryPage } from '../features/Account/pages/ShoppinghistoryPage'
 import { SecurityPage } from '../features/Account/pages/SecurityPage'
+import { PaymentsPage } from '../features/Account/pages/PaymentsPage'
+import { TrackingPage } from '../features/Account/pages/TrackingPage'
+import { PublishProductPage } from '../features/Account/pages/PublishProductPage'
 
 import { authUrls } from './urls/authUrls'
 import { AuthLayout } from '../features/Auth/layouts/AuthLayout'
@@ -23,9 +26,8 @@ import { LoginPage } from '../features/Auth/pages/LoginPage'
 import { RegisterPage } from '../features/Auth/pages/RegisterPage'
 import { PasswordResetPage } from '../features/Auth/pages/PasswordResetPage'
 import { ForgotPasswordPage } from '../features/Auth/pages/ForgotPasswordPage'
-import { PaymentsPage } from '../features/Account/pages/PaymentsPage'
-import { TrackingPage } from '../features/Account/pages/TrackingPage'
-import { PublishProductPage } from '../features/Account/pages/PublishProductPage'
+import { PrivacyPolicyPage } from '../features/Auth/pages/PrivacyPolicyPage'
+import { TermsOfServicePage } from '../features/Auth/pages/TermsOfServicePage'
 
 export function Navigation () {
   return (
@@ -43,6 +45,8 @@ export function Navigation () {
         <Route path={authUrls.register} element={<AuthLayout><RegisterPage /></AuthLayout>} />
         <Route path={authUrls.forgotPassword} element={<AuthLayout><ForgotPasswordPage /></AuthLayout>} />
         <Route path={authUrls.passwordReset} element={<AuthLayout><PasswordResetPage /></AuthLayout>} />
+        <Route path={authUrls.privacyPolicy} element={<AuthLayout><PrivacyPolicyPage /></AuthLayout>} />
+        <Route path={authUrls.termsOfService} element={<AuthLayout><TermsOfServicePage /></AuthLayout>} />
 
         <Route path={accountUrls.base} element={<Navigate to={accountUrls.dashboard} />} />
         <Route path={accountUrls.dashboard} element={<AccountLayout><DashboardPage /></AccountLayout>} />
