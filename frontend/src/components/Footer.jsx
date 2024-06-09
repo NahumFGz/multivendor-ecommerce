@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { Divider, Link } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 
-import { AcmeIcon } from '../../../assets/Social'
+import { AcmeIcon } from '../assets/Social'
 import { ThemeSwitch } from './ThemeSwitch'
 
 const footerNavigation = {

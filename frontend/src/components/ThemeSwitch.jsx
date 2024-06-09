@@ -1,6 +1,6 @@
 import { Button } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-import { useSwapTheme } from '../../../store/ThemeStore'
+import { useSwapTheme } from '../store/ThemeStore'
 
 export function ThemeSwitch () {
   const { handleSwapTheme: toggleTheme, theme } = useSwapTheme()
