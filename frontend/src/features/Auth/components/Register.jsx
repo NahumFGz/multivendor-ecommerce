@@ -1,7 +1,6 @@
 import React from 'react'
-import { Button, Input, Checkbox, Link, Divider } from '@nextui-org/react'
+import { Button, Input, Checkbox, Link, Divider, Select, SelectItem, DatePicker } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-
 import { AcmeIcon } from '../../../assets/Social'
 
 export function Register () {
@@ -10,6 +9,12 @@ export function Register () {
 
   const toggleVisibility = () => setIsVisible(!isVisible)
   const toggleConfirmVisibility = () => setIsConfirmVisible(!isConfirmVisible)
+
+  const genderOptions = [
+    { label: 'S', value: 'S' },
+    { label: 'M', value: 'M' },
+    { label: 'Other', value: 'Other' }
+  ]
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
@@ -22,19 +27,48 @@ export function Register () {
         <form className='flex flex-col gap-3' onSubmit={(e) => e.preventDefault()}>
           <Input
             isRequired
-            label='Username'
-            name='username'
-            placeholder='Enter your username'
-            type='text'
+            label='Email Address'
+            name='email'
+            placeholder='Enter your email'
+            type='email'
             variant='bordered'
           />
 
           <Input
             isRequired
-            label='Email Address'
-            name='email'
-            placeholder='Enter your email'
-            type='email'
+            label='First Name'
+            name='firstName'
+            placeholder='Enter your first name'
+            type='text'
+            variant='bordered'
+          />
+
+          <Input
+            label='Last Name'
+            name='lastName'
+            placeholder='Enter your last name'
+            type='text'
+            variant='bordered'
+          />
+
+          <Select
+            label='Gender'
+            placeholder='Select your gender'
+            variant='bordered'
+            isRequired
+          >
+            {genderOptions.map(gender => (
+              <SelectItem key={gender.value} value={gender.value}>
+                {gender.label}
+              </SelectItem>
+            ))}
+          </Select>
+
+          <DatePicker
+            isRequired
+            label='Birth Date'
+            placeholder='Select your birth date'
+            type='date'
             variant='bordered'
           />
 
