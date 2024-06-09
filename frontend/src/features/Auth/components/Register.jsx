@@ -1,18 +1,19 @@
-import React from 'react'
-import { Button, Input, Checkbox, Link, Divider, Select, SelectItem, DatePicker } from '@nextui-org/react'
+import React, { useState } from 'react'
+import { Button, Input, Checkbox, Link, Divider, Select, SelectItem, DateInput } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 import { AcmeIcon } from '../../../assets/Social'
 
 export function Register () {
-  const [isVisible, setIsVisible] = React.useState(false)
-  const [isConfirmVisible, setIsConfirmVisible] = React.useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const [isConfirmVisible, setIsConfirmVisible] = useState(false)
+  const [birthDate, setBirthDate] = useState(null)
 
   const toggleVisibility = () => setIsVisible(!isVisible)
   const toggleConfirmVisibility = () => setIsConfirmVisible(!isConfirmVisible)
 
   const genderOptions = [
+    { label: 'S', value: 'S' },
     { label: 'M', value: 'M' },
-    { label: 'F', value: 'F' },
     { label: 'Other', value: 'Other' }
   ]
 
@@ -27,10 +28,10 @@ export function Register () {
         <form className='flex flex-col gap-3' onSubmit={(e) => e.preventDefault()}>
           <Input
             isRequired
-            label='Email Address'
-            name='email'
-            placeholder='Enter your email'
-            type='email'
+            label='Username'
+            name='username'
+            placeholder='Enter your username'
+            type='text'
             variant='bordered'
           />
 
@@ -44,6 +45,7 @@ export function Register () {
           />
 
           <Input
+            isRequired
             label='Last Name'
             name='lastName'
             placeholder='Enter your last name'
@@ -51,10 +53,20 @@ export function Register () {
             variant='bordered'
           />
 
+          <Input
+            isRequired
+            label='Email Address'
+            name='email'
+            placeholder='Enter your email'
+            type='email'
+            variant='bordered'
+          />
+
           <Select
             label='Gender'
             placeholder='Select your gender'
             variant='bordered'
+            required
           >
             {genderOptions.map(gender => (
               <SelectItem key={gender.value} value={gender.value}>
@@ -63,11 +75,12 @@ export function Register () {
             ))}
           </Select>
 
-          <DatePicker
+          <DateInput
             isRequired
             label='Birth Date'
-            placeholder='Select your birth date'
-            type='date'
+            value={birthDate}
+            onChange={setBirthDate}
+            className='max-w-xs'
             variant='bordered'
           />
 
