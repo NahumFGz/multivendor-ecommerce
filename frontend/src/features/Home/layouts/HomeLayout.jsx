@@ -1,3 +1,4 @@
+import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 
 export function HomeLayout ({ children }) {
@@ -7,6 +8,7 @@ export function HomeLayout ({ children }) {
       <div className='flex-1 overflow-y-auto'>
         {children}
       </div>
+      <Footer />
     </div>
   )
 }
