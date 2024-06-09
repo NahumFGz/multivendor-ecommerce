@@ -1,62 +1,28 @@
-import { RadioGroup, VisuallyHidden, useRadio, useRadioGroupContext, cn } from '@nextui-org/react'
+import { Button } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-import { forwardRef } from 'react'
+import { useSwapTheme } from '../../../store/ThemeStore'
 
-const ThemeRadioItem = ({ icon, ...props }) => {
-  const {
-    Component,
-    isSelected: isSelfSelected,
-    getBaseProps,
-    getInputProps,
-    getWrapperProps
-  } = useRadio(props)
-
-  const groupContext = useRadioGroupContext()
-
-  const isSelected =
-    isSelfSelected || Number(groupContext.groupState.selectedValue) >= Number(props.value)
-
-  const wrapperProps = getWrapperProps()
+export function ThemeSwitch () {
+  const { handleSwapTheme: toggleTheme, theme } = useSwapTheme()
 
   return (
-    <Component {...getBaseProps()}>
-      <VisuallyHidden>
-        <input {...getInputProps()} />
-      </VisuallyHidden>
-      <div
-        {...wrapperProps}
-        className={cn(
-          wrapperProps?.className,
-          'pointer-events-none h-8 w-8 rounded-full border-black border-opacity-10 ring-0 transition-transform group-data-[pressed=true]:scale-90',
-          {
-            'bg-default-200 dark:bg-default-100': isSelected
-          }
-        )}
-      >
-        <Icon className='text-default-500' icon={icon} width={18} />
+    <div className='flex items-center'>
+      {
+        theme === 'dark'
+          ? <p className='text-small text-default-400'>Dark Mode</p>
+          : <p className='text-small text-default-400'>Ligth Mode</p>
+      }
+      <div className=''>
+        <Button
+          isIconOnly
+          radius='full'
+          variant='light'
+          onClick={toggleTheme}
+          className='bg-transparent'
+        >
+          <Icon className='text-small text-default-500' icon='solar:sun-linear' width={24} />
+        </Button>
       </div>
-    </Component>
+    </div>
   )
 }
-
-const ThemeSwitch = forwardRef(({ classNames = {}, ...props }, ref) => (
-  <RadioGroup
-    ref={ref}
-    aria-label='Select a theme'
-    classNames={{
-      ...classNames,
-      wrapper: cn('gap-0 items-center', classNames?.wrapper)
-    }}
-    defaultValue='dark'
-    orientation='horizontal'
-    {...props}
-  >
-    <ThemeRadioItem icon='solar:moon-linear' value='dark' />
-    <ThemeRadioItem icon='solar:sun-2-linear' value='light' />
-    <ThemeRadioItem icon='solar:monitor-linear' value='system' />
-  </RadioGroup>
-))
-
-ThemeSwitch.displayName = 'ThemeSwitch'
-
-export default ThemeSwitch

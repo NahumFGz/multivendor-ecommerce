@@ -3,7 +3,7 @@ import { Divider, Link } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 
 import { AcmeIcon } from '../../../assets/Social'
-import ThemeSwitch from './ThemeSwitch'
+import { ThemeSwitch } from './ThemeSwitch'
 
 const footerNavigation = {
   services: [
@@ -116,7 +116,7 @@ export function Footer () {
           </div>
         </div>
         <Divider className='mt-16 sm:mt-20 lg:mt-24' />
-        <div className='flex flex-wrap justify-between gap-2 pt-8'>
+        <div className='flex flex-wrap items-center justify-between gap-2 pt-8'>
           <p className='text-small text-default-400'>&copy; 2024 Acme Inc. All rights reserved.</p>
           <ThemeSwitch />
         </div>
