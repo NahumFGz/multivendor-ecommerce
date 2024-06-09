@@ -1,9 +1,7 @@
 export function AuthLayout ({ children }) {
   return (
-    <div className='flex flex-col'>
-      <div className='mt-10 h-[700px]'>
-        {children}
-      </div>
+    <div className='flex items-center justify-center'>
+      {children}
     </div>
   )
 }
