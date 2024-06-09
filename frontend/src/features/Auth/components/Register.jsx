@@ -1,21 +1,15 @@
-import React, { useState } from 'react'
-import { Button, Input, Checkbox, Link, Divider, Select, SelectItem, DateInput } from '@nextui-org/react'
+import React from 'react'
+import { Button, Input, Checkbox, Link, Divider } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
+
 import { AcmeIcon } from '../../../assets/Social'
 
 export function Register () {
-  const [isVisible, setIsVisible] = useState(false)
-  const [isConfirmVisible, setIsConfirmVisible] = useState(false)
-  const [birthDate, setBirthDate] = useState(null)
+  const [isVisible, setIsVisible] = React.useState(false)
+  const [isConfirmVisible, setIsConfirmVisible] = React.useState(false)
 
   const toggleVisibility = () => setIsVisible(!isVisible)
   const toggleConfirmVisibility = () => setIsConfirmVisible(!isConfirmVisible)
-
-  const genderOptions = [
-    { label: 'S', value: 'S' },
-    { label: 'M', value: 'M' },
-    { label: 'Other', value: 'Other' }
-  ]
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
@@ -37,50 +31,10 @@ export function Register () {
 
           <Input
             isRequired
-            label='First Name'
-            name='firstName'
-            placeholder='Enter your first name'
-            type='text'
-            variant='bordered'
-          />
-
-          <Input
-            isRequired
-            label='Last Name'
-            name='lastName'
-            placeholder='Enter your last name'
-            type='text'
-            variant='bordered'
-          />
-
-          <Input
-            isRequired
             label='Email Address'
             name='email'
             placeholder='Enter your email'
             type='email'
-            variant='bordered'
-          />
-
-          <Select
-            label='Gender'
-            placeholder='Select your gender'
-            variant='bordered'
-            required
-          >
-            {genderOptions.map(gender => (
-              <SelectItem key={gender.value} value={gender.value}>
-                {gender.label}
-              </SelectItem>
-            ))}
-          </Select>
-
-          <DateInput
-            isRequired
-            label='Birth Date'
-            value={birthDate}
-            onChange={setBirthDate}
-            className='max-w-xs'
             variant='bordered'
           />
 
@@ -154,6 +108,20 @@ export function Register () {
           <Divider className='flex-1' />
           <p className='shrink-0 text-tiny text-default-500'>OR</p>
           <Divider className='flex-1' />
+        </div>
+        <div className='flex flex-col gap-2'>
+          <Button
+            startContent={<Icon icon='flat-color-icons:google' width={24} />}
+            variant='bordered'
+          >
+            Continue with Google
+          </Button>
+          <Button
+            startContent={<Icon className='text-default-500' icon='fe:github' width={24} />}
+            variant='bordered'
+          >
+            Continue with Github
+          </Button>
         </div>
         <p className='text-center text-small'>
           Already have an account?&nbsp;
