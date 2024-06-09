@@ -29,7 +29,6 @@ import { Notifications } from './Notifications'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { homeUrls } from '../routes/urls/homeUrls'
 import { useSwapTheme } from '../store/ThemeStore'
-import { useMediaQuery } from 'react-responsive'
 import { Cart } from './Cart'
 import { Favorites } from './Favorites'
 import { accountUrls } from '../routes/urls/accountUrls'
@@ -38,7 +37,6 @@ export function Header () {
   const location = useLocation()
   const navigate = useNavigate()
   const { handleSwapTheme, theme } = useSwapTheme()
-  const isSmallScreen = useMediaQuery({ query: '(max-width: 640px)' })
 
   const handleDropdownClick = (url) => {
     navigate(url)
@@ -49,11 +47,12 @@ export function Header () {
   }
 
   const getActiveTab = () => {
+    if (location.pathname === homeUrls.home) return 'home'
     if (location.pathname.startsWith(homeUrls.products)) return 'products'
     if (location.pathname.startsWith(homeUrls.boardGames)) return 'boardgames'
     if (location.pathname.startsWith(homeUrls.marketplace)) return 'marketplace'
     if (location.pathname.startsWith(homeUrls.promos)) return 'promos'
-    return 'home'
+    return null
   }
 
   return (
@@ -91,13 +90,13 @@ export function Header () {
             />
           </NavbarItem>
           {/* Swap theme */}
-          <NavbarItem className='hidden md:flex'>
+          {/* <NavbarItem className='hidden md:flex'>
             <Button isIconOnly radius='full' variant='light' onClick={handleSwapTheme}>
               {theme === 'dark'
                 ? <Icon className='text-default-500' icon='solar:sun-linear' width={24} />
                 : <Icon className='text-default-500' icon='solar:moon-linear' width={22} />}
             </Button>
-          </NavbarItem>
+          </NavbarItem> */}
           {/* Notifications */}
           <NavbarItem className='hidden md:flex'>
             <Popover offset={12} placement='bottom-end'>
@@ -185,11 +184,11 @@ export function Header () {
                 <DropdownItem key='analytics' textValue='Analytics' onClick={() => handleDropdownClick(accountUrls.publishProduct)}>
                   Publicar un producto
                 </DropdownItem>
-                {isSmallScreen && (
+                {
                   theme === 'dark'
-                    ? <DropdownItem key='light' textValue='Light Mode' onClick={handleSwapTheme}>Light mode</DropdownItem>
-                    : <DropdownItem key='dark' textValue='Dark Mode' onClick={handleSwapTheme}>Dark mode</DropdownItem>
-                )}
+                    ? <DropdownItem key='light' textValue='Light Mode' onClick={handleSwapTheme}>Activar modo claro</DropdownItem>
+                    : <DropdownItem key='dark' textValue='Dark Mode' onClick={handleSwapTheme}>Activar modo oscuro</DropdownItem>
+                }
                 <DropdownItem key='logout' color='danger' textValue='Log Out'>
                   Cerrar sesion
                 </DropdownItem>

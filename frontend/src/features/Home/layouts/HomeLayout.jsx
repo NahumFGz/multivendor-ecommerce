@@ -7,7 +7,7 @@ export function HomeLayout ({ children }) {
       <div>
         <Header />
       </div>
-      <div className=''>
+      <div className='mt-10 h-[700px]'>
         {children}
       </div>
       <div>
