@@ -42,8 +42,26 @@ export function Header () {
     navigate(url)
   }
 
-  const handleTabClick = (url) => {
-    navigate(url)
+  const handleTabChange = (key) => {
+    switch (key) {
+      case 'home':
+        navigate(homeUrls.home)
+        break
+      case 'products':
+        navigate(homeUrls.products)
+        break
+      case 'boardgames':
+        navigate(homeUrls.boardGames)
+        break
+      case 'marketplace':
+        navigate(homeUrls.marketplace)
+        break
+      case 'promos':
+        navigate(homeUrls.promos)
+        break
+      default:
+        break
+    }
   }
 
   const getActiveTab = () => {
@@ -245,20 +263,19 @@ export function Header () {
             radius='full'
             variant='underlined'
             selectedKey={getActiveTab()}
+            onSelectionChange={handleTabChange}
           >
-            <Tab key='home' title={<span onClick={() => handleTabClick(homeUrls.home)}>Home</span>} />
-            <Tab key='products' title={<span onClick={() => handleTabClick(homeUrls.products)}>Productos</span>} />
-            <Tab key='boardgames' title={<span onClick={() => handleTabClick(homeUrls.boardGames)}>Juegos de mesa</span>} />
-            <Tab key='marketplace' title={<span onClick={() => handleTabClick(homeUrls.marketplace)}>Marketplace</span>} />
+            <Tab key='home' title='Home' />
+            <Tab key='products' title='Productos' />
+            <Tab key='boardgames' title='Juegos de mesa' />
+            <Tab key='marketplace' title='Marketplace' />
             <Tab
               key='promos'
               title={
-                <span onClick={() => handleTabClick(homeUrls.promos)}>
-                  <div className='flex items-center gap-2'>
-                    <p>Promos</p>
-                    <Chip size='sm'>9</Chip>
-                  </div>
-                </span>
+                <div className='flex items-center gap-2'>
+                  <p>Promos</p>
+                  <Chip size='sm'>9</Chip>
+                </div>
               }
             />
           </Tabs>
