@@ -9,8 +9,8 @@ export function ThemeSwitch () {
     <div className='flex items-center'>
       {
         theme === 'dark'
-          ? <p className='text-small text-default-400'>Dark Mode</p>
-          : <p className='text-small text-default-400'>Ligth Mode</p>
+          ? <p className='text-small text-default-400'>Swap ligth Mode</p>
+          : <p className='text-small text-default-400'>Swap dark Mode</p>
       }
       <div className=''>
         <Button
@@ -20,7 +20,11 @@ export function ThemeSwitch () {
           onClick={toggleTheme}
           className='bg-transparent'
         >
-          <Icon className='text-small text-default-500' icon='solar:sun-linear' width={24} />
+          {
+            theme === 'dark'
+              ? <Icon className='text-small text-default-500' icon='solar:sun-linear' width={24} />
+              : <Icon className='text-small text-default-500' icon='solar:moon-linear' width={22} />
+          }
         </Button>
       </div>
     </div>
