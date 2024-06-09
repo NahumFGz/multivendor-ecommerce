@@ -1,6 +1,6 @@
 export function AuthLayout ({ children }) {
   return (
-    <div className='flex items-center justify-center'>
+    <div className='h-screen w-screen'>
       {children}
     </div>
   )

@@ -1,11 +1,11 @@
-import { Button, Input, Checkbox, Link } from '@nextui-org/react'
+import React from 'react'
+import { Button, Input, Checkbox, Link, Divider } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 
 import { AcmeIcon } from '../../../assets/Social'
-import { useState } from 'react'
 
 export function Login () {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = React.useState(false)
 
   const toggleVisibility = () => setIsVisible(!isVisible)
 
@@ -63,6 +63,25 @@ export function Login () {
             Log In
           </Button>
         </form>
+        <div className='flex items-center gap-4'>
+          <Divider className='flex-1' />
+          <p className='shrink-0 text-tiny text-default-500'>OR</p>
+          <Divider className='flex-1' />
+        </div>
+        <div className='flex flex-col gap-2'>
+          <Button
+            startContent={<Icon icon='flat-color-icons:google' width={24} />}
+            variant='bordered'
+          >
+            Continue with Google
+          </Button>
+          <Button
+            startContent={<Icon className='text-default-500' icon='fe:github' width={24} />}
+            variant='bordered'
+          >
+            Continue with Github
+          </Button>
+        </div>
         <p className='text-center text-small'>
           Need to create an account?&nbsp;
           <Link href='#' size='sm'>
