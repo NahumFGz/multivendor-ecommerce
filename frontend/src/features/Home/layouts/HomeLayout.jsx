@@ -4,11 +4,15 @@ import { Header } from '../../../components/Header'
 export function HomeLayout ({ children }) {
   return (
     <div className='flex flex-col'>
-      <Header />
-      <div className='flex-1 overflow-y-auto'>
+      <div>
+        <Header />
+      </div>
+      <div className=''>
         {children}
       </div>
-      <Footer />
+      <div>
+        <Footer />
+      </div>
     </div>
   )
 }
