@@ -1,10 +1,22 @@
 import React from 'react'
-import { Button, Input, Checkbox, Link, Divider } from '@nextui-org/react'
+import { Button, Input, Checkbox, Link, Divider, Select, SelectItem } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-
 import { AcmeIcon } from '../../../assets/Social'
 import { useNavigate } from 'react-router-dom'
 import { authUrls } from '../../../routes/urls/authUrls'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+
+// Esquema de validación con Yup
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email address').required('Email is required'),
+  firstName: Yup.string().required('First name is required'),
+  lastName: Yup.string().required('Last name is required'),
+  birthday: Yup.string().matches(/^\d{2}-\d{2}-\d{4}$/, 'Birthday must be in dd-mm-yyyy format').required('Birthday is required'),
+  gender: Yup.string().required('Gender is required'),
+  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+  confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required')
+})
 
 export function Register () {
   const navigate = useNavigate()
@@ -18,6 +30,23 @@ export function Register () {
     navigate(url)
   }
 
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      firstName: '',
+      lastName: '',
+      birthday: '',
+      gender: '',
+      password: '',
+      confirmPassword: ''
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      // Handle form submission
+      console.log(values)
+    }
+  })
+
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
       <div className='flex flex-col items-center pb-2'>
@@ -26,15 +55,82 @@ export function Register () {
         <p className='text-small text-default-500'>Create your account to get started</p>
       </div>
       <div className='mt-2 flex w-full max-w-sm flex-col gap-4 rounded-large bg-content1 px-8 py-6 shadow-small'>
-        <form className='flex flex-col gap-3' onSubmit={(e) => e.preventDefault()}>
-
+        <form className='flex flex-col gap-3' onSubmit={formik.handleSubmit}>
           <Input
             label='Email Address'
             name='email'
             placeholder='Enter your email'
             type='email'
             variant='bordered'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            className={formik.touched.email && formik.errors.email ? 'border-red-500' : ''}
           />
+
+          <Input
+            label='First Name'
+            name='firstName'
+            placeholder='Enter your first name'
+            type='text'
+            variant='bordered'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.firstName}
+            className={formik.touched.firstName && formik.errors.firstName ? 'border-red-500' : ''}
+          />
+
+          <Input
+            label='Last Name'
+            name='lastName'
+            placeholder='Enter your last name'
+            type='text'
+            variant='bordered'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.lastName}
+            className={formik.touched.lastName && formik.errors.lastName ? 'border-red-500' : ''}
+          />
+
+          <Input
+            label='Birthday'
+            name='birthday'
+            placeholder='dd-mm-yyyy'
+            type='text'
+            variant='bordered'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.birthday}
+            className={formik.touched.birthday && formik.errors.birthday ? 'border-red-500' : ''}
+          />
+
+          <Select
+            id='gender'
+            name='gender'
+            aria-label='Gender'
+            color='default'
+            placeholder='Select your gender'
+            label='Gender'
+            variant='bordered'
+            defaultSelectedKeys={[formik.values.gender]}
+            className='max-w-xs'
+            onSelectionChange={(key) => formik.setFieldValue('gender', key.anchorKey)}
+          >
+            <SelectItem key='male' value='male'>
+              Masculino
+            </SelectItem>
+            <SelectItem key='female' value='female'>
+              Femenino
+            </SelectItem>
+            <SelectItem key='other' value='other'>
+              Otro
+            </SelectItem>
+          </Select>
+          {formik.touched.gender && formik.errors.gender
+            ? (
+              <div className='text-red-500'>{formik.errors.gender}</div>
+              )
+            : null}
 
           <Input
             endContent={
@@ -59,6 +155,10 @@ export function Register () {
             placeholder='Enter your password'
             type={isVisible ? 'text' : 'password'}
             variant='bordered'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+            className={formik.touched.password && formik.errors.password ? 'border-red-500' : ''}
           />
 
           <Input
@@ -84,9 +184,20 @@ export function Register () {
             placeholder='Confirm your password'
             type={isConfirmVisible ? 'text' : 'password'}
             variant='bordered'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.confirmPassword}
+            className={formik.touched.confirmPassword && formik.errors.confirmPassword ? 'border-red-500' : ''}
           />
 
-          <Checkbox className='py-4' size='sm'>
+          <Checkbox
+            className='py-4'
+            size='sm'
+            name='terms'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            checked={formik.values.terms}
+          >
             I agree with the&nbsp;
             <Link
               size='sm'
