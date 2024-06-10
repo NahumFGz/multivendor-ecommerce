@@ -225,7 +225,6 @@ export function Register () {
             className='py-4'
             size='sm'
             onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
             isSelected={formik.values.terms}
           >
             I agree with the&nbsp;
