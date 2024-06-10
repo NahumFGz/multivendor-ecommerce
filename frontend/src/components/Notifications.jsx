@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Button,
   Card,
@@ -13,6 +12,7 @@ import {
 import { Icon } from '@iconify/react'
 
 import NotificationItem from './NotificationItem'
+import { useState } from 'react'
 // eslint-disable-next-line no-var
 var NotificationTabs = /* #__PURE__ */ (function (NotificationTabs) {
   NotificationTabs.All = 'all'
@@ -110,7 +110,7 @@ const notifications = {
 }
 
 export function Notifications (props) {
-  const [activeTab, setActiveTab] = React.useState(NotificationTabs.All)
+  const [activeTab, setActiveTab] = useState(NotificationTabs.All)
 
   const activeNotifications = notifications[activeTab]
 

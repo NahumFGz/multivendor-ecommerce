@@ -1,8 +1,8 @@
-import React from 'react'
 import { Avatar, Badge, Button, cn } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
+import { forwardRef } from 'react'
 
-const NotificationItem = React.forwardRef(
+const NotificationItem = forwardRef(
   ({ children, avatar, name, description, type, time, isRead, className, ...props }, ref) => {
     /**
      * Defines the content for different types of notifications.

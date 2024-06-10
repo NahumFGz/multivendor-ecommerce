@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { Divider, Link } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 
