@@ -1,7 +1,7 @@
 import { Button, Input, Checkbox, Link, Divider } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 import { AcmeIcon } from '../../../assets/Social'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authUrls } from '../../../routes/urls/authUrls'
 import { useFormik } from 'formik'
@@ -22,6 +22,7 @@ export function Login () {
   const toggleVisibility = () => setIsVisible(!isVisible)
 
   const { loginAccess, authMe } = useAuthAPI()
+  const isAuth = useAuthStore((store) => store.isAuth)
   const setToken = useAuthStore((state) => state.setToken)
   const setProfile = useAuthStore((state) => state.setProfile)
   const setRmenberMe = useAuthStore((state) => state.setRememberMe)
@@ -43,7 +44,7 @@ export function Login () {
         setProfile(responseMe)
 
         // Redirect to the home page
-        navigate('/home')
+        navigate(homeUrls.home)
       } catch (error) {
         toast.error(error.message)
       }
@@ -54,6 +55,12 @@ export function Login () {
   const handleNavigate = (url) => {
     navigate(url)
   }
+
+  useEffect(() => {
+    if (isAuth) navigate(homeUrls.home)
+  }, [isAuth])
+
+  if (isAuth) return null
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
