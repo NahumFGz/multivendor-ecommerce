@@ -74,48 +74,56 @@ export function Register () {
       <div className='mt-2 flex w-full max-w-sm flex-col gap-4 rounded-large bg-content1 px-8 py-6 shadow-small'>
         <form className='flex flex-col gap-3' onSubmit={formik.handleSubmit}>
           <Input
-            label='Email Address'
+            id='email'
             name='email'
+            label='Email Address'
             placeholder='Enter your email'
             type='email'
             variant={formik.touched.email && formik.errors.email ? 'flat' : 'bordered'}
             color={formik.touched.email && formik.errors.email ? 'danger' : 'default'}
+            autocomplete='email'
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
           />
 
           <Input
-            label='First Name'
+            id='firstName'
             name='firstName'
+            label='First Name'
             placeholder='Enter your first name'
             type='text'
             variant={formik.touched.firstName && formik.errors.firstName ? 'flat' : 'bordered'}
             color={formik.touched.firstName && formik.errors.firstName ? 'danger' : 'default'}
+            autocomplete='given-name'
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.firstName}
           />
 
           <Input
-            label='Last Name'
+            id='lastName'
             name='lastName'
+            label='Last Name'
             placeholder='Enter your last name'
             type='text'
             variant={formik.touched.lastName && formik.errors.lastName ? 'flat' : 'bordered'}
             color={formik.touched.lastName && formik.errors.lastName ? 'danger' : 'default'}
+            autocomplete='family-name'
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.lastName}
           />
 
           <Input
-            label='Birthday'
+            id='birthday'
             name='birthday'
+            label='Birthday'
             placeholder='dd-mm-yyyy'
             type='text'
             variant={formik.touched.birthday && formik.errors.birthday ? 'flat' : 'bordered'}
             color={formik.touched.birthday && formik.errors.birthday ? 'danger' : 'default'}
+            autocomplete='bday'
             onChange={(e) => {
               const formattedValue = formatDate(e.target.value)
               formik.setFieldValue('birthday', formattedValue)
@@ -148,6 +156,8 @@ export function Register () {
           </Select>
 
           <Input
+            id='password'
+            name='password'
             endContent={
               <button type='button' onClick={toggleVisibility}>
                 {isVisible
@@ -166,11 +176,11 @@ export function Register () {
               </button>
             }
             label='Password'
-            name='password'
             placeholder='Enter your password'
             type={isVisible ? 'text' : 'password'}
             variant={formik.touched.password && formik.errors.password ? 'flat' : 'bordered'}
             color={formik.touched.password && formik.errors.password ? 'danger' : 'default'}
+            autocomplete='new-password'
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
@@ -178,6 +188,8 @@ export function Register () {
           />
 
           <Input
+            id='confirmPassword'
+            name='confirmPassword'
             endContent={
               <button type='button' onClick={toggleConfirmVisibility}>
                 {isConfirmVisible
@@ -196,11 +208,11 @@ export function Register () {
               </button>
             }
             label='Confirm Password'
-            name='confirmPassword'
             placeholder='Confirm your password'
             type={isConfirmVisible ? 'text' : 'password'}
             variant={formik.touched.confirmPassword && formik.errors.confirmPassword ? 'flat' : 'bordered'}
             color={formik.touched.confirmPassword && formik.errors.confirmPassword ? 'danger' : 'default'}
+            autocomplete='new-password'
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.confirmPassword}
@@ -208,9 +220,10 @@ export function Register () {
           />
 
           <Checkbox
+            id='terms'
+            name='terms'
             className='py-4'
             size='sm'
-            name='terms'
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             isSelected={formik.values.terms}
