@@ -61,11 +61,11 @@ export function Register () {
             name='email'
             placeholder='Enter your email'
             type='email'
-            variant='bordered'
+            variant={formik.touched.email && formik.errors.email ? 'flat' : 'bordered'}
+            color={formik.touched.email && formik.errors.email ? 'danger' : 'default'}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
-            className={formik.touched.email && formik.errors.email ? 'border-red-500' : ''}
           />
 
           <Input
@@ -73,11 +73,11 @@ export function Register () {
             name='firstName'
             placeholder='Enter your first name'
             type='text'
-            variant='bordered'
+            variant={formik.touched.firstName && formik.errors.firstName ? 'flat' : 'bordered'}
+            color={formik.touched.firstName && formik.errors.firstName ? 'danger' : 'default'}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.firstName}
-            className={formik.touched.firstName && formik.errors.firstName ? 'border-red-500' : ''}
           />
 
           <Input
@@ -85,11 +85,11 @@ export function Register () {
             name='lastName'
             placeholder='Enter your last name'
             type='text'
-            variant='bordered'
+            variant={formik.touched.lastName && formik.errors.lastName ? 'flat' : 'bordered'}
+            color={formik.touched.lastName && formik.errors.lastName ? 'danger' : 'default'}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.lastName}
-            className={formik.touched.lastName && formik.errors.lastName ? 'border-red-500' : ''}
           />
 
           <Input
@@ -97,21 +97,21 @@ export function Register () {
             name='birthday'
             placeholder='dd-mm-yyyy'
             type='text'
-            variant='bordered'
+            variant={formik.touched.birthday && formik.errors.birthday ? 'flat' : 'bordered'}
+            color={formik.touched.birthday && formik.errors.birthday ? 'danger' : 'default'}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.birthday}
-            className={formik.touched.birthday && formik.errors.birthday ? 'border-red-500' : ''}
           />
 
           <Select
             id='gender'
             name='gender'
             aria-label='Gender'
-            color='default'
             placeholder='Select your gender'
             label='Gender'
-            variant='bordered'
+            variant={formik.touched.gender && formik.errors.gender ? 'flat' : 'bordered'}
+            color={formik.touched.gender && formik.errors.gender ? 'danger' : 'default'}
             defaultSelectedKeys={[formik.values.gender]}
             className='max-w-xs'
             onSelectionChange={(key) => formik.setFieldValue('gender', key.anchorKey)}
@@ -126,11 +126,6 @@ export function Register () {
               Otro
             </SelectItem>
           </Select>
-          {formik.touched.gender && formik.errors.gender
-            ? (
-              <div className='text-red-500'>{formik.errors.gender}</div>
-              )
-            : null}
 
           <Input
             endContent={
@@ -154,7 +149,8 @@ export function Register () {
             name='password'
             placeholder='Enter your password'
             type={isVisible ? 'text' : 'password'}
-            variant='bordered'
+            variant={formik.touched.password && formik.errors.password ? 'flat' : 'bordered'}
+            color={formik.touched.password && formik.errors.password ? 'danger' : 'default'}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
@@ -183,7 +179,8 @@ export function Register () {
             name='confirmPassword'
             placeholder='Confirm your password'
             type={isConfirmVisible ? 'text' : 'password'}
-            variant='bordered'
+            variant={formik.touched.confirmPassword && formik.errors.confirmPassword ? 'flat' : 'bordered'}
+            color={formik.touched.confirmPassword && formik.errors.confirmPassword ? 'danger' : 'default'}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.confirmPassword}
@@ -213,7 +210,10 @@ export function Register () {
               Privacy Policy
             </Link>
           </Checkbox>
-          <Button color='primary' type='submit'>
+          <Button
+            color='primary'
+            type='submit'
+          >
             Sign Up
           </Button>
         </form>
