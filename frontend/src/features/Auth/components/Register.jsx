@@ -3,13 +3,20 @@ import { Button, Input, Checkbox, Link, Divider } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 
 import { AcmeIcon } from '../../../assets/Social'
+import { useNavigate } from 'react-router-dom'
+import { authUrls } from '../../../routes/urls/authUrls'
 
 export function Register () {
+  const navigate = useNavigate()
   const [isVisible, setIsVisible] = React.useState(false)
   const [isConfirmVisible, setIsConfirmVisible] = React.useState(false)
 
   const toggleVisibility = () => setIsVisible(!isVisible)
   const toggleConfirmVisibility = () => setIsConfirmVisible(!isConfirmVisible)
+
+  const handleNavigate = (url) => {
+    navigate(url)
+  }
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
@@ -20,17 +27,8 @@ export function Register () {
       </div>
       <div className='mt-2 flex w-full max-w-sm flex-col gap-4 rounded-large bg-content1 px-8 py-6 shadow-small'>
         <form className='flex flex-col gap-3' onSubmit={(e) => e.preventDefault()}>
-          <Input
-            isRequired
-            label='Username'
-            name='username'
-            placeholder='Enter your username'
-            type='text'
-            variant='bordered'
-          />
 
           <Input
-            isRequired
             label='Email Address'
             name='email'
             placeholder='Enter your email'
@@ -39,7 +37,6 @@ export function Register () {
           />
 
           <Input
-            isRequired
             endContent={
               <button type='button' onClick={toggleVisibility}>
                 {isVisible
@@ -65,7 +62,6 @@ export function Register () {
           />
 
           <Input
-            isRequired
             endContent={
               <button type='button' onClick={toggleConfirmVisibility}>
                 {isConfirmVisible
@@ -90,13 +86,19 @@ export function Register () {
             variant='bordered'
           />
 
-          <Checkbox isRequired className='py-4' size='sm'>
+          <Checkbox className='py-4' size='sm'>
             I agree with the&nbsp;
-            <Link href='#' size='sm'>
+            <Link
+              size='sm'
+              onPress={() => handleNavigate(authUrls.termsOfService)}
+            >
               Terms
             </Link>
             &nbsp; and&nbsp;
-            <Link href='#' size='sm'>
+            <Link
+              size='sm'
+              onPress={() => handleNavigate(authUrls.privacyPolicy)}
+            >
               Privacy Policy
             </Link>
           </Checkbox>
@@ -111,7 +113,10 @@ export function Register () {
         </div>
         <p className='text-center text-small'>
           Already have an account?&nbsp;
-          <Link href='#' size='sm'>
+          <Link
+            size='sm'
+            onPress={() => handleNavigate(authUrls.login)}
+          >
             Log In
           </Link>
         </p>
