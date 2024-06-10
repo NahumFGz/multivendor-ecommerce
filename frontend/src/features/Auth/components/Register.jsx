@@ -19,6 +19,21 @@ const validationSchema = Yup.object().shape({
   terms: Yup.boolean().oneOf([true], 'You must accept the terms and conditions')
 })
 
+const formatDate = (value) => {
+  const numericValue = value.replace(/\D/g, '') // Eliminar caracteres no numéricos
+  const day = numericValue.slice(0, 2)
+  const month = numericValue.slice(2, 4)
+  const year = numericValue.slice(4, 8)
+
+  if (numericValue.length <= 2) {
+    return day
+  } else if (numericValue.length <= 4) {
+    return `${day}-${month}`
+  } else {
+    return `${day}-${month}-${year}`
+  }
+}
+
 export function Register () {
   const navigate = useNavigate()
   const [isVisible, setIsVisible] = React.useState(false)
@@ -101,7 +116,10 @@ export function Register () {
             type='text'
             variant={formik.touched.birthday && formik.errors.birthday ? 'flat' : 'bordered'}
             color={formik.touched.birthday && formik.errors.birthday ? 'danger' : 'default'}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              const formattedValue = formatDate(e.target.value)
+              formik.setFieldValue('birthday', formattedValue)
+            }}
             onBlur={formik.handleBlur}
             value={formik.values.birthday}
           />
