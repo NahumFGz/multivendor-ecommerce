@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { loginRefreshApi } from './authAPI'
-import { useAuthStore } from '../../store/useAuthStore'
+import { useAuthStore } from '../../store/AuthStore'
 
 const BASE_URL = import.meta.env.VITE_BASE_API_URL
 
