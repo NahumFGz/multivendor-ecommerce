@@ -60,3 +60,68 @@ export async function authMeApi (accessToken) {
     throw new Error('AuthMe failed')
   }
 }
+
+export async function logoutAllApi (accessToken) {
+  try {
+    const axiosInstance = createAxiosAuthInstance(accessToken)
+    const response = await axiosInstance.post('/api/auth/logout-all/')
+    const { data, status } = response
+
+    if (status === 200) {
+      return data
+    } else {
+      throw new Error('Logout all failed')
+    }
+  } catch (error) {
+    throw new Error('Logout all failed')
+  }
+}
+
+export async function resetPasswordApi (email) {
+  try {
+    const axiosInstance = createAxiosInstance()
+    const response = await axiosInstance.post('/api/auth/password-reset/', { email })
+    const { data, status } = response
+
+    if (status === 200) {
+      return data
+    } else {
+      throw new Error('Reset password failed')
+    }
+  } catch (error) {
+    throw new Error('Reset password failed')
+  }
+}
+
+export async function resetPasswordConfirmApi (resetPasswordConfirmData) {
+  try {
+    const { uidb64, token } = resetPasswordConfirmData
+    const axiosInstance = createAxiosInstance()
+    const response = await axiosInstance.post(`/api/auth/password-reset-confirm/${uidb64}/${token}/`, resetPasswordConfirmData)
+    const { data, status } = response
+
+    if (status === 200) {
+      return data
+    } else {
+      throw new Error('Reset password confirm failed')
+    }
+  } catch (error) {
+    throw new Error('Reset password confirm failed')
+  }
+}
+
+export async function changePasswordApi (accessToken, changePasswordData) {
+  try {
+    const axiosInstance = createAxiosAuthInstance(accessToken)
+    const response = await axiosInstance.post('/api/auth/password-change/', changePasswordData)
+    const { data, status } = response
+
+    if (status === 200) {
+      return data
+    } else {
+      throw new Error('Change password failed')
+    }
+  } catch (error) {
+    throw new Error('Change password failed')
+  }
+}

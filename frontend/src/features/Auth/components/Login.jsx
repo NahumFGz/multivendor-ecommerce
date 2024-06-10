@@ -18,10 +18,6 @@ export function Login () {
   const [isVisible, setIsVisible] = useState(false)
   const toggleVisibility = () => setIsVisible(!isVisible)
 
-  const handleNavigate = (url) => {
-    navigate(url)
-  }
-
   const formik = useFormik({
     initialValues: { email: '', password: '', remember: false },
     validationSchema,
@@ -30,6 +26,10 @@ export function Login () {
       console.log(values)
     }
   })
+
+  const handleNavigate = (url) => {
+    navigate(url)
+  }
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
