@@ -23,14 +23,14 @@ import {
   Badge
 } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-import { AcmeIcon } from '../assets/Social'
+import { AcmeIcon } from '../../../../assets/Social'
 import { Notifications } from './Notifications'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { homeUrls } from '../routes/urls/homeUrls'
-import { useSwapTheme } from '../store/ThemeStore'
+import { homeUrls } from '../../../../routes/urls/homeUrls'
+import { useSwapTheme } from '../../../../store/ThemeStore'
 import { Cart } from './Cart'
 import { Favorites } from './Favorites'
-import { accountUrls } from '../routes/urls/accountUrls'
+import { accountUrls } from '../../../../routes/urls/accountUrls'
 
 export function Header () {
   const location = useLocation()
