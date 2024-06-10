@@ -7,6 +7,9 @@ import { authUrls } from '../../../routes/urls/authUrls'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { homeUrls } from '../../../routes/urls/homeUrls'
+import { useAuthAPI } from '../hooks/useAuthAPI'
+import { useAuthStore } from '../../../store/AuthStore'
+import { toast } from 'react-toastify'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address').required('Email is required'),
@@ -18,11 +21,32 @@ export function Login () {
   const [isVisible, setIsVisible] = useState(false)
   const toggleVisibility = () => setIsVisible(!isVisible)
 
+  const { loginAccess, authMe } = useAuthAPI()
+  const setToken = useAuthStore((state) => state.setToken)
+  const setProfile = useAuthStore((state) => state.setProfile)
+  const setRmenberMe = useAuthStore((state) => state.setRememberMe)
+
   const formik = useFormik({
     initialValues: { email: '', password: '', remember: false },
     validationSchema,
-    onSubmit: (values) => {
-      // Handle form submission
+    onSubmit: async (values) => {
+      try {
+        // Set remember me
+        setRmenberMe(values.remember)
+
+        // Access the login API endpoint
+        const response = await loginAccess(values.email, values.password)
+        setToken(response)
+
+        // Get authenticated user profile
+        const responseMe = await authMe()
+        setProfile(responseMe)
+
+        // Redirect to the home page
+        navigate('/home')
+      } catch (error) {
+        toast.error(error.message)
+      }
       console.log(values)
     }
   })

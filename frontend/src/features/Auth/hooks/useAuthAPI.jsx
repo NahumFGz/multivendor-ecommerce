@@ -3,11 +3,9 @@ import { useAuthStore } from '../../../store/AuthStore'
 
 export function useAuthAPI () {
   const token = useAuthStore((state) => state.token)
-  const setTypeStorage = useAuthStore((state) => state.setTypeStorage)
 
-  const loginAccess = async (email, password, typeStorage) => {
+  const loginAccess = async (email, password) => {
     try {
-      setTypeStorage(typeStorage)
       const response = await loginAccessApi(email, password)
       return response
     } catch (error) {
