@@ -15,7 +15,8 @@ const validationSchema = Yup.object().shape({
   birthday: Yup.string().matches(/^\d{2}-\d{2}-\d{4}$/, 'Birthday must be in dd-mm-yyyy format').required('Birthday is required'),
   gender: Yup.string().required('Gender is required'),
   password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
-  confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required')
+  confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
+  terms: Yup.boolean().oneOf([true], 'You must accept the terms and conditions')
 })
 
 export function Register () {
@@ -38,7 +39,8 @@ export function Register () {
       birthday: '',
       gender: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      terms: false
     },
     validationSchema,
     onSubmit: (values) => {
@@ -193,7 +195,7 @@ export function Register () {
             name='terms'
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            checked={formik.values.terms}
+            isSelected={formik.values.terms}
           >
             I agree with the&nbsp;
             <Link
@@ -213,6 +215,7 @@ export function Register () {
           <Button
             color='primary'
             type='submit'
+            isDisabled={!formik.isValid || !formik.values.terms}
           >
             Sign Up
           </Button>
