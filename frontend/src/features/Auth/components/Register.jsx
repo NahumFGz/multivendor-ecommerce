@@ -67,7 +67,13 @@ export function Register () {
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
       <div className='flex flex-col items-center pb-2'>
-        <AcmeIcon size={60} />
+        <div
+          title='Haz clic para ir a la página de inicio'
+          className='cursor-pointer hover:opacity-80 transition-opacity duration-300 ease-in-out transform hover:scale-110'
+          onClick={() => handleNavigate(authUrls.home)}
+        >
+          <AcmeIcon size={60} />
+        </div>
         <p className='text-xl font-medium'>Welcome</p>
         <p className='text-small text-default-500'>Create your account to get started</p>
       </div>
