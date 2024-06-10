@@ -1,8 +1,8 @@
-import React from 'react'
 import { Avatar, Button, cn } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
+import { forwardRef } from 'react'
 
-const CartItem = React.forwardRef(
+const CartItem = forwardRef(
   ({ image, name, price, quantity, onIncrement, onDecrement, className, ...props }, ref) => {
     return (
       <div
