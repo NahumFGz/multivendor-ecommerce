@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Input, Checkbox, Link, Divider, Select, SelectItem } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 import { AcmeIcon } from '../../../assets/Social'
@@ -6,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { authUrls } from '../../../routes/urls/authUrls'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { useState } from 'react'
 
 // Esquema de validación con Yup
 const validationSchema = Yup.object().shape({
@@ -36,8 +36,8 @@ const formatDate = (value) => {
 
 export function Register () {
   const navigate = useNavigate()
-  const [isVisible, setIsVisible] = React.useState(false)
-  const [isConfirmVisible, setIsConfirmVisible] = React.useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const [isConfirmVisible, setIsConfirmVisible] = useState(false)
 
   const toggleVisibility = () => setIsVisible(!isVisible)
   const toggleConfirmVisibility = () => setIsConfirmVisible(!isConfirmVisible)
