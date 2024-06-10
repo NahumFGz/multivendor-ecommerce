@@ -6,6 +6,7 @@ import { authUrls } from '../../../routes/urls/authUrls'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useState } from 'react'
+import { homeUrls } from '../../../routes/urls/homeUrls'
 
 // Esquema de validación con Yup
 const validationSchema = Yup.object().shape({
@@ -70,7 +71,7 @@ export function Register () {
         <div
           title='Haz clic para ir a la página de inicio'
           className='cursor-pointer hover:opacity-80 transition-opacity duration-300 ease-in-out transform hover:scale-110'
-          onClick={() => handleNavigate(authUrls.home)}
+          onClick={() => handleNavigate(homeUrls.home)}
         >
           <AcmeIcon size={60} />
         </div>
