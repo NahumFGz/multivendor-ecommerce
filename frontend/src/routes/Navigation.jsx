@@ -40,6 +40,8 @@ export function Navigation () {
         <Route path={homeUrls.marketplace} element={<HomeLayout><Marketplace /></HomeLayout>} />
         <Route path={homeUrls.promos} element={<HomeLayout><PromosPage /></HomeLayout>} />
 
+        <Route path='/login' element={<Navigate to={authUrls.login} />} />
+        <Route path='/register' element={<Navigate to={authUrls.register} />} />
         <Route path={authUrls.base} element={<Navigate to={authUrls.login} />} />
         <Route path={authUrls.login} element={<AuthLayout><LoginPage /></AuthLayout>} />
         <Route path={authUrls.register} element={<AuthLayout><RegisterPage /></AuthLayout>} />
