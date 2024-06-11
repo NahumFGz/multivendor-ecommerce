@@ -7,8 +7,8 @@ export function ModalForgotPasswordForm ({ onClose, getEmail }) {
 
   return (
     <div className='p-2'>
-      <h3 className='text-base font-semibold leading-6 text-gray-900'>¿Olvidaste tu contraseña?</h3>
-      <div className='mt-2 max-w-xl text-sm text-gray-500'>
+      <h3 className='text-base font-semibold leading-6 text-gray-900 dark:text-white'>¿Olvidaste tu contraseña?</h3>
+      <div className='mt-2 max-w-xl text-sm text-gray-500 dark:text-gray-400'>
         <p>Ingresa tu correo y recibirás un mensaje con el enlace de recuperación.</p>
       </div>
       <form
@@ -27,7 +27,7 @@ export function ModalForgotPasswordForm ({ onClose, getEmail }) {
             className={`block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${
               formik.touched.email && formik.errors.email ? 'ring-red-500 focus:ring-red-500' : 'ring-gray-300 focus:ring-indigo-600'
             }`}
-            placeholder='your-mail@example.com'
+            placeholder='Enter your email'
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
