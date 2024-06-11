@@ -99,7 +99,7 @@ export function TestFilters2 () {
           <main className='mt-4 h-full w-full overflow-visible px-1'>
             <div className='block rounded-medium border-medium border-dashed border-divider'>
               {/* Put your content here */}
-              <ProductsGrid className='grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' />
+              <ProductsGrid className='grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3' />
             </div>
           </main>
         </div>
