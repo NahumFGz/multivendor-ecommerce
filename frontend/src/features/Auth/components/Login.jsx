@@ -10,6 +10,8 @@ import { homeUrls } from '../../../routes/urls/homeUrls'
 import { useAuthAPI } from '../hooks/useAuthAPI'
 import { useAuthStore } from '../../../store/AuthStore'
 import { toast } from 'react-toastify'
+import { ModalBase } from './ModalBase'
+import { ModalForgotPasswordForm } from './ModalForgotPasswordForm'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address').required('Email is required'),
@@ -26,6 +28,10 @@ export function Login () {
   const setToken = useAuthStore((state) => state.setToken)
   const setProfile = useAuthStore((state) => state.setProfile)
   const setRmenberMe = useAuthStore((state) => state.setRememberMe)
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const openModal = () => setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
 
   const formik = useFormik({
     initialValues: { email: '', password: '', remember: false },
@@ -132,7 +138,7 @@ export function Login () {
             <Link
               className='text-default-500 cursor-pointer'
               size='sm'
-              onPress={() => handleNavigate(authUrls.forgotPassword)}
+              onPress={() => openModal()}
             >
               Forgot password?
             </Link>
@@ -166,6 +172,10 @@ export function Login () {
           </Link>
         </p>
       </div>
+
+      <ModalBase isOpen={isModalOpen} onClose={closeModal}>
+        <ModalForgotPasswordForm onClose={closeModal} getEmail={formik.values.email} />
+      </ModalBase>
     </div>
   )
 }
