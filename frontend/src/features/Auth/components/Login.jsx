@@ -10,8 +10,8 @@ import { homeUrls } from '../../../routes/urls/homeUrls'
 import { useAuthAPI } from '../hooks/useAuthAPI'
 import { useAuthStore } from '../../../store/AuthStore'
 import { toast } from 'react-toastify'
-import { ModalBase } from './ModalBase'
-import { ModalForgotPasswordForm } from './ModalForgotPasswordForm'
+import { ModalBase } from '../../../components/ModalBase'
+import { ForgotPasswordForm } from './ForgotPasswordForm'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address').required('Email is required'),
@@ -174,7 +174,7 @@ export function Login () {
       </div>
 
       <ModalBase isOpen={isModalOpen} onClose={closeModal}>
-        <ModalForgotPasswordForm onClose={closeModal} getEmail={formik.values.email} />
+        <ForgotPasswordForm onClose={closeModal} getEmail={formik.values.email} />
       </ModalBase>
     </div>
   )

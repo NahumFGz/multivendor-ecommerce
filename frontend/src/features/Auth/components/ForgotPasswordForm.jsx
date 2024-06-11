@@ -2,7 +2,7 @@ import { useId } from 'react'
 import { useForgotPasswordForm } from '../hooks/useForgotPasswordForm'
 import { Button, Input } from '@nextui-org/react'
 
-export function ModalForgotPasswordForm ({ onClose, getEmail }) {
+export function ForgotPasswordForm ({ onClose, getEmail }) {
   const { formik } = useForgotPasswordForm({ onClose, getEmail })
   const emailId = useId()
 
