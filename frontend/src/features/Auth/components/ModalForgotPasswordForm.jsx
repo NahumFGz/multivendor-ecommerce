@@ -1,5 +1,6 @@
 import { useId } from 'react'
 import { useForgotPasswordForm } from '../hooks/useForgotPasswordForm'
+import { Button, Input } from '@nextui-org/react'
 
 export function ModalForgotPasswordForm ({ onClose, getEmail }) {
   const { formik } = useForgotPasswordForm({ onClose, getEmail })
@@ -12,7 +13,7 @@ export function ModalForgotPasswordForm ({ onClose, getEmail }) {
         <p>Ingresa tu correo y recibirás un mensaje con el enlace de recuperación.</p>
       </div>
       <form
-        className='mt-5 sm:flex sm:items-center'
+        className='mt-5 sm:flex sm:items-center gap-2'
         noValidate
         onSubmit={formik.handleSubmit}
       >
@@ -20,25 +21,22 @@ export function ModalForgotPasswordForm ({ onClose, getEmail }) {
           <label htmlFor={emailId} className='sr-only'>
             Email
           </label>
-          <input
-            type='email'
-            name='email'
+
+          <Input
             id={emailId}
-            className={`block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${
-              formik.touched.email && formik.errors.email ? 'ring-red-500 focus:ring-red-500' : 'ring-gray-300 focus:ring-indigo-600'
-            }`}
+            name='email'
             placeholder='Enter your email'
-            value={formik.values.email}
+            type='email'
+            variant={formik.touched.email && formik.errors.email ? 'flat' : 'bordered'}
+            color={formik.touched.email && formik.errors.email ? 'danger' : 'default'}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            value={formik.values.email}
           />
         </div>
-        <button
-          type='submit'
-          className='mt-3 inline-flex w-full items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto'
-        >
+        <Button color='primary' type='submit'>
           Enviar
-        </button>
+        </Button>
       </form>
     </div>
   )
