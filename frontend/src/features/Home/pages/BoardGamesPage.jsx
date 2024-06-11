@@ -1,7 +1,9 @@
+import { TestProducts1 } from '../components/TestProducts1/App'
+
 export function BoardGamesPage () {
   return (
     <div>
-      <h1>Board Games Page</h1>
+      <TestProducts1 />
     </div>
   )
 }
