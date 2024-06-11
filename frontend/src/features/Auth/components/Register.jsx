@@ -15,8 +15,16 @@ const validationSchema = Yup.object().shape({
   lastName: Yup.string().required('Last name is required'),
   birthday: Yup.string().matches(/^\d{2}-\d{2}-\d{4}$/, 'Birthday must be in dd-mm-yyyy format').required('Birthday is required'),
   gender: Yup.string().required('Gender is required'),
-  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
-  confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
+  password: Yup.string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters')
+    .matches(/(?=.*[0-9])/, 'Password must contain at least one number')
+    .matches(/(?=.*[a-z])/, 'Password must contain at least one lowercase letter')
+    .matches(/(?=.*[A-Z])/, 'Password must contain at least one uppercase letter')
+    .matches(/(?=.*[!@#$%^&*,;.])/, 'Password must contain at least one special character'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Confirm Password is required'),
   terms: Yup.boolean().oneOf([true], 'You must accept the terms and conditions')
 })
 
@@ -193,6 +201,11 @@ export function Register () {
             value={formik.values.password}
             className={formik.touched.password && formik.errors.password ? 'border-red-500' : ''}
           />
+          {
+            formik.touched.password && formik.errors.password
+              ? <p className='ml-3 text-tiny text-[#f31260]'>{formik.errors.password}</p>
+              : null
+          }
 
           <Input
             id='confirmPassword'
@@ -225,6 +238,11 @@ export function Register () {
             value={formik.values.confirmPassword}
             className={formik.touched.confirmPassword && formik.errors.confirmPassword ? 'border-red-500' : ''}
           />
+          {
+            formik.touched.confirmPassword && formik.errors.confirmPassword
+              ? <p className='ml-3 text-tiny text-[#f31260]'>{formik.errors.confirmPassword}</p>
+              : null
+          }
 
           <Checkbox
             id='terms'
