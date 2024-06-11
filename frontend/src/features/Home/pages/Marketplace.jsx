@@ -1,7 +1,9 @@
+import { TestProducts2 } from '../components/TestProducts2/App'
+
 export function Marketplace () {
   return (
     <div>
-      <h1>Marketplace Page</h1>
+      <TestProducts2 />
     </div>
   )
 }
