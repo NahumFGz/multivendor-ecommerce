@@ -14,17 +14,24 @@ import PopoverFilterWrapper from './popover-filter-wrapper'
 import TagGroupItem from './tag-group-item'
 import RatingRadioGroup from './rating-radio-group'
 import ProductsGrid from './products-grid'
+import { useMediaQuery } from 'react-responsive'
 
 export function TestFilters () {
+  const isMobile = useMediaQuery({ query: '(max-width: 640px)' })
+
   return (
     <div className='max-w-8xl h-full w-full px-2 lg:px-24'>
-      <nav className='my-4 px-2 py-2'>
-        <Breadcrumbs>
-          <BreadcrumbItem>Home</BreadcrumbItem>
-          <BreadcrumbItem>Shoes Category</BreadcrumbItem>
-          <BreadcrumbItem>Training Shoes</BreadcrumbItem>
-        </Breadcrumbs>
-      </nav>
+      {
+        isMobile || (
+          <nav className='my-4 px-2 py-2'>
+            <Breadcrumbs>
+              <BreadcrumbItem>Home</BreadcrumbItem>
+              <BreadcrumbItem>Shoes Category</BreadcrumbItem>
+              <BreadcrumbItem>Training Shoes</BreadcrumbItem>
+            </Breadcrumbs>
+          </nav>
+        )
+      }
       <div className='flex gap-x-6'>
         <div className='w-full flex-1 flex-col'>
           <header className='relative z-20 flex flex-col gap-2 rounded-medium bg-default-50 px-4 pb-3 pt-2 md:pt-3'>
@@ -113,7 +120,7 @@ export function TestFilters () {
                   aria-label='Sort by'
                   classNames={{
                     base: 'items-center justify-end max-w-fit',
-                    value: 'w-[112px]'
+                    value: 'w-[142px]'
                   }}
                   defaultSelectedKeys={['most_popular']}
                   labelPlacement='outside-left'
