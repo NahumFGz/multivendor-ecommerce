@@ -28,6 +28,7 @@ import { PasswordResetPage } from '../features/Auth/pages/PasswordResetPage'
 import { ForgotPasswordPage } from '../features/Auth/pages/ForgotPasswordPage'
 import { PrivacyPolicyPage } from '../features/Auth/pages/PrivacyPolicyPage'
 import { TermsOfServicePage } from '../features/Auth/pages/TermsOfServicePage'
+import { ProtectedRoutes } from './ProtectedRoutes'
 
 export function Navigation () {
   return (
@@ -50,16 +51,18 @@ export function Navigation () {
         <Route path={authUrls.privacyPolicy} element={<AuthLayout><PrivacyPolicyPage /></AuthLayout>} />
         <Route path={authUrls.termsOfService} element={<AuthLayout><TermsOfServicePage /></AuthLayout>} />
 
-        <Route path={accountUrls.base} element={<Navigate to={accountUrls.dashboard} />} />
-        <Route path={accountUrls.dashboard} element={<AccountLayout><DashboardPage /></AccountLayout>} />
-        <Route path={accountUrls.directions} element={<AccountLayout><DirectionsPage /></AccountLayout>} />
-        <Route path={accountUrls.profile} element={<AccountLayout><ProfilePage /></AccountLayout>} />
-        <Route path={accountUrls.selling} element={<AccountLayout><SellingHistoryPage /></AccountLayout>} />
-        <Route path={accountUrls.shopping} element={<AccountLayout><ShoppinghistoryPage /></AccountLayout>} />
-        <Route path={accountUrls.security} element={<AccountLayout><SecurityPage /></AccountLayout>} />
-        <Route path={accountUrls.payments} element={<AccountLayout><PaymentsPage /></AccountLayout>} />
-        <Route path={accountUrls.tracking} element={<AccountLayout><TrackingPage /></AccountLayout>} />
-        <Route path={accountUrls.publishProduct} element={<AccountLayout><PublishProductPage /></AccountLayout>} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path={accountUrls.base} element={<Navigate to={accountUrls.dashboard} />} />
+          <Route path={accountUrls.dashboard} element={<AccountLayout><DashboardPage /></AccountLayout>} />
+          <Route path={accountUrls.directions} element={<AccountLayout><DirectionsPage /></AccountLayout>} />
+          <Route path={accountUrls.profile} element={<AccountLayout><ProfilePage /></AccountLayout>} />
+          <Route path={accountUrls.selling} element={<AccountLayout><SellingHistoryPage /></AccountLayout>} />
+          <Route path={accountUrls.shopping} element={<AccountLayout><ShoppinghistoryPage /></AccountLayout>} />
+          <Route path={accountUrls.security} element={<AccountLayout><SecurityPage /></AccountLayout>} />
+          <Route path={accountUrls.payments} element={<AccountLayout><PaymentsPage /></AccountLayout>} />
+          <Route path={accountUrls.tracking} element={<AccountLayout><TrackingPage /></AccountLayout>} />
+          <Route path={accountUrls.publishProduct} element={<AccountLayout><PublishProductPage /></AccountLayout>} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )

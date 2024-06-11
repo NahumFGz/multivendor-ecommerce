@@ -31,8 +31,28 @@ import { useSwapTheme } from '../../../../store/ThemeStore'
 import { Cart } from './Cart'
 import { Favorites } from './Favorites'
 import { accountUrls } from '../../../../routes/urls/accountUrls'
+import { useAuthStore } from '../../../../store/AuthStore'
+import { useEffect, useState } from 'react'
+import { authUrls } from '../../../../routes/urls/authUrls'
+
+const BASE_URL = import.meta.env.VITE_BASE_API_URL
 
 export function Header () {
+  const [avatarUrl, setAvatarUrl] = useState(null)
+  const isAuth = useAuthStore((store) => store.isAuth)
+  const profile = useAuthStore((store) => store.profile)
+  const cleanStore = useAuthStore((store) => store.cleanStore)
+
+  useEffect(() => {
+    const getATinyAvatarUrl = () => {
+      if (profile?.profile_images) {
+        setAvatarUrl(`${BASE_URL}${profile.profile_images.tiny}`)
+      }
+    }
+
+    getATinyAvatarUrl()
+  }, [profile])
+
   const location = useLocation()
   const navigate = useNavigate()
   const { handleSwapTheme, theme } = useSwapTheme()
@@ -182,33 +202,55 @@ export function Header () {
             <Dropdown placement='bottom-end'>
               <DropdownTrigger>
                 <button className='mt-1 h-8 w-8 outline-none transition-transform'>
-                  <Badge color='success' content='' placement='bottom-right' shape='circle'>
-                    <Avatar size='sm' src='https://i.pravatar.cc/150?u=a04258114e29526708c' />
+                  <Badge color={isAuth ? 'success' : 'default'} content='' placement='bottom-right' shape='circle'>
+                    <Avatar size='sm' src={isAuth && avatarUrl} />
                   </Badge>
                 </button>
               </DropdownTrigger>
               <DropdownMenu aria-label='Profile Actions' variant='flat'>
-                <DropdownItem key='profile' className='h-14 gap-2' textValue='Profile'>
-                  <p className='font-semibold'>Signed in as</p>
-                  <p className='font-semibold'>johndoe@example.com</p>
-                </DropdownItem>
-                <DropdownItem key='my_account' textValue='Settings' onClick={() => handleDropdownClick(accountUrls.profile)}>
-                  Mi cuenta
-                </DropdownItem>
-                <DropdownItem key='team_settings' textValue='Team Settings' onClick={() => handleDropdownClick(accountUrls.shopping)}>
-                  Ver compras
-                </DropdownItem>
-                <DropdownItem key='analytics' textValue='Analytics' onClick={() => handleDropdownClick(accountUrls.publishProduct)}>
-                  Publicar un producto
-                </DropdownItem>
+                {
+                  isAuth && (
+                    <DropdownItem key='profile' className='h-14 gap-2' textValue='Profile'>
+                      <p className='font-semibold'>Signed in as</p>
+                      <p className='font-semibold'>{profile?.email}</p>
+                    </DropdownItem>)
+                }
+                {
+                  isAuth && (
+                    <DropdownItem key='my_account' textValue='Settings' onClick={() => handleDropdownClick(accountUrls.profile)}>
+                      Mi cuenta
+                    </DropdownItem>)
+                }
+                {
+                  isAuth && (
+                    <DropdownItem key='team_settings' textValue='Team Settings' onClick={() => handleDropdownClick(accountUrls.shopping)}>
+                      Ver compras
+                    </DropdownItem>)
+                }
+                {
+                  isAuth && (
+                    <DropdownItem key='analytics' textValue='Analytics' onClick={() => handleDropdownClick(accountUrls.publishProduct)}>
+                      Publicar un producto
+                    </DropdownItem>)
+                }
+                {
+                  !isAuth && (
+                    <DropdownItem key='log_in' color='success' textValue='LogIn' onClick={() => handleDropdownClick(authUrls.login)}>
+                      Iniciar sesion
+                    </DropdownItem>)
+                }
                 {
                   theme === 'dark'
                     ? <DropdownItem key='light' textValue='Light Mode' onClick={handleSwapTheme}>Activar modo claro</DropdownItem>
                     : <DropdownItem key='dark' textValue='Dark Mode' onClick={handleSwapTheme}>Activar modo oscuro</DropdownItem>
                 }
-                <DropdownItem key='logout' color='danger' textValue='Log Out'>
-                  Cerrar sesion
-                </DropdownItem>
+                {
+                  isAuth && (
+                    <DropdownItem key='logout' color='danger' textValue='Log Out' onClick={() => cleanStore()}>
+                      Cerrar sesion
+                    </DropdownItem>)
+
+                }
               </DropdownMenu>
             </Dropdown>
           </NavbarItem>
