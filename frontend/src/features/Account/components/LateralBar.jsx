@@ -45,10 +45,19 @@ export function LateralBar ({ children }) {
   const content = (
     <div className='relative flex h-full w-72 flex-1 flex-col p-6'>
       <div className='flex items-center gap-2 px-2'>
-        <div className='flex h-8 w-8 items-center justify-center rounded-full bg-foreground'>
+        <div
+          title='Haz clic para ir a la página de inicio'
+          className='flex h-8 w-8 items-center justify-center rounded-full bg-foreground cursor-pointer'
+          onClick={() => navigate(homeUrls.home)}
+        >
           <AcmeLogo className='text-background' />
         </div>
-        <span className='text-small font-bold uppercase text-foreground'>Acme</span>
+        <span
+          title='Haz clic para ir a la página de inicio'
+          className='text-small font-bold uppercase text-foreground cursor-pointer'
+          onClick={() => navigate(homeUrls.home)}
+        >Acme
+        </span>
       </div>
       <Spacer y={8} />
       <div className='flex items-center gap-3 px-3'>
