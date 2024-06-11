@@ -7,6 +7,8 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useState } from 'react'
 import { homeUrls } from '../../../routes/urls/homeUrls'
+import { toast } from 'react-toastify'
+import { useAuthAPI } from '../hooks/useAuthAPI'
 
 // Esquema de validación con Yup
 const validationSchema = Yup.object().shape({
@@ -44,6 +46,7 @@ const formatDate = (value) => {
 }
 
 export function Register () {
+  const { registerUser } = useAuthAPI()
   const navigate = useNavigate()
   const [isVisible, setIsVisible] = useState(false)
   const [isConfirmVisible, setIsConfirmVisible] = useState(false)
@@ -67,9 +70,30 @@ export function Register () {
       terms: false
     },
     validationSchema,
-    onSubmit: (values) => {
-      // Handle form submission
-      console.log(values)
+    onSubmit: async (values) => {
+      const newValues = {
+        email: values.email,
+        first_name: values.firstName,
+        last_name: values.lastName,
+        gender: values.gender,
+        birth_date: values.birthday.split('-').reverse().join('-'),
+        password: values.password,
+        password2: values.confirmPassword
+      }
+
+      try {
+        const response = await registerUser(newValues)
+        const responseMessage = response.email[0]
+
+        if (responseMessage.includes('user with this email already exists')) {
+          toast.info('El usuario ya existe')
+        } else {
+          toast.success('Usuario registrado')
+        }
+        navigate(authUrls.login)
+      } catch (error) {
+        toast.info(error.message)
+      }
     }
   })
 
@@ -159,13 +183,13 @@ export function Register () {
             className='max-w-xs'
             onSelectionChange={(key) => formik.setFieldValue('gender', key.anchorKey)}
           >
-            <SelectItem key='male' value='male'>
+            <SelectItem key='M'>
               Masculino
             </SelectItem>
-            <SelectItem key='female' value='female'>
+            <SelectItem key='F'>
               Femenino
             </SelectItem>
-            <SelectItem key='other' value='other'>
+            <SelectItem key='O'>
               Otro
             </SelectItem>
           </Select>
