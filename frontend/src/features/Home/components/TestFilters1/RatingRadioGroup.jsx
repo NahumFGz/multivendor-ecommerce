@@ -1,5 +1,5 @@
 import { RadioGroup, cn } from '@nextui-org/react'
-import RatingRadioItem from './rating-radio-item'
+import RatingRadioItem from './RatingRadioItem'
 import { forwardRef, useMemo, useState } from 'react'
 
 const RatingRadioGroup = forwardRef(({ className, label, hideStarsText, ...props }, ref) => {

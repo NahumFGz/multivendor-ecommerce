@@ -1,7 +1,7 @@
 import { Button, Image, cn } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 
-import RatingRadioGroup from './rating-radio-group'
+import RatingRadioGroup from './RatingRadioGroup'
 import { forwardRef, useState } from 'react'
 
 const ProductListItem = forwardRef(

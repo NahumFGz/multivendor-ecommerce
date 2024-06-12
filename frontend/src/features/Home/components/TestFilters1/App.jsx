@@ -10,12 +10,12 @@ import {
   Switch
 } from '@nextui-org/react'
 import { useMediaQuery } from 'react-responsive'
-import PriceSlider from './price-slider'
-import ColorRadioItem from './color-radio-item'
-import PopoverFilterWrapper from './popover-filter-wrapper'
-import TagGroupItem from './tag-group-item'
-import RatingRadioGroup from './rating-radio-group'
-import ProductsGrid from './products-grid'
+import PriceSlider from './PriceSlider'
+import ColorRadioItem from './ColorRadioItem'
+import PopoverFilterWrapper from './PopoverFilterWrapper'
+import TagGroupItem from './TagGroupItem'
+import RatingRadioGroup from './RatingRadioGroup'
+import ProductsGrid from './ProductsGrid'
 
 export function TestFilters () {
   const isMobile = useMediaQuery({ query: '(max-width: 640px)' })
