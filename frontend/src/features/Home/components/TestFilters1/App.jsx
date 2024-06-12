@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   BreadcrumbItem,
   Breadcrumbs,
@@ -5,19 +6,20 @@ import {
   Chip,
   RadioGroup,
   Select,
-  SelectItem
+  SelectItem,
+  Switch
 } from '@nextui-org/react'
-
+import { useMediaQuery } from 'react-responsive'
 import PriceSlider from './price-slider'
 import ColorRadioItem from './color-radio-item'
 import PopoverFilterWrapper from './popover-filter-wrapper'
 import TagGroupItem from './tag-group-item'
 import RatingRadioGroup from './rating-radio-group'
 import ProductsGrid from './products-grid'
-import { useMediaQuery } from 'react-responsive'
 
 export function TestFilters () {
   const isMobile = useMediaQuery({ query: '(max-width: 640px)' })
+  const [isLoading, setIsLoading] = React.useState(false)
 
   return (
     <div className='max-w-8xl h-full w-full px-2 lg:px-24'>
@@ -39,7 +41,7 @@ export function TestFilters () {
               <h2 className='text-large font-medium'>Shoes</h2>
               <span className='text-small text-default-400'>(1240)</span>
             </div>
-            <div className='flex  items-center justify-between gap-2 '>
+            <div className='flex items-center justify-between gap-2 '>
               <div className='flex flex-row gap-2'>
                 <div className='hidden items-center gap-1 md:flex'>
                   <h2 className='text-medium font-medium'>Shoes</h2>
@@ -143,6 +145,9 @@ export function TestFilters () {
                     Most Popular
                   </SelectItem>
                 </Select>
+                <Switch isSelected={isLoading} onValueChange={setIsLoading}>
+                  Show Skeleton
+                </Switch>
               </div>
             </div>
           </header>
@@ -165,7 +170,7 @@ export function TestFilters () {
             </div>
             <div className='block rounded-medium border-medium border-dashed border-divider'>
               {/* Put your content here */}
-              <ProductsGrid className='grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' />
+              <ProductsGrid className='grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' isLoading={isLoading} />
             </div>
           </main>
         </div>
