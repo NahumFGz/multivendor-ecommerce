@@ -145,7 +145,7 @@ export function TestFilters () {
                     Most Popular
                   </SelectItem>
                 </Select>
-                <Switch isSelected={isLoading} onValueChange={setIsLoading}>
+                <Switch isSelected={isLoading} onValueChange={setIsLoading} className='hidden'>
                   Show Skeleton
                 </Switch>
               </div>

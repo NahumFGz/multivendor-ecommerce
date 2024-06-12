@@ -1,9 +1,7 @@
-import { TestFilters2 } from '../components/TestFilters2/App'
-
 export function ProductsPage () {
   return (
     <div>
-      <TestFilters2 />
+      <h1>Products Page</h1>
     </div>
   )
 }
