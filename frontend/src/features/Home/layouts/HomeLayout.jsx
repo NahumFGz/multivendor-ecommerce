@@ -7,7 +7,7 @@ export function HomeLayout ({ children }) {
       <div>
         <Header />
       </div>
-      <div className='flex items-center justify-center mt-3'>
+      <div>
         {children}
       </div>
       <div>
