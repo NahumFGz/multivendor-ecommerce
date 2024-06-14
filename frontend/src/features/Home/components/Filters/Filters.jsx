@@ -14,6 +14,8 @@ import RatingRadioGroup from './RatingRadioGroup'
 export function Filters () {
   return (
     <header className='relative z-20 flex flex-col gap-2 rounded-medium bg-default-50 px-4 pb-3 pt-2 md:pt-3'>
+
+      {/* Title */}
       <div className='flex items-center gap-1 md:hidden md:gap-2'>
         <h2 className='text-large font-medium'>Shoes</h2>
         <span className='text-small text-default-400'>(1240)</span>
@@ -25,6 +27,8 @@ export function Filters () {
             <span className='text-small text-default-400'>(1240)</span>
           </div>
         </div>
+
+        {/* Filters */}
         <div className='-ml-2 flex w-full flex-wrap items-center justify-start gap-2 md:ml-0 md:justify-end'>
           <PopoverFilterWrapper title='Pricing Range'>
             <PriceSlider
