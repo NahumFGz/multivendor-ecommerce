@@ -3,7 +3,7 @@ import { cn, Skeleton } from '@nextui-org/react'
 import products from './ProductsMock'
 import ProductListItem from './ProductListItem'
 
-const ProductsGrid = forwardRef(({ itemClassName, className, isLoading, ...props }, ref) => {
+export const Products = forwardRef(({ itemClassName, className, isLoading = false, ...props }, ref) => {
   return (
     <div
       ref={ref}
@@ -40,7 +40,3 @@ const ProductsGrid = forwardRef(({ itemClassName, className, isLoading, ...props
     </div>
   )
 })
-
-ProductsGrid.displayName = 'ProductsGrid'
-
-export default ProductsGrid

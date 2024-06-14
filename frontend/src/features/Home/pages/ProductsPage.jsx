@@ -1,11 +1,13 @@
 import { Filters } from '../components/Filters/Filters'
-import ProductsGrid from '../components/Products/ProductsGrid'
+import { Products } from '../components/Products/Products'
 
 export function ProductsPage () {
   return (
     <div>
       <Filters />
-      <ProductsGrid />
+      <div className='block rounded-medium border-medium border-dashed border-divider m-2'>
+        <Products />
+      </div>
     </div>
   )
 }
