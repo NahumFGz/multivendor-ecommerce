@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 import { cn, Skeleton } from '@nextui-org/react'
-import products from './products'
+import products from './ProductsMock'
 import ProductListItem from './ProductListItem'
 
 const ProductsGrid = forwardRef(({ itemClassName, className, isLoading, ...props }, ref) => {

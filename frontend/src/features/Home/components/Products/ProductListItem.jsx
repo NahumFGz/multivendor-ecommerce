@@ -1,7 +1,6 @@
 import { Button, Image, cn } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 
-import RatingRadioGroup from './RatingRadioGroup'
 import { forwardRef, useState } from 'react'
 
 const ProductListItem = forwardRef(
@@ -122,18 +121,6 @@ const ProductListItem = forwardRef(
           {description && !isPopular
             ? (
               <p className='text-small text-default-500'>{description}</p>
-              )
-            : null}
-          {rating !== undefined
-            ? (
-              <RatingRadioGroup
-                hideStarsText
-                isReadOnly
-                className='gap-1'
-                label={<p className='text-small text-default-400'>({ratingCount})</p>}
-                size='sm'
-                value={`${rating}`}
-              />
               )
             : null}
           <div className='flex gap-2'>
