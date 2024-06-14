@@ -1,7 +1,9 @@
+import { Filters } from '../components/Filters/Filters'
+
 export function ProductsPage () {
   return (
     <div>
-      <h1>Products Page</h1>
+      <Filters />
     </div>
   )
 }
