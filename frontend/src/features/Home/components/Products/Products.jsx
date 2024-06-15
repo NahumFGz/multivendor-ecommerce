@@ -1,7 +1,8 @@
 import React, { forwardRef } from 'react'
-import { cn, Pagination, Skeleton } from '@nextui-org/react'
+import { Pagination, Skeleton } from '@nextui-org/react'
 import products from './ProductsMock'
 import ProductListItem from './ProductListItem'
+import { cn } from '../../../../services/utilities/cn'
 
 export const Products = forwardRef(({ itemClassName, className, isLoading = false, ...props }, ref) => {
   return (
