@@ -103,6 +103,7 @@ class Product(TimeStampUUIDModel):
     views = models.IntegerField(default=0)
     rating = models.FloatField(default=0)
     image_principal = ImageField(upload_to="product/product/", blank=True, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     class Meta:
         verbose_name = "Product"
