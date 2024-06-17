@@ -7,6 +7,7 @@ from django.db.models import signals
 from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.text import slugify
+from utils.slug import generate_unique_slug
 
 User = get_user_model()
 
@@ -33,7 +34,8 @@ class ProductVendor(Product):
 
 @receiver(signals.pre_save, sender=Product)
 def pre_save_product(sender, instance, **kwargs):
-    instance.slug = slugify(instance.title)
+    if not instance.slug:
+        instance.slug = generate_unique_slug(instance, "slug")
 
 
 @receiver(signals.pre_save, sender=ProductVendor)
