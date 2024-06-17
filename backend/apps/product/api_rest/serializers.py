@@ -31,8 +31,29 @@ class CategorySerializer(serializers.ModelSerializer):
         }
 
 
+class TinySubKindProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubKindProduct
+        fields = ("id", "name")
+
+
+class TinyKindProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = KindProduct
+        fields = ("id", "name")
+
+
+class TinyCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ("id", "name")
+
+
 class ProductSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
+    category = TinyCategorySerializer()
+    kind_of_product = TinyKindProductSerializer()
+    sub_kind_of_product = TinySubKindProductSerializer()
 
     class Meta:
         model = Product
@@ -43,8 +64,6 @@ class ProductSerializer(serializers.ModelSerializer):
             "sub_kind_of_product",
             "title",
             "slug",
-            "short_description",
-            "description",
             "views",
             "rating",
             "images",
