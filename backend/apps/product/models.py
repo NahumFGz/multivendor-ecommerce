@@ -48,7 +48,8 @@ class Category(TimeStampModel):
 
 @receiver(signals.pre_save, sender=Category)
 def pre_save_category(sender, instance, **kwargs):
-    instance.slug = slugify(instance.name)
+    if not instance.slug:
+        instance.slug = generate_unique_slug(instance, "slug")
 
 
 class KindProduct(TimeStampModel):
@@ -70,7 +71,8 @@ class KindProduct(TimeStampModel):
 
 @receiver(signals.pre_save, sender=KindProduct)
 def pre_save_kind_product(sender, instance, **kwargs):
-    instance.slug = slugify(instance.name)
+    if not instance.slug:
+        instance.slug = generate_unique_slug(instance, "slug")
 
 
 class SubKindProduct(TimeStampModel):
@@ -90,7 +92,8 @@ class SubKindProduct(TimeStampModel):
 
 @receiver(signals.pre_save, sender=SubKindProduct)
 def pre_save_sub_kind_product(sender, instance, **kwargs):
-    instance.slug = slugify(instance.name)
+    if not instance.slug:
+        instance.slug = generate_unique_slug(instance, "slug")
 
 
 class Product(TimeStampUUIDModel):
@@ -141,4 +144,5 @@ class Product(TimeStampUUIDModel):
 
 @receiver(signals.pre_save, sender=Product)
 def pre_save_product(sender, instance, **kwargs):
-    instance.slug = slugify(instance.title)
+    if not instance.slug:
+        instance.slug = generate_unique_slug(instance, "slug")
