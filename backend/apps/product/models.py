@@ -7,10 +7,21 @@ from thumbnails.fields import ImageField
 from tinymce import models as tinymce_models
 
 
+def generate_unique_slug(instance, slug_field_name):
+    slug = slugify(getattr(instance, "name"))
+    model_class = instance.__class__
+    unique_slug = slug
+    extension = 1
+    while model_class.objects.filter(**{slug_field_name: unique_slug}).exists():
+        unique_slug = f"{slug}-{extension}"
+        extension += 1
+    return unique_slug
+
+
 class Category(TimeStampModel):
     name = models.CharField(max_length=200, unique=True)
     image = ImageField(upload_to="product/category/", blank=True, null=True)
-    slug = models.SlugField(max_length=200, blank=True, null=True)
+    slug = models.SlugField(max_length=200, blank=True, null=True, unique=True)
 
     class Meta:
         verbose_name = "Category"
@@ -45,7 +56,7 @@ class KindProduct(TimeStampModel):
         Category, related_name="kinds", blank=True, null=True, on_delete=models.CASCADE
     )
     name = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(max_length=200, blank=True, null=True)
+    slug = models.SlugField(max_length=200, blank=True, null=True, unique=True)
     principal_image = ImageField(upload_to="product/kind/", blank=True, null=True)
 
     class Meta:
@@ -67,7 +78,7 @@ class SubKindProduct(TimeStampModel):
         KindProduct, related_name="subkinds", blank=True, null=True, on_delete=models.CASCADE
     )
     name = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(max_length=200, blank=True, null=True)
+    slug = models.SlugField(max_length=200, blank=True, null=True, unique=True)
 
     class Meta:
         verbose_name = "SubKind"
@@ -97,7 +108,7 @@ class Product(TimeStampUUIDModel):
         on_delete=models.CASCADE,
     )
     title = models.CharField(max_length=400)
-    slug = models.SlugField(max_length=400, blank=True, null=True)
+    slug = models.SlugField(max_length=400, blank=True, null=True, unique=True)
     short_description = tinymce_models.HTMLField(default="", blank=True, null=True)
     description = tinymce_models.HTMLField(default="", blank=True, null=True)
     views = models.IntegerField(default=0)
