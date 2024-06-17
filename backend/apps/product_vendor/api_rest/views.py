@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from ..models import ProductVendor
@@ -15,4 +16,7 @@ class ProductVendorViewSet(viewsets.ModelViewSet):
     def get_object(self):
         queryset = self.filter_queryset(self.get_queryset())
         slug = self.kwargs.get(self.lookup_field)
-        return queryset.get(slug=slug)
+        try:
+            return queryset.get(slug=slug)
+        except ProductVendor.DoesNotExist:
+            raise NotFound(detail="ProductVendor not found.")
