@@ -10,3 +10,9 @@ class ProductVendorViewSet(viewsets.ModelViewSet):
     serializer_class = ProductVendorSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     http_method_names = ["get", "post", "patch", "delete"]
+    lookup_field = "slug"
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+        slug = self.kwargs.get(self.lookup_field)
+        return queryset.get(slug=slug)
