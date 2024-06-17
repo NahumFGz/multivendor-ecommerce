@@ -1,11 +1,11 @@
 from apps.core.models import TimeStampModel, TimeStampUUIDModel
+from common.utils import generate_unique_slug
 from django.db import models
 from django.db.models import signals
 from django.dispatch import receiver
 from django.utils.text import slugify
 from thumbnails.fields import ImageField
 from tinymce import models as tinymce_models
-from utils.slug import generate_unique_slug
 
 
 class Category(TimeStampModel):

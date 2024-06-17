@@ -1,13 +1,13 @@
 from datetime import timedelta
 
 from apps.product.models import Product
+from common.utils import generate_unique_slug
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import signals
 from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.text import slugify
-from utils.slug import generate_unique_slug
 
 User = get_user_model()
 
