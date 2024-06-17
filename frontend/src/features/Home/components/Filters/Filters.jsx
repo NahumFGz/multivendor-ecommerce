@@ -95,7 +95,7 @@ export function Filters () {
                 base: 'items-center justify-end max-w-fit',
                 value: 'w-[142px]'
               }}
-              defaultSelectedKeys={['most_popular']}
+              defaultSelectedKeys={['newest']}
               labelPlacement='outside-left'
               placeholder='Select an option'
               variant='bordered'
@@ -127,7 +127,7 @@ export function Filters () {
               closeButton: 'text-default-500'
             }}
             variant='flat'
-            onClose={() => {}}
+            onClose={() => { console.log('close') }}
           >
             Filter {index + 1}
           </Chip>
