@@ -135,4 +135,6 @@ class Product(TimeStampUUIDModel):
 @receiver(signals.pre_save, sender=Product)
 def pre_save_product(sender, instance, **kwargs):
     if not instance.slug:
-        instance.slug = generate_unique_slug(instance, "slug")
+        instance.slug = generate_unique_slug(
+            instance=instance, source_field_name="title", destination_field_name="slug"
+        )
