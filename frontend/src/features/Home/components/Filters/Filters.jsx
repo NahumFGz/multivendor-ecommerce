@@ -1,14 +1,12 @@
 import {
   Chip,
   CheckboxGroup,
-  RadioGroup,
   Select,
   SelectItem
 } from '@nextui-org/react'
 
 import PriceSlider from './PriceSlider'
 import PopoverFilterWrapper from './PopoverFilterWrapper'
-import ColorRadioItem from './ColorRadioItem'
 import TagGroupItem from './TagGroupItem'
 import RatingRadioGroup from './RatingRadioGroup'
 
@@ -45,23 +43,6 @@ export function Filters () {
                   step: 1
                 }}
               />
-            </PopoverFilterWrapper>
-            <PopoverFilterWrapper title='Color'>
-              <RadioGroup
-                aria-label='Color'
-                classNames={{
-                  wrapper: 'gap-2'
-                }}
-                orientation='horizontal'
-              >
-                <ColorRadioItem color='#3F3F46' tooltip='Gray' value='gray' />
-                <ColorRadioItem color='#F31260' tooltip='Red' value='red' />
-                <ColorRadioItem color='#006FEE' tooltip='Blue' value='blue' />
-                <ColorRadioItem color='#17C964' tooltip='Green' value='green' />
-                <ColorRadioItem color='#F5A524' tooltip='Yellow' value='yellow' />
-                <ColorRadioItem color='#222222' tooltip='Black' value='black' />
-                <ColorRadioItem color='#ffffff' tooltip='White' value='white' />
-              </RadioGroup>
             </PopoverFilterWrapper>
             <PopoverFilterWrapper title='Size'>
               <CheckboxGroup
@@ -126,9 +107,6 @@ export function Filters () {
               </SelectItem>
               <SelectItem key='top_rated' value='top_rated'>
                 Top Rated
-              </SelectItem>
-              <SelectItem key='most_popular' value='most_popular'>
-                Most Popular
               </SelectItem>
             </Select>
           </div>
