@@ -8,7 +8,6 @@ import {
 import PriceSlider from './PriceSlider'
 import PopoverFilterWrapper from './PopoverFilterWrapper'
 import TagGroupItem from './TagGroupItem'
-import RatingRadioGroup from './RatingRadioGroup'
 
 export function Filters () {
   return (
@@ -44,45 +43,50 @@ export function Filters () {
                 }}
               />
             </PopoverFilterWrapper>
-            <PopoverFilterWrapper title='Size'>
-              <CheckboxGroup
-                aria-label='Select size'
-                className='gap-1'
-                orientation='horizontal'
-              >
-                <TagGroupItem value='35'>35</TagGroupItem>
-                <TagGroupItem value='36'>36</TagGroupItem>
-                <TagGroupItem value='37'>37</TagGroupItem>
-                <TagGroupItem value='38'>38</TagGroupItem>
-                <TagGroupItem value='39'>39</TagGroupItem>
-                <TagGroupItem value='40'>40</TagGroupItem>
-                <TagGroupItem value='41'>41</TagGroupItem>
-                <TagGroupItem value='42'>42</TagGroupItem>
-                <TagGroupItem value='43'>43</TagGroupItem>
-                <TagGroupItem value='44'>44</TagGroupItem>
-                <TagGroupItem value='45'>45</TagGroupItem>
-                <TagGroupItem value='46'>46</TagGroupItem>
-              </CheckboxGroup>
-            </PopoverFilterWrapper>
-            <PopoverFilterWrapper title='Rating'>
-              <RatingRadioGroup className='w-72' />
-            </PopoverFilterWrapper>
+            {/* Categories */}
             <PopoverFilterWrapper title='Category'>
               <CheckboxGroup
                 aria-label='Select category'
                 className='gap-1'
                 orientation='horizontal'
               >
-                <TagGroupItem value='sneakers'>Sneakers</TagGroupItem>
-                <TagGroupItem value='boots'>Boots</TagGroupItem>
-                <TagGroupItem value='sandals'>Sandals</TagGroupItem>
-                <TagGroupItem value='slippers'>Slippers</TagGroupItem>
-                <TagGroupItem value='basketball'>Basketball</TagGroupItem>
-                <TagGroupItem value='running'>Running</TagGroupItem>
-                <TagGroupItem value='football'>Football</TagGroupItem>
-                <TagGroupItem value='paddle'>Paddle</TagGroupItem>
-                <TagGroupItem value='tennis'>Tennis</TagGroupItem>
-                <TagGroupItem value='golf'>Golf</TagGroupItem>
+                <TagGroupItem value='category1'>Cat 1</TagGroupItem>
+                <TagGroupItem value='category2'>Category 2</TagGroupItem>
+                <TagGroupItem value='category3'>Category 3</TagGroupItem>
+                <TagGroupItem value='category4'>Category 4</TagGroupItem>
+                <TagGroupItem value='category5'>Cat 5</TagGroupItem>
+                <TagGroupItem value='category6'>Category 6</TagGroupItem>
+                <TagGroupItem value='category7'>Category 7</TagGroupItem>
+              </CheckboxGroup>
+            </PopoverFilterWrapper>
+
+            {/* Kind */}
+            <PopoverFilterWrapper title='Kind'>
+              <CheckboxGroup
+                aria-label='Select kind'
+                className='gap-1'
+                orientation='horizontal'
+              >
+                <TagGroupItem value='kind1'>Ki 1</TagGroupItem>
+                <TagGroupItem value='kind2'>Kind 2</TagGroupItem>
+                <TagGroupItem value='kind3'>Kind 3</TagGroupItem>
+                <TagGroupItem value='kind4'>Kind 4</TagGroupItem>
+                <TagGroupItem value='kind5'>Kind 5</TagGroupItem>
+              </CheckboxGroup>
+            </PopoverFilterWrapper>
+
+            {/* Sub-Kind */}
+            <PopoverFilterWrapper title='Sub Kind'>
+              <CheckboxGroup
+                aria-label='Select kind'
+                className='gap-1'
+                orientation='horizontal'
+              >
+                <TagGroupItem value='subkind1'>Sk 1</TagGroupItem>
+                <TagGroupItem value='subkind2'>Sub kind 2</TagGroupItem>
+                <TagGroupItem value='subkind3'>Sub kind 3</TagGroupItem>
+                <TagGroupItem value='subkind4'>Sub kind 4</TagGroupItem>
+                <TagGroupItem value='subkind5'>Sub kind 5</TagGroupItem>
               </CheckboxGroup>
             </PopoverFilterWrapper>
             <Select
