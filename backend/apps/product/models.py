@@ -58,7 +58,7 @@ class KindProduct(TimeStampModel):
         ordering = ["-updated_at"]
 
     def __str__(self):
-        return self.name
+        return f"{self.category} - {self.name}"
 
 
 @receiver(signals.pre_save, sender=KindProduct)
@@ -81,7 +81,7 @@ class SubKindProduct(TimeStampModel):
         verbose_name_plural = "SubKinds"
 
     def __str__(self):
-        return self.name
+        return f"{self.kind} - {self.name}"
 
 
 @receiver(signals.pre_save, sender=SubKindProduct)

@@ -28,7 +28,14 @@ class SubKindProductAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ["title", "slug"]
-    list_display = ["title", "slug", "updated_at"]
+    list_display = [
+        "category",
+        "kind_of_product",
+        "sub_kind_of_product",
+        "title",
+        "slug",
+        "updated_at",
+    ]
     readonly_fields = [
         "slug",
         "image_small_size",
