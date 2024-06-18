@@ -10,7 +10,7 @@ class ProductVendorViewSet(viewsets.ModelViewSet):
     queryset = ProductVendor.objects.all()
     serializer_class = ProductVendorSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-    http_method_names = ["get", "post", "patch", "delete"]
+    http_method_names = ["get", "post", "patch"]
     lookup_field = "slug"
 
     def get_object(self):
