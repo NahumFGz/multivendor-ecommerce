@@ -6,8 +6,9 @@ import { cn } from '../../../../services/utilities/cn'
 import { useProductsAPI } from '../../hooks/useProductsAPI'
 
 export const Products = forwardRef(({ itemClassName, className, isLoading = false, ...props }, ref) => {
-  const { getProducts } = useProductsAPI()
+  const { getProducts, getProductDetail } = useProductsAPI()
   const [productsapi, setProductsapi] = useState([])
+  const [productDetailApi, setProductDetailApi] = useState([])
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -20,7 +21,18 @@ export const Products = forwardRef(({ itemClassName, className, isLoading = fals
       }
     }
 
+    const fetchProductDetail = async () => {
+      try {
+        const res = await getProductDetail('atque-architecto-adipisci-dolores-culpa-et-fugiat-officia')
+        setProductDetailApi(res)
+        console.log(res)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
     fetchProducts()
+    fetchProductDetail()
   }, [])
 
   return (

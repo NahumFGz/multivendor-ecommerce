@@ -19,7 +19,7 @@ export async function getProductsApi () {
 export async function getProductDetailApi (slugProduct) {
   try {
     const axiosInstance = createAxiosInstance()
-    const response = await axiosInstance.patch(`/api/products/${slugProduct}/`)
+    const response = await axiosInstance.get(`/api/products/${slugProduct}/`)
     const { data, status } = response
 
     if (status === 200) {
