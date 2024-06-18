@@ -18,7 +18,7 @@ class Category(TimeStampModel):
         verbose_name_plural = "Categories"
 
     def __str__(self):
-        return f"cat: {self.name}"
+        return f"{self.name}"
 
     @property
     def image_small_size(self):
@@ -58,7 +58,7 @@ class KindProduct(TimeStampModel):
         ordering = ["-updated_at"]
 
     def __str__(self):
-        return f"{self.category} - kind: {self.name}"
+        return f"{self.name}"
 
 
 @receiver(signals.pre_save, sender=KindProduct)
@@ -81,7 +81,7 @@ class SubKindProduct(TimeStampModel):
         verbose_name_plural = "SubKinds"
 
     def __str__(self):
-        return f"{self.kind} - {self.name}"
+        return f"{self.name}"
 
 
 @receiver(signals.pre_save, sender=SubKindProduct)
