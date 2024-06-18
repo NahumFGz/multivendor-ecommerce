@@ -6,7 +6,7 @@ const products = [
     price: 49.99,
     color: 'black',
     size: '42',
-    imageSrc: 'http://localhost:8000/media/thumbnails/product/product/akA5hHzkAVTdxdPQcgkzUL_medium.png'
+    imageSrc: 'https://back.wonderland-store.com/media/products/9rRJbDoHRKPdPks9hjhSzh.png'
   },
   {
     id: '2',
