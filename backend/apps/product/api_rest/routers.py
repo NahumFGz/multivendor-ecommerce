@@ -10,15 +10,11 @@ from .views import (
     SubKindProductViewSet,
 )
 
-router = DefaultRouter()
-router.register(r"sub-kind-products", SubKindProductViewSet)
-router.register(r"kind-products", KindProductViewSet)
-router.register(r"categories", CategoryViewSet)
-# router.register(r"products", ProductViewSet)
-
 urlpatterns = [
-    path("", include(router.urls)),
     path("products/", ProductListView.as_view(), name="product-list"),
     path("products/<int:pk>/", ProductCRUDView.as_view(), name="product-crud"),
     path("products/<slug:slug>/", ProductDetailView.as_view(), name="product-detail"),
+    path("info/categories/", CategoryViewSet.as_view(), name="category-list"),
+    path("info/kind-products/", KindProductViewSet.as_view(), name="kind-product-list"),
+    path("info/sub-kind-products/", SubKindProductViewSet.as_view(), name="sub-kind-product-list"),
 ]
