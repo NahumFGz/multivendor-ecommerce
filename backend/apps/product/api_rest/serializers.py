@@ -78,3 +78,36 @@ class ProductSerializer(serializers.ModelSerializer):
             "medium": obj.image_medium_size if obj.image_principal else None,
             "large": obj.image_large_size if obj.image_principal else None,
         }
+
+
+class ProductDetailSerializer(serializers.ModelSerializer):
+    images = serializers.SerializerMethodField()
+    category = TinyCategorySerializer()
+    kind_of_product = TinyKindProductSerializer()
+    sub_kind_of_product = TinySubKindProductSerializer()
+
+    class Meta:
+        model = Product
+        fields = (
+            "id",
+            "category",
+            "kind_of_product",
+            "sub_kind_of_product",
+            "title",
+            "short_description",
+            "description",
+            "slug",
+            "views",
+            "rating",
+            "images",
+            "updated_at",
+            "price",
+        )
+
+    def get_images(self, obj):
+        return {
+            "principal": obj.image_principal.url if obj.image_principal else None,
+            "small": obj.image_small_size if obj.image_principal else None,
+            "medium": obj.image_medium_size if obj.image_principal else None,
+            "large": obj.image_large_size if obj.image_principal else None,
+        }

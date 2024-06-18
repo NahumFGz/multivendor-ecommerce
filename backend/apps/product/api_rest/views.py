@@ -7,6 +7,7 @@ from ..models import Category, KindProduct, Product, SubKindProduct
 from .serializers import (
     CategorySerializer,
     KindProductSerializer,
+    ProductDetailSerializer,
     ProductSerializer,
     SubKindProductSerializer,
 )
@@ -51,9 +52,14 @@ class ProductListView(generics.ListAPIView):
 
 
 class ProductDetailView(generics.RetrieveAPIView):
+    """
+    RetrieveAPIView es una clase de vista genérica que
+    proporciona una interfaz de solo lectura para un recurso.
+    """
+
     lookup_field = "slug"
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = ProductDetailSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
