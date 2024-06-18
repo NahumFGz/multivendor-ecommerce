@@ -1,3 +1,8 @@
+from apps.product.api_rest.serializers import (
+    TinyCategorySerializer,
+    TinyKindProductSerializer,
+    TinySubKindProductSerializer,
+)
 from rest_framework import serializers
 
 from ..models import ProductVendor
@@ -5,6 +10,9 @@ from ..models import ProductVendor
 
 class ProductVendorSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
+    category = TinyCategorySerializer()
+    kind_of_product = TinyKindProductSerializer()
+    sub_kind_of_product = TinySubKindProductSerializer()
 
     class Meta:
         model = ProductVendor
