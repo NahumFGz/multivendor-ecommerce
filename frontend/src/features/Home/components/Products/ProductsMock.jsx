@@ -6,7 +6,7 @@ const products = [
     price: 49.99,
     color: 'black',
     size: '42',
-    imageSrc: 'https://nextuipro.nyc3.cdn.digitaloceanspaces.com/components-images/shoes/1.png'
+    imageSrc: 'http://localhost:8000/media/thumbnails/product/product/akA5hHzkAVTdxdPQcgkzUL_medium.png'
   },
   {
     id: '2',

@@ -1,10 +1,28 @@
-import React, { forwardRef } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import { Pagination, Skeleton } from '@nextui-org/react'
 import products from './ProductsMock'
 import ProductListItem from './ProductListItem'
 import { cn } from '../../../../services/utilities/cn'
+import { useProductsAPI } from '../../hooks/useProductsAPI'
 
 export const Products = forwardRef(({ itemClassName, className, isLoading = false, ...props }, ref) => {
+  const { getProducts } = useProductsAPI()
+  const [productsapi, setProductsapi] = useState([])
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await getProducts()
+        setProductsapi(res)
+        console.log(res)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchProducts()
+  }, [])
+
   return (
     <>
       <div className='block rounded-medium border-medium border-dashed border-divider m-2'>

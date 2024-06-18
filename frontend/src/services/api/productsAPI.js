@@ -16,7 +16,7 @@ export async function getProductsApi () {
   }
 }
 
-export async function getProductDetailAPpi (slugProduct) {
+export async function getProductDetailApi (slugProduct) {
   try {
     const axiosInstance = createAxiosInstance()
     const response = await axiosInstance.patch(`/api/products/${slugProduct}/`)
