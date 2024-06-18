@@ -5,7 +5,13 @@ from apps.product.api_rest.serializers import (
 )
 from rest_framework import serializers
 
-from ..models import ProductVendor
+from ..models import ProductVendor, User
+
+
+class TinyUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id", "first_name", "last_name")
 
 
 class ProductVendorSerializer(serializers.ModelSerializer):
@@ -13,6 +19,7 @@ class ProductVendorSerializer(serializers.ModelSerializer):
     category = TinyCategorySerializer()
     kind_of_product = TinyKindProductSerializer()
     sub_kind_of_product = TinySubKindProductSerializer()
+    vendor = TinyUserSerializer()
 
     class Meta:
         model = ProductVendor
