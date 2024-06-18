@@ -69,6 +69,8 @@ class ProductSerializer(serializers.ModelSerializer):
             "images",
             "updated_at",
             "price",
+            "stock",
+            "is_presale",
         )
 
     def get_images(self, obj):
@@ -102,6 +104,8 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "images",
             "updated_at",
             "price",
+            "stock",
+            "is_presale",
         )
 
     def get_images(self, obj):
