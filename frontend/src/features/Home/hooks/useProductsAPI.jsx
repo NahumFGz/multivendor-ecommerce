@@ -18,10 +18,12 @@ export function useProductsAPI () {
         views: product.views,
         productName: product.title,
         productSlugName: product.slug,
-        srcPrincipalImage: product.images.principal ? `${BASE_URL}${product.images.principal}` : '',
-        srcSmallImage: product.images.small ? `${BASE_URL}${product.images.small}` : '',
-        srcMediumImage: product.images.medium ? `${BASE_URL}${product.images.medium}` : '',
-        srcLargeImage: product.images.large ? `${BASE_URL}${product.images.large}` : '',
+        images: {
+          principal: product.images.principal ? `${BASE_URL}${product.images.principal}` : '',
+          small: product.images.small ? `${BASE_URL}${product.images.small}` : '',
+          medium: product.images.medium ? `${BASE_URL}${product.images.medium}` : '',
+          large: product.images.large ? `${BASE_URL}${product.images.large}` : ''
+        },
         updatedAt: product.updated_at
       }))
     } catch (error) {
@@ -45,11 +47,13 @@ export function useProductsAPI () {
         views: product.views,
         productName: product.title,
         productSlugName: product.slug,
-        srcPrincipalImage: product.images.principal ? `${BASE_URL}${product.images.principal}` : '',
-        srcSmallImage: product.images.small ? `${BASE_URL}${product.images.small}` : '',
-        srcMediumImage: product.images.medium ? `${BASE_URL}${product.images.medium}` : '',
-        srcLargeImage: product.images.large ? `${BASE_URL}${product.images.large}` : '',
-        updatedAt: product.updated,
+        images: {
+          principal: product.images.principal ? `${BASE_URL}${product.images.principal}` : '',
+          small: product.images.small ? `${BASE_URL}${product.images.small}` : '',
+          medium: product.images.medium ? `${BASE_URL}${product.images.medium}` : '',
+          large: product.images.large ? `${BASE_URL}${product.images.large}` : ''
+        },
+        updatedAt: product.updated_at,
         description: product.description,
         descriptionShort: product.short_description
       }
