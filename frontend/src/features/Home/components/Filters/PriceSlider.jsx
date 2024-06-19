@@ -124,7 +124,7 @@ const PriceSlider = forwardRef(({ range, animation, className, ...props }, ref) 
         <Input
           aria-label='Min price'
           labelPlacement='outside'
-          startContent={<p className='text-default-400'>$</p>}
+          startContent={<p className='text-default-400'>S/</p>}
           type='number'
           value={`${value[0]}`}
           onValueChange={onMinInputValueChange}
@@ -134,7 +134,7 @@ const PriceSlider = forwardRef(({ range, animation, className, ...props }, ref) 
         <Input
           aria-label='Max price'
           labelPlacement='outside'
-          startContent={<p className='text-default-400'>$</p>}
+          startContent={<p className='text-default-400'>S/</p>}
           type='number'
           value={`${value[1]}`}
           onValueChange={onMaxInputValueChange}
