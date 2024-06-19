@@ -68,6 +68,7 @@ const ProductListItem = forwardRef(
               'h-full justify-between': isPopular
             }
           )}
+          onClick={() => console.log('Product clicked')}
         >
           <div
             className={cn('flex flex-col gap-2 px-4 pt-6', {
@@ -81,7 +82,7 @@ const ProductListItem = forwardRef(
             removeWrapper
             alt={name}
             className={cn(
-              'z-0 h-full w-full max-w-[80%] max-h-[80%] overflow-visible object-contain object-center hover:scale-110',
+              'z-0 h-full w-full max-h-[70%] overflow-visible object-contain object-center hover:scale-110',
               {
                 'flex h-56 w-56 items-center': isPopular,
                 'mb-2': hasColors
