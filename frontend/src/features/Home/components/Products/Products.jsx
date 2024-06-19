@@ -1,11 +1,10 @@
-import { forwardRef, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Pagination, Skeleton } from '@nextui-org/react'
-// import products from './ProductsMock'
-import ProductListItem from './ProductListItem'
+import { ProductListItem } from './ProductListItem'
 import { cn } from '../../../../services/utilities/cn'
 import { useProductsAPI } from '../../hooks/useProductsAPI'
 
-export const Products = forwardRef(({ itemClassName, className, ...props }, ref) => {
+export function Products ({ itemClassName, className, ...props }) {
   const { getProducts } = useProductsAPI()
   const [products, setProducts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -30,7 +29,6 @@ export const Products = forwardRef(({ itemClassName, className, ...props }, ref)
     <>
       <div className='block rounded-medium border-medium border-dashed border-divider m-2'>
         <div
-          ref={ref}
           className={cn(
         `grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ${isLoading ? 'gap-4' : 'gap-0'}`,
         className
@@ -69,4 +67,4 @@ export const Products = forwardRef(({ itemClassName, className, ...props }, ref)
       </div>
     </>
   )
-})
+}
