@@ -3,6 +3,7 @@ import { useProductsAPI } from '../hooks/useProductsAPI'
 
 import { Filters } from '../components/Filters/Filters'
 import { Products } from '../components/Products/Products'
+import { Pagination } from '@nextui-org/react'
 
 export function ProductsPage () {
   const { getProducts } = useProductsAPI()
@@ -32,6 +33,9 @@ export function ProductsPage () {
       <Filters totalProducts={totalProducts} />
       <div>
         <Products products={products} isLoading={isLoading} />
+      </div>
+      <div className='flex items-center justify-center mt-4'>
+        <Pagination showControls total={10} initialPage={1} />
       </div>
     </div>
   )

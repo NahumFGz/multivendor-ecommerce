@@ -1,4 +1,4 @@
-import { Pagination, Skeleton } from '@nextui-org/react'
+import { Skeleton } from '@nextui-org/react'
 import { ProductListItem } from './ProductListItem'
 import { cn } from '../../../../services/utilities/cn'
 
@@ -37,10 +37,6 @@ export function Products ({ itemClassName, className, isLoading, products }) {
               />
             ))}
         </div>
-      </div>
-
-      <div className='flex items-center justify-center mt-4'>
-        <Pagination showControls total={10} initialPage={1} />
       </div>
     </>
   )

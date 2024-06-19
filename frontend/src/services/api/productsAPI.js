@@ -6,10 +6,15 @@ const BASE_URL = import.meta.env.VITE_BASE_API_URL
 const roundToTwoDecimals = (num) => Math.round(num * 100) / 100
 // const roundToTwoDecimals = (num) => parseFloat(num.toFixed(2))
 
-export async function getProductsApi () {
+export async function getProductsApi (page = 1, pageSize = 10) {
   try {
     const axiosInstance = createAxiosInstance()
-    const response = await axiosInstance.get('/api/products/')
+    const response = await axiosInstance.get('/api/products/', {
+      params: {
+        page,
+        page_size: pageSize
+      }
+    })
     const { data, status } = response
 
     if (status === 200) {
