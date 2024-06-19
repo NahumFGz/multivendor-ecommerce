@@ -34,7 +34,7 @@ export async function getProductsApi () {
 
       return {
         products,
-        totalCount: data.count
+        totalProducts: data.count
       }
     } else {
       throw new Error('Get products failed')

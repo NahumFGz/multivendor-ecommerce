@@ -9,15 +9,15 @@ import PriceSlider from './PriceSlider'
 import PopoverFilterWrapper from './PopoverFilterWrapper'
 import TagGroupItem from './TagGroupItem'
 
-export function Filters () {
+export function Filters ({ totalProducts }) {
   return (
     <div className='flex flex-col'>
       <header className='rounded-medium bg-default-50 px-4 py-3 mt-2'>
 
         {/* Mobile Title */}
         <div className='flex items-center gap-1 md:hidden md:gap-2'>
-          <h2 className='text-large font-medium'>Shoes</h2>
-          <span className='text-small text-default-400'>(1240)</span>
+          <h2 className='text-large font-medium'>Products</h2>
+          <span className='text-small text-default-400'>{`(${totalProducts})`}</span>
         </div>
 
         <div className='flex items-center justify-between gap-2'>
@@ -25,8 +25,8 @@ export function Filters () {
           {/* Desktop Title */}
           <div className='flex flex-row gap-2'>
             <div className='hidden items-center gap-1 md:flex'>
-              <h2 className='text-medium font-medium'>Shoes</h2>
-              <span className='text-small text-default-400'>(1240)</span>
+              <h2 className='text-medium font-medium'>Products</h2>
+              <span className='text-small text-default-400'>{`(${totalProducts})`}</span>
             </div>
           </div>
 

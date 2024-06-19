@@ -1,30 +1,8 @@
-import { useEffect, useState } from 'react'
 import { Pagination, Skeleton } from '@nextui-org/react'
 import { ProductListItem } from './ProductListItem'
 import { cn } from '../../../../services/utilities/cn'
-import { useProductsAPI } from '../../hooks/useProductsAPI'
 
-export function Products ({ itemClassName, className }) {
-  const { getProducts } = useProductsAPI()
-  const [products, setProducts] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setIsLoading(true)
-        const { products, totalCount } = await getProducts()
-        setProducts(products)
-        setIsLoading(false)
-      } catch (error) {
-        console.error(error)
-        setIsLoading(false)
-      }
-    }
-
-    fetchProducts()
-  }, [])
-
+export function Products ({ itemClassName, className, isLoading, products }) {
   return (
     <>
       <div className='block rounded-medium border-medium border-dashed border-divider m-2'>
