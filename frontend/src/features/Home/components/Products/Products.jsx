@@ -4,7 +4,7 @@ import { ProductListItem } from './ProductListItem'
 import { cn } from '../../../../services/utilities/cn'
 import { useProductsAPI } from '../../hooks/useProductsAPI'
 
-export function Products ({ itemClassName, className, ...props }) {
+export function Products ({ itemClassName, className }) {
   const { getProducts } = useProductsAPI()
   const [products, setProducts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -13,8 +13,8 @@ export function Products ({ itemClassName, className, ...props }) {
     const fetchProducts = async () => {
       try {
         setIsLoading(true)
-        const res = await getProducts()
-        setProducts(res)
+        const { products, totalCount } = await getProducts()
+        setProducts(products)
         setIsLoading(false)
       } catch (error) {
         console.error(error)
@@ -33,7 +33,6 @@ export function Products ({ itemClassName, className, ...props }) {
         `grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ${isLoading ? 'gap-4' : 'gap-0'}`,
         className
           )}
-          {...props}
         >
           {isLoading
             ? Array.from({ length: 5 }).map((_, index) => (

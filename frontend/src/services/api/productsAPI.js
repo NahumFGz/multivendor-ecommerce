@@ -13,8 +13,7 @@ export async function getProductsApi () {
     const { data, status } = response
 
     if (status === 200) {
-      // await delay(500)
-      return data.map(product => ({
+      const products = data.products.map(product => ({
         id: product.id,
         name: product.title,
         price: roundToTwoDecimals(parseFloat(product.price)),
@@ -32,6 +31,11 @@ export async function getProductsApi () {
         stock: product.stock,
         isPresale: product.is_presale
       }))
+
+      return {
+        products,
+        totalCount: data.count
+      }
     } else {
       throw new Error('Get products failed')
     }
