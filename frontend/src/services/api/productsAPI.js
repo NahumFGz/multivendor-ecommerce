@@ -26,7 +26,9 @@ export async function getProductsApi () {
         subKindName: product.sub_kind_of_product?.name || '',
         rating: roundToTwoDecimals(parseFloat(product.rating)),
         views: parseInt(product.views, 10),
-        updatedAt: product.updated_at
+        updatedAt: product.updated_at,
+        stock: product.stock,
+        isPresale: product.is_presale
       }))
     } else {
       throw new Error('Get products failed')
@@ -64,7 +66,9 @@ export async function getProductDetailApi (slugProduct) {
         },
         updatedAt: data.updated_at,
         description: data.description,
-        descriptionShort: data.short_description
+        descriptionShort: data.short_description,
+        stock: data.stock,
+        isPresale: data.is_presale
       }
     } else {
       throw new Error('Get product detail failed')

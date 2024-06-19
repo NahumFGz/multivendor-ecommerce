@@ -17,7 +17,7 @@ const ProductListItem = forwardRef(
       availableColors,
       removeWrapper,
       className,
-      ...props
+      stock
     },
     ref
   ) => {
@@ -34,7 +34,6 @@ const ProductListItem = forwardRef(
           },
           className
         )}
-        {...props}
       >
         {isNew && isPopular
           ? (
@@ -43,6 +42,11 @@ const ProductListItem = forwardRef(
             </span>
             )
           : null}
+        {/* Stock info */}
+        <span className={`absolute left-7 top-7 z-20 text-tiny font-semibold ${stock > 0 ? 'text-default-700' : 'text-default-400'}`}>
+          {stock > 20 ? '+20 en stock' : stock > 0 ? `${stock} en stock` : 'Agotado'}
+        </span>
+
         <Button
           isIconOnly
           className={cn('absolute right-6 top-6 z-20', {
