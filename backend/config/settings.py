@@ -158,7 +158,11 @@ CORS_ALLOWED_ORIGINS = [
 # Simple JWT
 # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",)
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PAGINATION_CLASS": "common.pagination.CustomPageNumberPagination",
+    "PAGE_SIZE": 10,  # Valor por defecto, si no se especifica en la URL
 }
 
 SWAGGER_SETTINGS = {
