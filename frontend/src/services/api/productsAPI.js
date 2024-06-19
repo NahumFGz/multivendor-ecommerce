@@ -2,7 +2,7 @@ import { createAxiosInstance } from './axiosInstance'
 
 const BASE_URL = import.meta.env.VITE_BASE_API_URL
 
-// const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 const roundToTwoDecimals = (num) => Math.round(num * 100) / 100
 // const roundToTwoDecimals = (num) => parseFloat(num.toFixed(2))
 
@@ -18,6 +18,7 @@ export async function getProductsApi (page = 1, pageSize = 10) {
     const { data, status } = response
 
     if (status === 200) {
+      await delay(0)
       const products = data.results.map(product => ({
         id: product.id,
         name: product.title,
