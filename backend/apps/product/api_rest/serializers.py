@@ -82,6 +82,11 @@ class ProductSerializer(serializers.ModelSerializer):
         }
 
 
+class ProductListWithCountSerializer(serializers.Serializer):
+    products = ProductSerializer(many=True)
+    count = serializers.IntegerField()
+
+
 class ProductDetailSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
     category = TinyCategorySerializer()

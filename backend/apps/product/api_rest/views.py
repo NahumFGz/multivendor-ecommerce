@@ -2,6 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, mixins, viewsets
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
 
 from ..models import Category, KindProduct, Product, SubKindProduct
 from .serializers import (
@@ -37,15 +38,23 @@ class ProductListView(generics.ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
 
-    # Configurar los campos de búsqueda
     search_fields = ["title", "description"]
-
-    # Configurar los campos de filtro
     filterset_fields = ["category", "price", "rating"]
-
-    # Configurar los campos de ordenamiento y ordenamiento predeterminado
     ordering_fields = ["price", "rating", "created_at"]
     ordering = ["created_at"]
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(
+                {"products": serializer.data, "count": queryset.count()}
+            )
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({"products": serializer.data, "count": queryset.count()})
 
 
 class ProductDetailView(generics.RetrieveAPIView):
@@ -78,3 +87,21 @@ class ProductCRUDView(
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+# class ProductListView(generics.ListAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#     permission_classes = [IsAuthenticatedOrReadOnly]
+#     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+
+#     # Configurar los campos de búsqueda
+#     search_fields = ["title", "description"]
+
+#     # Configurar los campos de filtro
+#     filterset_fields = ["category", "price", "rating"]
+
+
+#     # Configurar los campos de ordenamiento y ordenamiento predeterminado
+#     ordering_fields = ["price", "rating", "created_at"]
+#     ordering = ["created_at"]
