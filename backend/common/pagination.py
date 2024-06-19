@@ -11,7 +11,7 @@ class CustomPageNumberPagination(PageNumberPagination):
             {
                 "links": {"next": self.get_next_link(), "previous": self.get_previous_link()},
                 "count": self.page.paginator.count,
-                "page_size": self.page_size,
+                "page_size": self.page.paginator.per_page,  # Asegúrate de usar el tamaño de página correcto
                 "results": data,
             }
         )
