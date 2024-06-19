@@ -1,39 +1,29 @@
-/* eslint-disable no-unused-vars */
 import { forwardRef, useEffect, useState } from 'react'
 import { Pagination, Skeleton } from '@nextui-org/react'
-import products from './ProductsMock'
+// import products from './ProductsMock'
 import ProductListItem from './ProductListItem'
 import { cn } from '../../../../services/utilities/cn'
 import { useProductsAPI } from '../../hooks/useProductsAPI'
 
-export const Products = forwardRef(({ itemClassName, className, isLoading = false, ...props }, ref) => {
-  const { getProducts, getProductDetail } = useProductsAPI()
-  const [productsapi, setProductsapi] = useState([])
-  const [productDetailApi, setProductDetailApi] = useState([])
+export const Products = forwardRef(({ itemClassName, className, ...props }, ref) => {
+  const { getProducts } = useProductsAPI()
+  const [products, setProducts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setIsLoading(true)
         const res = await getProducts()
-        setProductsapi(res)
-        console.log(res)
+        setProducts(res)
+        setIsLoading(false)
       } catch (error) {
         console.error(error)
-      }
-    }
-
-    const fetchProductDetail = async () => {
-      try {
-        const res = await getProductDetail('pokemon-tcg-shrouded-fable-elite-trainer-box')
-        setProductDetailApi(res)
-        console.log(res)
-      } catch (error) {
-        console.error(error)
+        setIsLoading(false)
       }
     }
 
     fetchProducts()
-    fetchProductDetail()
   }, [])
 
   return (
@@ -48,7 +38,7 @@ export const Products = forwardRef(({ itemClassName, className, isLoading = fals
           {...props}
         >
           {isLoading
-            ? Array.from({ length: products.length }).map((_, index) => (
+            ? Array.from({ length: 5 }).map((_, index) => (
               <div key={index} className={cn('w-full snap-start', itemClassName)}>
                 <div className='flex flex-col gap-3'>
                   <Skeleton className='h-48 w-full rounded-lg sm:h-52 md:h-56 lg:h-60' />

@@ -116,8 +116,10 @@ const ProductListItem = forwardRef(
               hidden: isPopular
             })}
           >
-            <h3 className='text-medium font-medium text-default-700'>{name}</h3>
-            <p className='text-medium font-medium text-default-500'>${price}</p>
+            <div>
+              <h3 className='text-medium font-medium text-default-700'>{name}</h3>
+              <p className='text-medium font-medium text-default-500'>S/ {price}</p>
+            </div>
           </div>
           {description && !isPopular
             ? (
