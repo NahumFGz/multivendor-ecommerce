@@ -61,7 +61,7 @@ export function ProductListItem ({
       </Button>
       <div
         className={cn(
-          'relative flex h-52 max-h-full w-full flex-col items-center justify-center overflow-visible rounded-medium bg-content2',
+          'relative flex h-[300px] max-h-full w-full flex-col items-center justify-center overflow-visible rounded-medium bg-content2',
           {
             'h-full justify-between': isPopular
           }
@@ -80,7 +80,7 @@ export function ProductListItem ({
           removeWrapper
           alt={name}
           className={cn(
-            'z-0 h-full w-full max-h-[70%] overflow-visible object-contain object-center hover:scale-110',
+            'z-0 h-full w-full max-h-[50%] overflow-visible object-contain object-center hover:scale-110',
             {
               'flex h-56 w-56 items-center': isPopular,
               'mb-2': hasColors
