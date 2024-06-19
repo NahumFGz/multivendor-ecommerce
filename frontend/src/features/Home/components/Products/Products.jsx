@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { forwardRef, useEffect, useState } from 'react'
 import { Pagination, Skeleton } from '@nextui-org/react'
 import products from './ProductsMock'
@@ -23,7 +24,7 @@ export const Products = forwardRef(({ itemClassName, className, isLoading = fals
 
     const fetchProductDetail = async () => {
       try {
-        const res = await getProductDetail('atque-architecto-adipisci-dolores-culpa-et-fugiat-officia')
+        const res = await getProductDetail('pokemon-tcg-shrouded-fable-elite-trainer-box')
         setProductDetailApi(res)
         console.log(res)
       } catch (error) {
