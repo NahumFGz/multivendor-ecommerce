@@ -1,4 +1,3 @@
-import django_filters
 from common.pagination import CustomPageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, mixins, viewsets
@@ -7,6 +6,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 from ..models import Category, KindProduct, Product, SubKindProduct
+from .filters import ProductFilter
 from .serializers import (
     CategorySerializer,
     KindProductSerializer,
@@ -34,15 +34,6 @@ class CategoryViewSet(generics.ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-class ProductFilter(django_filters.FilterSet):
-    price_min = django_filters.NumberFilter(field_name="price", lookup_expr="gte")
-    price_max = django_filters.NumberFilter(field_name="price", lookup_expr="lte")
-
-    class Meta:
-        model = Product
-        fields = ["category", "price_min", "price_max", "rating"]
-
-
 class ProductListView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -57,8 +48,8 @@ class ProductListView(generics.ListAPIView):
     filterset_class = ProductFilter
 
     # Configurar los campos de ordenamiento y ordenamiento predeterminado
-    ordering_fields = ["price", "rating", "created_at"]
-    ordering = ["created_at"]
+    ordering_fields = ["price", "rating", "updated_at"]
+    ordering = ["updated_at"]
 
 
 class ProductDetailView(generics.RetrieveAPIView):
