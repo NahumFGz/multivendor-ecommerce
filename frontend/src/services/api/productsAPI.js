@@ -2,6 +2,9 @@ import { createAxiosInstance } from './axiosInstance'
 
 const BASE_URL = import.meta.env.VITE_BASE_API_URL
 
+const roundToTwoDecimals = (num) => Math.round(num * 100) / 100
+// const roundToTwoDecimals = (num) => parseFloat(num.toFixed(2))
+
 export async function getProductsApi () {
   try {
     const axiosInstance = createAxiosInstance()
@@ -17,9 +20,9 @@ export async function getProductsApi () {
         kindName: product.kind_of_product?.name || '',
         subKindId: product.sub_kind_of_product?.id || 0,
         subKindName: product.sub_kind_of_product?.name || '',
-        price: product.price,
-        rating: product.rating,
-        views: product.views,
+        price: roundToTwoDecimals(parseFloat(product.price)),
+        rating: roundToTwoDecimals(parseFloat(product.rating)),
+        views: parseInt(product.views, 10),
         productName: product.title,
         productSlugName: product.slug,
         images: {
@@ -53,9 +56,9 @@ export async function getProductDetailApi (slugProduct) {
         kindName: data.kind_of_product?.name || '',
         subKindId: data.sub_kind_of_product?.id || 0,
         subKindName: data.sub_kind_of_product?.name || '',
-        price: data.price,
-        rating: data.rating,
-        views: data.views,
+        price: roundToTwoDecimals(parseFloat(data.price)),
+        rating: roundToTwoDecimals(parseFloat(data.rating)),
+        views: parseInt(data.views, 10),
         productName: data.title,
         productSlugName: data.slug,
         images: {
