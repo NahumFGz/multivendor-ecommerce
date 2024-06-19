@@ -13,7 +13,7 @@ export async function getProductsApi () {
     const { data, status } = response
 
     if (status === 200) {
-      const products = data.products.map(product => ({
+      const products = data.results.map(product => ({
         id: product.id,
         name: product.title,
         price: roundToTwoDecimals(parseFloat(product.price)),
@@ -34,6 +34,7 @@ export async function getProductsApi () {
 
       return {
         products,
+        links: data.links,
         totalProducts: data.count
       }
     } else {
