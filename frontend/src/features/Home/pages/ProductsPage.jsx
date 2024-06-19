@@ -65,12 +65,14 @@ export function ProductsPage () {
       <div>
         <Products products={products} isLoading={isLoading} pageSize={pageSize} />
         <div className='flex items-center justify-center mt-4'>
-          <Pagination
-            showControls
-            total={Math.ceil(totalProducts / pageSize)}
-            page={currentPage} // Utiliza el estado controlado
-            onChange={(page) => handlePageChange(page)}
-          />
+          {totalProducts > 0 && pageSize > 0 && (
+            <Pagination
+              showControls
+              total={Math.ceil(totalProducts / pageSize)}
+              page={currentPage} // Utiliza el estado controlado
+              onChange={(page) => handlePageChange(page)}
+            />
+          )}
         </div>
       </div>
     </div>
