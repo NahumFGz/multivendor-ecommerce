@@ -11,6 +11,7 @@ from .serializers import (
     CategorySerializer,
     KindProductSerializer,
     ProductDetailSerializer,
+    ProductListSerializer,
     ProductSerializer,
     SubKindProductSerializer,
     TinyCategorySerializer,
@@ -39,7 +40,7 @@ class CategoryViewSet(generics.ListAPIView):
 
 class ProductListView(generics.ListAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = ProductListSerializer  # Usar el nuevo serializador
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     pagination_class = CustomPageNumberPagination  # Usar la clase de paginación personalizada

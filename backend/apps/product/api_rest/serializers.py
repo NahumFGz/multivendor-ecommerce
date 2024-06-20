@@ -49,8 +49,34 @@ class TinyCategorySerializer(serializers.ModelSerializer):
         fields = ("id", "name")
 
 
-class ProductSerializer(serializers.ModelSerializer):
+class ProductListSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = (
+            "id",
+            "title",
+            "slug",
+            "views",
+            "rating",
+            "images",
+            "updated_at",
+            "price",
+            "stock",
+            "is_presale",
+        )
+
+    def get_images(self, obj):
+        return {
+            "principal": obj.image_principal.url if obj.image_principal else None,
+            "small": obj.image_small_size if obj.image_principal else None,
+            "medium": obj.image_medium_size if obj.image_principal else None,
+            "large": obj.image_large_size if obj.image_principal else None,
+        }
+
+
+class ProductSerializer(serializers.ModelSerializer):
     category = TinyCategorySerializer()
     kind_of_product = TinyKindProductSerializer()
     sub_kind_of_product = TinySubKindProductSerializer()
@@ -72,14 +98,6 @@ class ProductSerializer(serializers.ModelSerializer):
             "stock",
             "is_presale",
         )
-
-    def get_images(self, obj):
-        return {
-            "principal": obj.image_principal.url if obj.image_principal else None,
-            "small": obj.image_small_size if obj.image_principal else None,
-            "medium": obj.image_medium_size if obj.image_principal else None,
-            "large": obj.image_large_size if obj.image_principal else None,
-        }
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
