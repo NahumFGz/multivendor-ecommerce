@@ -76,30 +76,6 @@ class ProductListSerializer(serializers.ModelSerializer):
         }
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    category = TinyCategorySerializer()
-    kind_of_product = TinyKindProductSerializer()
-    sub_kind_of_product = TinySubKindProductSerializer()
-
-    class Meta:
-        model = Product
-        fields = (
-            "id",
-            "category",
-            "kind_of_product",
-            "sub_kind_of_product",
-            "title",
-            "slug",
-            "views",
-            "rating",
-            "images",
-            "updated_at",
-            "price",
-            "stock",
-            "is_presale",
-        )
-
-
 class ProductDetailSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
     category = TinyCategorySerializer()
@@ -133,3 +109,10 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "medium": obj.image_medium_size if obj.image_principal else None,
             "large": obj.image_large_size if obj.image_principal else None,
         }
+
+
+class ProductCUDSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
+        fields = "__all__"

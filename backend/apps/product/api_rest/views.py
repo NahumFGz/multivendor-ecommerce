@@ -10,9 +10,9 @@ from .filters import ProductFilter
 from .serializers import (
     CategorySerializer,
     KindProductSerializer,
+    ProductCUDSerializer,
     ProductDetailSerializer,
     ProductListSerializer,
-    ProductSerializer,
     SubKindProductSerializer,
     TinyCategorySerializer,
     TinyKindProductSerializer,
@@ -99,14 +99,14 @@ class ProductDetailView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-class ProductCRUDView(
+class ProductCUDView(
     mixins.CreateModelMixin,
     mixins.UpdateModelMixin,
     mixins.DestroyModelMixin,
     generics.GenericAPIView,
 ):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = ProductCUDSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def post(self, request, *args, **kwargs):
