@@ -52,7 +52,7 @@ class ProductListView(generics.ListAPIView):
     filterset_class = ProductFilter  # Usar el filtro personalizado
 
     # Configurar los campos de ordenamiento y ordenamiento predeterminado
-    ordering_fields = ["price", "rating", "updated_at"]
+    ordering_fields = ["title", "price", "rating", "updated_at"]
     ordering = ["updated_at"]
 
     def list(self, request, *args, **kwargs):
