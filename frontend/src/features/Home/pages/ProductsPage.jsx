@@ -11,16 +11,16 @@ export function ProductsPage () {
   const [totalProducts, setTotalProducts] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize] = useState(10)
+  const [pageSize, setPageSize] = useState(10)
 
   const navigate = useNavigate()
   const location = useLocation()
 
   // Función para actualizar la URL
-  const updateUrlParams = (page) => {
+  const updateUrlParams = (page, size) => {
     const searchParams = new URLSearchParams(location.search)
     searchParams.set('page', page)
-    searchParams.set('pageSize', pageSize)
+    searchParams.set('pageSize', size)
     navigate({
       pathname: location.pathname,
       search: searchParams.toString()
@@ -35,10 +35,10 @@ export function ProductsPage () {
     return { page, size }
   }
 
-  const fetchProducts = async (page = 1) => {
+  const fetchProducts = async (page = 1, size = 10) => {
     try {
       setIsLoading(true)
-      const { products, totalProducts } = await getProducts(page, pageSize)
+      const { products, totalProducts } = await getProducts(page, size)
       setProducts(products)
       setTotalProducts(totalProducts)
       setIsLoading(false)
@@ -49,14 +49,20 @@ export function ProductsPage () {
   }
 
   useEffect(() => {
-    const { page } = getQueryParams()
+    const { page, size } = getQueryParams()
     setCurrentPage(page)
-    fetchProducts(page)
+    setPageSize(size)
+    fetchProducts(page, size)
   }, [location.search])
 
   const handlePageChange = (page) => {
     setCurrentPage(page)
-    updateUrlParams(page)
+    updateUrlParams(page, pageSize)
+  }
+
+  const handlePageSizeChange = (size) => {
+    setPageSize(size)
+    updateUrlParams(1, size) // Reinicia la paginación a la primera página
   }
 
   return (
@@ -73,6 +79,15 @@ export function ProductsPage () {
               onChange={(page) => handlePageChange(page)}
             />
           )}
+        </div>
+        {/* Ejemplo de un selector para cambiar el pageSize */}
+        <div className='flex items-center justify-center mt-4'>
+          <select value={pageSize} onChange={(e) => handlePageSizeChange(parseInt(e.target.value))}>
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+          </select>
         </div>
       </div>
     </div>
