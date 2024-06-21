@@ -78,7 +78,7 @@ export function ProductsPage () {
 
   return (
     <div className='mx-12 mt-2'>
-      <Filters totalProducts={totalProducts} onOrderingChange={handleOrderingChange} />
+      <Filters totalProducts={totalProducts} ordering={ordering} onOrderingChange={handleOrderingChange} />
       <div>
         <Products products={products} isLoading={isLoading} pageSize={pageSize} />
         <div className='flex items-center justify-center mt-4'>

@@ -9,7 +9,7 @@ import PriceSlider from './PriceSlider'
 import PopoverFilterWrapper from './PopoverFilterWrapper'
 import TagGroupItem from './TagGroupItem'
 
-export function Filters ({ totalProducts, onOrderingChange }) {
+export function Filters ({ totalProducts, ordering, onOrderingChange }) {
   const handleSortChange = (key) => {
     let order = ''
     if (key === 'newest') {
@@ -20,7 +20,19 @@ export function Filters ({ totalProducts, onOrderingChange }) {
       order = '-price'
     }
     onOrderingChange(order)
-    console.log('Sort by:', key)
+  }
+
+  const getKeyFromOrdering = (ordering) => {
+    switch (ordering) {
+      case '-updated_at':
+        return 'newest'
+      case 'price':
+        return 'price_low_to_high'
+      case '-price':
+        return 'price_high_to_low'
+      default:
+        return 'newest'
+    }
   }
 
   return (
@@ -108,7 +120,7 @@ export function Filters ({ totalProducts, onOrderingChange }) {
                 base: 'items-center justify-end max-w-fit',
                 value: 'w-[142px]'
               }}
-              defaultSelectedKeys={['newest']}
+              selectedKeys={[getKeyFromOrdering(ordering)]}
               labelPlacement='outside-left'
               placeholder='Select an option'
               variant='bordered'
