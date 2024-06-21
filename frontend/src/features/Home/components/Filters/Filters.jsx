@@ -9,7 +9,7 @@ import PriceSlider from './PriceSlider'
 import PopoverFilterWrapper from './PopoverFilterWrapper'
 import TagGroupItem from './TagGroupItem'
 
-export function Filters ({ totalProducts, ordering, onOrderingChange }) {
+export function Filters ({ totalProducts, ordering, onOrderingChange, categories, kinds, subKinds }) {
   const handleSortChange = (key) => {
     let order = ''
     if (key === 'newest') {
@@ -68,6 +68,7 @@ export function Filters ({ totalProducts, ordering, onOrderingChange }) {
                 }}
               />
             </PopoverFilterWrapper>
+
             {/* Categories */}
             <PopoverFilterWrapper title='Category'>
               <CheckboxGroup
@@ -75,13 +76,9 @@ export function Filters ({ totalProducts, ordering, onOrderingChange }) {
                 className='gap-1'
                 orientation='horizontal'
               >
-                <TagGroupItem value='category1'>Cat 1</TagGroupItem>
-                <TagGroupItem value='category2'>Category 2</TagGroupItem>
-                <TagGroupItem value='category3'>Category 3</TagGroupItem>
-                <TagGroupItem value='category4'>Category 4</TagGroupItem>
-                <TagGroupItem value='category5'>Cat 5</TagGroupItem>
-                <TagGroupItem value='category6'>Category 6</TagGroupItem>
-                <TagGroupItem value='category7'>Category 7</TagGroupItem>
+                {categories.map(category => (
+                  <TagGroupItem key={category.id} value={category.name}>{category.name}</TagGroupItem>
+                ))}
               </CheckboxGroup>
             </PopoverFilterWrapper>
 
@@ -92,28 +89,25 @@ export function Filters ({ totalProducts, ordering, onOrderingChange }) {
                 className='gap-1'
                 orientation='horizontal'
               >
-                <TagGroupItem value='kind1'>Ki 1</TagGroupItem>
-                <TagGroupItem value='kind2'>Kind 2</TagGroupItem>
-                <TagGroupItem value='kind3'>Kind 3</TagGroupItem>
-                <TagGroupItem value='kind4'>Kind 4</TagGroupItem>
-                <TagGroupItem value='kind5'>Kind 5</TagGroupItem>
+                {kinds.map(kind => (
+                  <TagGroupItem key={kind.id} value={kind.name}>{kind.name}</TagGroupItem>
+                ))}
               </CheckboxGroup>
             </PopoverFilterWrapper>
 
             {/* Sub-Kind */}
             <PopoverFilterWrapper title='Sub Kind'>
               <CheckboxGroup
-                aria-label='Select kind'
+                aria-label='Select sub-kind'
                 className='gap-1'
                 orientation='horizontal'
               >
-                <TagGroupItem value='subkind1'>Sk 1</TagGroupItem>
-                <TagGroupItem value='subkind2'>Sub kind 2</TagGroupItem>
-                <TagGroupItem value='subkind3'>Sub kind 3</TagGroupItem>
-                <TagGroupItem value='subkind4'>Sub kind 4</TagGroupItem>
-                <TagGroupItem value='subkind5'>Sub kind 5</TagGroupItem>
+                {subKinds.map(subKind => (
+                  <TagGroupItem key={subKind.id} value={subKind.name}>{subKind.name}</TagGroupItem>
+                ))}
               </CheckboxGroup>
             </PopoverFilterWrapper>
+
             <Select
               aria-label='Sort by'
               classNames={{

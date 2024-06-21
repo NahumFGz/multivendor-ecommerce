@@ -13,6 +13,9 @@ export function ProductsPage () {
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [ordering, setOrdering] = useState('')
+  const [categories, setCategories] = useState([])
+  const [kinds, setKinds] = useState([])
+  const [subKinds, setSubKinds] = useState([])
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -43,9 +46,12 @@ export function ProductsPage () {
   const fetchProducts = async (page = 1, size = 10, order = '') => {
     try {
       setIsLoading(true)
-      const { products, totalProducts } = await getProducts(page, size, order)
+      const { products, totalProducts, categories, kinds, subKinds } = await getProducts(page, size, order)
       setProducts(products)
       setTotalProducts(totalProducts)
+      setCategories(categories)
+      setKinds(kinds)
+      setSubKinds(subKinds)
       setIsLoading(false)
     } catch (error) {
       console.error(error)
@@ -78,7 +84,14 @@ export function ProductsPage () {
 
   return (
     <div className='mx-12 mt-2'>
-      <Filters totalProducts={totalProducts} ordering={ordering} onOrderingChange={handleOrderingChange} />
+      <Filters
+        totalProducts={totalProducts}
+        ordering={ordering}
+        onOrderingChange={handleOrderingChange}
+        categories={categories}
+        kinds={kinds}
+        subKinds={subKinds}
+      />
       <div>
         <Products products={products} isLoading={isLoading} pageSize={pageSize} />
         <div className='flex items-center justify-center mt-4'>
