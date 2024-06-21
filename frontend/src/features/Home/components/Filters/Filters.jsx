@@ -109,9 +109,6 @@ export function Filters ({ totalProducts }) {
               <SelectItem key='price_high_to_low' value='price_high_to_low'>
                 Price: High to Low
               </SelectItem>
-              <SelectItem key='top_rated' value='top_rated'>
-                Top Rated
-              </SelectItem>
             </Select>
           </div>
         </div>
