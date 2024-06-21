@@ -9,7 +9,20 @@ import PriceSlider from './PriceSlider'
 import PopoverFilterWrapper from './PopoverFilterWrapper'
 import TagGroupItem from './TagGroupItem'
 
-export function Filters ({ totalProducts }) {
+export function Filters ({ totalProducts, onOrderingChange }) {
+  const handleSortChange = (key) => {
+    let order = ''
+    if (key === 'newest') {
+      order = '-updated_at'
+    } else if (key === 'price_low_to_high') {
+      order = 'price'
+    } else if (key === 'price_high_to_low') {
+      order = '-price'
+    }
+    onOrderingChange(order)
+    console.log('Sort by:', key)
+  }
+
   return (
     <div className='flex flex-col'>
       <header className='rounded-medium bg-default-50 px-4 py-3 mt-2'>
@@ -99,6 +112,7 @@ export function Filters ({ totalProducts }) {
               labelPlacement='outside-left'
               placeholder='Select an option'
               variant='bordered'
+              onSelectionChange={(keys) => handleSortChange(Array.from(keys)[0])}
             >
               <SelectItem key='newest' value='newest'>
                 Newest

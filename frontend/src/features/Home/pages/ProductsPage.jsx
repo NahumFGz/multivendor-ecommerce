@@ -12,15 +12,19 @@ export function ProductsPage () {
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
+  const [ordering, setOrdering] = useState('')
 
   const navigate = useNavigate()
   const location = useLocation()
 
   // Función para actualizar la URL
-  const updateUrlParams = (page, size) => {
+  const updateUrlParams = (page, size, order) => {
     const searchParams = new URLSearchParams(location.search)
     searchParams.set('page', page)
     searchParams.set('pageSize', size)
+    if (order) {
+      searchParams.set('ordering', order)
+    }
     navigate({
       pathname: location.pathname,
       search: searchParams.toString()
@@ -32,13 +36,14 @@ export function ProductsPage () {
     const searchParams = new URLSearchParams(location.search)
     const page = parseInt(searchParams.get('page')) || 1
     const size = parseInt(searchParams.get('pageSize')) || 10
-    return { page, size }
+    const order = searchParams.get('ordering') || ''
+    return { page, size, order }
   }
 
-  const fetchProducts = async (page = 1, size = 10) => {
+  const fetchProducts = async (page = 1, size = 10, order = '') => {
     try {
       setIsLoading(true)
-      const { products, totalProducts } = await getProducts(page, size)
+      const { products, totalProducts } = await getProducts(page, size, order)
       setProducts(products)
       setTotalProducts(totalProducts)
       setIsLoading(false)
@@ -49,25 +54,31 @@ export function ProductsPage () {
   }
 
   useEffect(() => {
-    const { page, size } = getQueryParams()
+    const { page, size, order } = getQueryParams()
     setCurrentPage(page)
     setPageSize(size)
-    fetchProducts(page, size)
+    setOrdering(order)
+    fetchProducts(page, size, order)
   }, [location.search])
 
   const handlePageChange = (page) => {
     setCurrentPage(page)
-    updateUrlParams(page, pageSize)
+    updateUrlParams(page, pageSize, ordering)
   }
 
   const handlePageSizeChange = (size) => {
     setPageSize(size)
-    updateUrlParams(1, size) // Reinicia la paginación a la primera página
+    updateUrlParams(1, size, ordering) // Reinicia la paginación a la primera página
+  }
+
+  const handleOrderingChange = (order) => {
+    setOrdering(order)
+    updateUrlParams(1, pageSize, order) // Reinicia la paginación a la primera página
   }
 
   return (
     <div className='mx-12 mt-2'>
-      <Filters totalProducts={totalProducts} />
+      <Filters totalProducts={totalProducts} onOrderingChange={handleOrderingChange} />
       <div>
         <Products products={products} isLoading={isLoading} pageSize={pageSize} />
         <div className='flex items-center justify-center mt-4'>
