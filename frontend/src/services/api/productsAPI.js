@@ -37,9 +37,9 @@ export async function getProductsApi (page = 1, pageSize = 10, ordering = '') {
         products,
         links: data.products.links,
         totalProducts: data.products.count,
-        categories: data.products.categories,
-        kinds: data.products.kinds,
-        subKinds: data.products.sub_kinds
+        categories: data.categories,
+        kinds: data.kinds,
+        subKinds: data.sub_kinds
       }
     } else {
       throw new Error('Get products failed')
