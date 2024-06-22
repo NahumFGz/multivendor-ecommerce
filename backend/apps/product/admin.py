@@ -18,7 +18,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(KindProduct)
 class KindProductAdmin(admin.ModelAdmin):
-    list_display = ["category", "name", "slug", "updated_at"]
+    list_display = ["name", "category", "slug", "updated_at"]
     readonly_fields = [
         "created_at",
         "updated_at",
@@ -27,7 +27,7 @@ class KindProductAdmin(admin.ModelAdmin):
 
 @admin.register(SubKindProduct)
 class SubKindProductAdmin(admin.ModelAdmin):
-    list_display = ["name", "updated_at"]
+    list_display = ["name", "kind", "updated_at"]
     readonly_fields = [
         "created_at",
         "updated_at",
