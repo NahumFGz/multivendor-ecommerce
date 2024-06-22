@@ -9,6 +9,7 @@ from ..models import Category, KindProduct, Product, SubKindProduct
 from .filters import ProductFilter
 from .serializers import (
     CategorySerializer,
+    FiltersProductSerializers,
     KindProductSerializer,
     ProductCUDSerializer,
     ProductDetailSerializer,
@@ -18,6 +19,13 @@ from .serializers import (
     TinyKindProductSerializer,
     TinySubKindProductSerializer,
 )
+
+
+class FiltersProductViewSet(generics.ListAPIView):
+    queryset = SubKindProduct.objects.all()
+    serializer_class = FiltersProductSerializers
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
 
 
 class SubKindProductViewSet(generics.ListAPIView):
