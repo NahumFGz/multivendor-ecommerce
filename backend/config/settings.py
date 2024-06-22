@@ -161,8 +161,10 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    # Todas las vistas tendran paginación por defecto a menos que se especifique pagination_class = None
+    # Tambien se podría borar esta configuración y especificar la paginación en cada vista
     "DEFAULT_PAGINATION_CLASS": "common.pagination.CustomPageNumberPagination",
-    "PAGE_SIZE": 10,  # Valor por defecto, si no se especifica en la URL
+    "PAGE_SIZE": 10,
 }
 
 SWAGGER_SETTINGS = {
