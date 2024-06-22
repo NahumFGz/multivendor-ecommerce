@@ -24,18 +24,21 @@ class SubKindProductViewSet(generics.ListAPIView):
     queryset = SubKindProduct.objects.all()
     serializer_class = SubKindProductSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
 
 
 class KindProductViewSet(generics.ListAPIView):
     queryset = KindProduct.objects.all()
     serializer_class = KindProductSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
 
 
 class CategoryViewSet(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
 
 
 class ProductListView(generics.ListAPIView):
