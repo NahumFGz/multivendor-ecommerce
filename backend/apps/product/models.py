@@ -79,6 +79,8 @@ class SubKindProduct(TimeStampModel):
     class Meta:
         verbose_name = "SubKind"
         verbose_name_plural = "SubKinds"
+        unique_together = (("kind", "name"),)
+        # constraints = [models.UniqueConstraint(fields=["kind", "name"], name="unique_kind_name")]
 
     def __str__(self):
         return f"{self.name}"
