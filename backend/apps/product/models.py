@@ -73,7 +73,7 @@ class SubKindProduct(TimeStampModel):
     kind = models.ForeignKey(
         KindProduct, related_name="subkinds", blank=True, null=True, on_delete=models.CASCADE
     )
-    name = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, blank=True, null=True, unique=True)
 
     class Meta:
