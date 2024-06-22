@@ -4,20 +4,24 @@ from ..models import Category, KindProduct, Product, SubKindProduct
 
 
 class FiltersProductSerializers(serializers.ModelSerializer):
-    kind_info = serializers.SerializerMethodField()
+    kind_id = serializers.IntegerField(source="kind.id")
+    kind_name = serializers.CharField(source="kind.name")
+    category_id = serializers.IntegerField(source="kind.category.id")
+    category_name = serializers.CharField(source="kind.category.name")
 
     class Meta:
         model = SubKindProduct
-        fields = ("kind_info",)
+        fields = ("kind_id", "kind_name", "id", "name", "category_id", "category_name")
 
-    def get_kind_info(self, obj):
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
         return {
-            "category_id": obj.kind.category.id,
-            "category_name": obj.kind.category.name,
-            "kind_id": obj.kind.id,
-            "kind_name": obj.kind.name,
-            "subkind_id": obj.id,
-            "subkind_name": obj.name,
+            "category_id": representation["category_id"],
+            "category_name": representation["category_name"],
+            "kind_id": representation["kind_id"],
+            "kind_name": representation["kind_name"],
+            "subkind_id": representation["id"],
+            "subkind_name": representation["name"],
         }
 
 
