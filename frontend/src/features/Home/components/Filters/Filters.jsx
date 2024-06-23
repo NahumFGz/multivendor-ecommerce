@@ -5,7 +5,7 @@ import {
   SelectItem
 } from '@nextui-org/react'
 
-import PriceSlider from './PriceSlider'
+// import PriceSlider from './PriceSlider'
 import PopoverFilterWrapper from './PopoverFilterWrapper'
 import TagGroupItem from './TagGroupItem'
 
@@ -69,7 +69,7 @@ export function Filters ({ totalProducts, ordering, onOrderingChange, categories
 
           {/* Filters */}
           <div className='-ml-2 flex w-full flex-wrap items-center justify-start gap-2 md:ml-0 md:justify-end'>
-            <PopoverFilterWrapper title='Pricing Range'>
+            {/* <PopoverFilterWrapper title='Pricing Range'>
               <PriceSlider
                 aria-label='Pricing Filter'
                 range={{
@@ -79,7 +79,7 @@ export function Filters ({ totalProducts, ordering, onOrderingChange, categories
                   step: 1
                 }}
               />
-            </PopoverFilterWrapper>
+            </PopoverFilterWrapper> */}
 
             {/* Categories */}
             <PopoverFilterWrapper title='Category'>
