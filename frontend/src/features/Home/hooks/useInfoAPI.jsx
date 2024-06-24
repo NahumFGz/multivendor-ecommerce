@@ -29,20 +29,22 @@ export const getCategories = (data) => {
   return Array.from(categoriesMap.values())
 }
 
-export const getKindsByCategoryId = (data, categoryIds) => {
-  const filteredData = Array.isArray(categoryIds) && categoryIds.length > 0 ? data.filter(item => categoryIds.includes(item.categoryId)) : data
+export const getSubCategoryByCategoryId = (data, categoryIds) => {
+  const filteredData = Array.isArray(categoryIds) && categoryIds.length > 0
+    ? data.filter(item => categoryIds.includes(item.categoryId))
+    : data
 
-  const kinds = []
+  const subCategories = []
 
   filteredData.forEach(item => {
-    if (!kinds.some(kind => kind.kindId === item.kindId)) {
-      kinds.push({
-        id: parseInt(item.kindId, 10),
-        kindId: item.kindId,
-        kindName: item.kindName
+    if (!subCategories.some(subCategory => subCategory.subCategoryId === item.subCategoryId)) {
+      subCategories.push({
+        id: parseInt(item.subCategoryId, 10),
+        subCategoryId: item.subCategoryId,
+        subCategoryName: item.subCategoryName
       })
     }
   })
 
-  return { kinds }
+  return subCategories
 }

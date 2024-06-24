@@ -8,7 +8,7 @@ import {
 import PopoverFilterWrapper from './PopoverFilterWrapper'
 import TagGroupItem from './TagGroupItem'
 import { useEffect, useState } from 'react'
-import { useInfoAPI, getCategories, getKindsByCategoryId } from '../../hooks/useInfoAPI'
+import { useInfoAPI, getCategories, getSubCategoryByCategoryId } from '../../hooks/useInfoAPI'
 
 export function Filters (
   {
@@ -35,7 +35,7 @@ export function Filters (
   const { getAllFilters } = useInfoAPI()
   const [filtersInfo, setFiltersInfo] = useState([])
   const [categoriesInfo, setCategoriesInfo] = useState([])
-  const [kindsInfo, setKindsInfo] = useState([])
+  const [subCategoriesInfo, setSubCategoriesInfo] = useState([])
 
   useEffect(() => {
     const fetchInfo = async () => {
@@ -46,8 +46,8 @@ export function Filters (
         const categories = getCategories(allFiltersInfo)
         setCategoriesInfo(categories)
 
-        const { kinds: allKinds } = getKindsByCategoryId(allFiltersInfo, '')
-        setKindsInfo(allKinds)
+        const subCategories = getSubCategoryByCategoryId(allFiltersInfo, '')
+        setSubCategoriesInfo(subCategories)
       } catch (error) {
         console.error('Get all filters failed', error)
       }
@@ -59,14 +59,14 @@ export function Filters (
     if (filtersInfo.length) {
       console.log('filtersInfo... ', filtersInfo)
       console.log('categoriesInfo... ', categoriesInfo)
-      console.log('kindsInfo... ', kindsInfo)
+      console.log('subCategoriesInfo... ', subCategoriesInfo)
     }
   }, [filtersInfo])
 
   const handleCategoriesChange = (values) => {
     console.log('values... ', values)
-    const { kinds: allKinds } = getKindsByCategoryId(filtersInfo, values)
-    setKindsInfo(allKinds)
+    const subCategories = getSubCategoryByCategoryId(filtersInfo, values)
+    setSubCategoriesInfo(subCategories)
     onCategoriesChange(values.map(Number))
   }
 
@@ -93,9 +93,9 @@ export function Filters (
     return category ? category.categoryName : ''
   })
 
-  const selectedKindNames = selectedKinds.map(id => {
-    const kind = kindsInfo.find(kind => kind.id === id)
-    return kind ? kind.kindName : ''
+  const selectedSubCategoryNames = selectedKinds.map(id => {
+    const subCategory = subCategoriesInfo.find(kind => kind.id === id)
+    return subCategory ? subCategory.subCategoryName : ''
   })
 
   return (
@@ -145,8 +145,8 @@ export function Filters (
                 value={selectedKinds.map(String)}
                 onChange={handleKindsChange}
               >
-                {kindsInfo.map(val => (
-                  <TagGroupItem key={val.id} value={val.kindId}>{val.kindName}</TagGroupItem>
+                {subCategoriesInfo.map(val => (
+                  <TagGroupItem key={val.id} value={val.subCategoryId}>{val.kindName}</TagGroupItem>
                 ))}
               </CheckboxGroup>
             </PopoverFilterWrapper>
@@ -196,9 +196,9 @@ export function Filters (
             {name}
           </Chip>
         ))}
-        {selectedKindNames.map((name, index) => (
+        {selectedSubCategoryNames.map((name, index) => (
           <Chip
-            key={`kind-${index}`}
+            key={`subCategory-${index}`}
             classNames={{
               content: 'text-default-700',
               closeButton: 'text-default-500'
