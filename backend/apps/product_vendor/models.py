@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from apps.product.models import Product
+from apps.product.models import Product, VendorType
 from common.utils import generate_unique_slug
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -47,3 +47,7 @@ def pre_save_product_vendor(sender, instance, **kwargs):
         instance.last_date_in_publication = timezone.now() + timedelta(
             days=instance.days_in_publication
         )
+
+    if not instance.vendor_type:
+        default_vendor_type, created = VendorType.objects.get_or_create(name="Otros")
+        instance.vendor_type = default_vendor_type
