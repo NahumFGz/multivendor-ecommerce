@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..models import Category, Product, SubCategory
+from ..models import Category, Product, SubCategory, VendorType
 
 
 class TinyCategorySerializer(serializers.ModelSerializer):
@@ -12,6 +12,12 @@ class TinyCategorySerializer(serializers.ModelSerializer):
 class TinySubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = SubCategory
+        fields = ("id", "name")
+
+
+class VendorTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VendorType
         fields = ("id", "name")
 
 

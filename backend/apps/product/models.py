@@ -8,6 +8,26 @@ from thumbnails.fields import ImageField
 from tinymce import models as tinymce_models
 
 
+class VendorType(TimeStampModel):
+    name = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, blank=True, null=True, unique=True)
+
+    class Meta:
+        verbose_name = "Vendor Type"
+        verbose_name_plural = "Vendor Types"
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+@receiver(signals.pre_save, sender=VendorType)
+def pre_save_vendor_type(sender, instance, **kwargs):
+    if not instance.slug:
+        instance.slug = generate_unique_slug(
+            instance=instance, source_field_name="name", destination_field_name="slug"
+        )
+
+
 class Category(TimeStampModel):
     name = models.CharField(max_length=200, unique=True)
     image = ImageField(upload_to="product/category/", blank=True, null=True)
@@ -70,6 +90,13 @@ def pre_save_kind_product(sender, instance, **kwargs):
 
 
 class Product(TimeStampUUIDModel):
+    vendor_type = models.ForeignKey(
+        VendorType,
+        related_name="product_vendor_type",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+    )
     category = models.ForeignKey(
         Category, related_name="product_category", blank=True, null=True, on_delete=models.CASCADE
     )

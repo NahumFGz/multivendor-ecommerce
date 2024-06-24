@@ -5,7 +5,7 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
-from ..models import Category, Product, SubCategory
+from ..models import Category, Product, SubCategory, VendorType
 from .filters import ProductFilter
 from .serializers import (
     CategorySerializer,
@@ -13,7 +13,15 @@ from .serializers import (
     ProductDetailSerializer,
     ProductListSerializer,
     SubCategorySerializer,
+    VendorTypeSerializer,
 )
+
+
+class VendorTypeViewSet(generics.ListAPIView):
+    queryset = VendorType.objects.all()
+    serializer_class = VendorTypeSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
 
 
 class SubCategoryProductViewSet(generics.ListAPIView):

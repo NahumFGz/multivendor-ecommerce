@@ -1,9 +1,19 @@
 from django.contrib import admin
 
-from .models import Category, Product, SubCategory
-
+from .models import Category, Product, SubCategory, VendorType
 
 # Register your models here.
+
+
+@admin.register(VendorType)
+class VendorTypeAdmin(admin.ModelAdmin):
+    list_display = ["name", "slug", "updated_at"]
+    readonly_fields = [
+        "created_at",
+        "updated_at",
+    ]
+
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ["name", "slug", "updated_at"]
@@ -29,6 +39,7 @@ class SubCategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ["title", "slug"]
     list_display = [
+        "vendor_type",
         "category",
         "sub_category",
         "title",
