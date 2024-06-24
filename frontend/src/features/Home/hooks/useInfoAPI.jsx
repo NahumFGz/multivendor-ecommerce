@@ -12,6 +12,7 @@ export function useInfoAPI () {
 
   return { getAllFilters }
 }
+
 export const getCategories = (data) => {
   const categoriesMap = new Map()
   let categoryIdCounter = 0
@@ -49,7 +50,7 @@ export const getKindsAndSubkindsByCategoryId = (data, categoryIds) => {
     subkinds.push({
       id: subkindIdCounter++,
       subKindName: item.subKindName,
-      subKindId: parseInt(item.subKindId, 10)
+      subKindId: item.subKindId
     })
   })
 
@@ -66,7 +67,7 @@ export const getSubkindsByKindId = (data, kindIds) => {
     subkinds.push({
       id: subkindIdCounter++,
       subKindName: item.subKindName,
-      subKindId: parseInt(item.subKindId, 10)
+      subKindId: item.subKindId
     })
   })
 

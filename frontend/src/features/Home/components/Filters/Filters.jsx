@@ -171,7 +171,7 @@ export function Filters (
                 onChange={handleSubKindsChange}
               >
                 {subKindsInfo.map(val => (
-                  <TagGroupItem key={val.id} value={val.subKindIds}>{val.subKindName}</TagGroupItem>
+                  <TagGroupItem key={val.id} value={val.subKindId}>{val.subKindName}</TagGroupItem>
                 ))}
               </CheckboxGroup>
             </PopoverFilterWrapper>
