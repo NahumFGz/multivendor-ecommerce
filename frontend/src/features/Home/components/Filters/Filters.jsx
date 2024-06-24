@@ -109,17 +109,6 @@ export function Filters (
 
           {/* Filters */}
           <div className='-ml-2 flex w-full flex-wrap items-center justify-start gap-2 md:ml-0 md:justify-end'>
-            {/* <PopoverFilterWrapper title='Pricing Range'>
-              <PriceSlider
-                aria-label='Pricing Filter'
-                range={{
-                  min: 0,
-                  defaultValue: [100, 500],
-                  max: 2000,
-                  step: 1
-                }}
-              />
-            </PopoverFilterWrapper> */}
 
             {/* Categories */}
             <PopoverFilterWrapper title='Category'>
