@@ -34,6 +34,7 @@ class ProductVendor(Product):
 
 @receiver(signals.pre_save, sender=ProductVendor)
 def pre_save_product(sender, instance, **kwargs):
+    instance.is_product_vendor = True
     if not instance.slug:
         instance.slug = generate_unique_slug(
             instance=instance, source_field_name="title", destination_field_name="slug"

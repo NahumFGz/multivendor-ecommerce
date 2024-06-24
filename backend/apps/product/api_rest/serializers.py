@@ -87,6 +87,7 @@ class ProductListSerializer(serializers.ModelSerializer):
             "price",
             "stock",
             "is_presale",
+            "is_product_vendor",
         )
 
     def get_images(self, obj):
