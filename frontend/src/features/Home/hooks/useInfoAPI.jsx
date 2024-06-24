@@ -30,8 +30,8 @@ export const getCategories = (data) => {
   return Array.from(categoriesMap.values())
 }
 
-export const getKindsAndSubkindsByCategoryId = (data, categoryId) => {
-  const filteredData = categoryId ? data.filter(item => item.categoryId === categoryId) : data
+export const getKindsAndSubkindsByCategoryId = (data, categoryIds) => {
+  const filteredData = Array.isArray(categoryIds) && categoryIds.length > 0 ? data.filter(item => categoryIds.includes(item.categoryId)) : data
 
   const kinds = []
   const subkindsMap = new Map()
@@ -50,20 +50,20 @@ export const getKindsAndSubkindsByCategoryId = (data, categoryId) => {
     if (!subkindsMap.has(item.subKindName)) {
       subkindsMap.set(item.subKindName, [])
     }
-    subkindsMap.get(item.subKindName).push(item.subKindId)
+    subkindsMap.get(item.subKindName).push(parseInt(item.subKindId, 10))
   })
 
   const subkinds = Array.from(subkindsMap, ([subKindName, subKindIds]) => ({
     id: subkindIdCounter++,
     subKindName,
-    subKindIds: subKindIds.join(',')
+    subKindIds
   }))
 
   return { kinds, subkinds }
 }
 
-export const getSubkindsByKindId = (data, kindId) => {
-  const filteredData = kindId ? data.filter(item => item.kindId === kindId) : data
+export const getSubkindsByKindId = (data, kindIds) => {
+  const filteredData = Array.isArray(kindIds) && kindIds.length > 0 ? data.filter(item => kindIds.includes(item.kindId)) : data
 
   const subkindsMap = new Map()
   let subkindIdCounter = 0
@@ -72,13 +72,13 @@ export const getSubkindsByKindId = (data, kindId) => {
     if (!subkindsMap.has(item.subKindName)) {
       subkindsMap.set(item.subKindName, [])
     }
-    subkindsMap.get(item.subKindName).push(item.subKindId)
+    subkindsMap.get(item.subKindName).push(parseInt(item.subKindId, 10))
   })
 
   const subkinds = Array.from(subkindsMap, ([subKindName, subKindIds]) => ({
     id: subkindIdCounter++,
     subKindName,
-    subKindIds: subKindIds.join(',')
+    subKindIds
   }))
 
   return subkinds

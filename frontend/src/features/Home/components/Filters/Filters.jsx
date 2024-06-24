@@ -76,15 +76,20 @@ export function Filters (
 
   const handleCategoriesChange = (values) => {
     console.log('values categories ... ', values)
+    const { kinds: allKinds, subkinds: allSubkinds } = getKindsAndSubkindsByCategoryId(filtersInfo, values)
+    setKindsInfo(allKinds)
+    setSubKindsInfo(allSubkinds)
     onCategoriesChange(values.map(Number))
   }
 
   const handleKindsChange = (values) => {
+    console.log('Selected kinds ... ', selectedKinds)
     console.log('values kinds ... ', values)
     onKindsChange(values.map(Number))
   }
 
   const handleSubKindsChange = (values) => {
+    console.log('Selected subkinds ... ', selectedSubKinds)
     console.log('values subkinds ... ', values)
     onSubKindsChange(values.map(Number))
   }
