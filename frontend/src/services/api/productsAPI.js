@@ -19,8 +19,9 @@ export async function getProductsApi (page = 1, pageSize = 10, ordering = '', ca
       params.categories = categories.join(',')
     }
     if (subCategories.length > 0) {
-      params.kind_of_product = subCategories.join(',')
+      params.sub_categories = subCategories.join(',')
     }
+    console.log('params... ', params)
 
     const response = await axiosInstance.get('/api/products/', { params })
     const { data, status } = response

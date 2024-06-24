@@ -146,7 +146,7 @@ export function Filters (
                 onChange={handleSubCategoriesChange}
               >
                 {subCategoriesInfo.map(val => (
-                  <TagGroupItem key={val.id} value={val.subCategoryId}>{val.kindName}</TagGroupItem>
+                  <TagGroupItem key={val.id} value={val.subCategoryId}>{val.subCategoryName}</TagGroupItem>
                 ))}
               </CheckboxGroup>
             </PopoverFilterWrapper>
@@ -205,9 +205,9 @@ export function Filters (
             }}
             variant='flat'
             onClose={() => {
-              const updatedKinds = [...selectedSubCategories]
-              updatedKinds.splice(index, 1)
-              onSubCategoriesChange(updatedKinds)
+              const updateSubCategories = [...selectedSubCategories]
+              updateSubCategories.splice(index, 1)
+              onSubCategoriesChange(updateSubCategories)
             }}
           >
             {name}

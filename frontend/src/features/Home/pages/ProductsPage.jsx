@@ -20,7 +20,7 @@ export function ProductsPage () {
   const location = useLocation()
 
   // Función para actualizar la URL
-  const updateUrlParams = (page, size, order, categories, kinds) => {
+  const updateUrlParams = (page, size, order, categories, subCategories) => {
     const searchParams = new URLSearchParams(location.search)
     searchParams.set('page', page)
     searchParams.set('pageSize', size)
@@ -34,10 +34,10 @@ export function ProductsPage () {
     } else {
       searchParams.delete('categories')
     }
-    if (kinds.length > 0) {
-      searchParams.set('kind_of_product', kinds.join(','))
+    if (subCategories.length > 0) {
+      searchParams.set('sub_categories', subCategories.join(','))
     } else {
-      searchParams.delete('kind_of_product')
+      searchParams.delete('sub_categories')
     }
     navigate({
       pathname: location.pathname,
@@ -52,8 +52,8 @@ export function ProductsPage () {
     const size = parseInt(searchParams.get('pageSize')) || 10
     const order = searchParams.get('ordering') || ''
     const categories = searchParams.get('categories') ? searchParams.get('categories').split(',').map(Number) : []
-    const kinds = searchParams.get('kind_of_product') ? searchParams.get('kind_of_product').split(',').map(Number) : []
-    return { page, size, order, categories, kinds }
+    const subCategories = searchParams.get('sub_categories') ? searchParams.get('sub_categories').split(',').map(Number) : []
+    return { page, size, order, categories, subCategories }
   }
 
   const fetchProducts = async (page = 1, size = 10, order = '', selectedCategories = [], selectedSubCategories = []) => {
@@ -70,13 +70,13 @@ export function ProductsPage () {
   }
 
   useEffect(() => {
-    const { page, size, order, categories, kinds } = getQueryParams()
+    const { page, size, order, categories, subCategories } = getQueryParams()
     setCurrentPage(page)
     setPageSize(size)
     setOrdering(order)
     setSelectedCategories(categories)
-    setSelectedSubCategories(kinds)
-    fetchProducts(page, size, order, categories, kinds)
+    setSelectedSubCategories(subCategories)
+    fetchProducts(page, size, order, categories, subCategories)
   }, [location.search])
 
   const handlePageChange = (page) => {
