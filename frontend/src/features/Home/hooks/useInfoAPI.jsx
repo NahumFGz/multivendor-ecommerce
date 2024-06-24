@@ -29,7 +29,7 @@ export const getCategories = (data) => {
 }
 
 export const getKindsAndSubkindsByCategoryId = (data, categoryId) => {
-  const filteredData = data.filter(item => item.categoryId === categoryId)
+  const filteredData = categoryId ? data.filter(item => item.categoryId === categoryId) : data
 
   const kinds = []
   const subkindsMap = new Map()
@@ -57,7 +57,7 @@ export const getKindsAndSubkindsByCategoryId = (data, categoryId) => {
 }
 
 export const getSubkindsByKindId = (data, kindId) => {
-  const filteredData = data.filter(item => item.kindId === kindId)
+  const filteredData = kindId ? data.filter(item => item.kindId === kindId) : data
 
   const subkindsMap = new Map()
 

@@ -50,7 +50,7 @@ export function Filters (
         const response = await getAllFilters()
         setFiltersInfo(response)
       } catch (error) {
-        throw new Error('Get all filters failed')
+        console.error('Get all filters failed', error)
       }
     }
     fetchInfo()
@@ -59,6 +59,136 @@ export function Filters (
   useEffect(() => {
     console.log('filtersInfo... ', filtersInfo)
   }, [filtersInfo]) // Este efecto se ejecuta cada vez que `filtersInfo` cambia
+
+  useEffect(() => {
+    // Ejemplo de uso:
+    const data = [
+      {
+        categoryId: '3',
+        categoryName: 'Pokemon',
+        kindId: '1',
+        kindName: 'Shrouded Fable',
+        subKindId: '1',
+        subKindName: 'single'
+      },
+      {
+        categoryId: '3',
+        categoryName: 'Pokemon',
+        kindId: '1',
+        kindName: 'Shrouded Fable',
+        subKindId: '2',
+        subKindName: 'thin'
+      },
+      {
+        categoryId: '3',
+        categoryName: 'Pokemon',
+        kindId: '1',
+        kindName: 'Shrouded Fable',
+        subKindId: '3',
+        subKindName: 'sellado'
+      },
+      {
+        categoryId: '3',
+        categoryName: 'Pokemon',
+        kindId: '2',
+        kindName: 'Twilight Masquerade',
+        subKindId: '4',
+        subKindName: 'sellado'
+      },
+      {
+        categoryId: '3',
+        categoryName: 'Pokemon',
+        kindId: '2',
+        kindName: 'Twilight Masquerade',
+        subKindId: '5',
+        subKindName: 'single'
+      },
+      {
+        categoryId: '3',
+        categoryName: 'Pokemon',
+        kindId: '4',
+        kindName: 'Paldean Fates',
+        subKindId: '6',
+        subKindName: 'sellado'
+      },
+      {
+        categoryId: '3',
+        categoryName: 'Pokemon',
+        kindId: '4',
+        kindName: 'Paldean Fates',
+        subKindId: '7',
+        subKindName: 'single'
+      },
+      {
+        categoryId: '2',
+        categoryName: 'YuGiOh',
+        kindId: '5',
+        kindName: '2014 Mega Tins',
+        subKindId: '8',
+        subKindName: 'single'
+      },
+      {
+        categoryId: '2',
+        categoryName: 'YuGiOh',
+        kindId: '5',
+        kindName: '2014 Mega Tins',
+        subKindId: '9',
+        subKindName: 'especial'
+      },
+      {
+        categoryId: '2',
+        categoryName: 'YuGiOh',
+        kindId: '3',
+        kindName: '2017 Mega Tins',
+        subKindId: '10',
+        subKindName: 'single'
+      },
+      {
+        categoryId: '1',
+        categoryName: 'Juegos de Mesa',
+        kindId: '6',
+        kindName: 'Para adultos',
+        subKindId: '11',
+        subKindName: 'otros'
+      },
+      {
+        categoryId: '1',
+        categoryName: 'Juegos de Mesa',
+        kindId: '8',
+        kindName: 'Rompecabezas',
+        subKindId: '12',
+        subKindName: 'otros'
+      },
+      {
+        categoryId: '1',
+        categoryName: 'Juegos de Mesa',
+        kindId: '7',
+        kindName: 'Para niños',
+        subKindId: '13',
+        subKindName: 'otros'
+      }
+    ]
+
+    // Caso 1: Cuando se ingresa categoryId
+    const categoryId = '3'
+    const { kinds: kindsWithCategory, subkinds: subkindsWithCategory } = getKindsAndSubkindsByCategoryId(data, categoryId)
+    console.log('Kinds with categoryId:', kindsWithCategory)
+    console.log('Subkinds with categoryId:', subkindsWithCategory)
+
+    // Caso 2: Cuando no se ingresa categoryId
+    const { kinds: allKinds, subkinds: allSubkinds } = getKindsAndSubkindsByCategoryId(data, '')
+    console.log('All Kinds:', allKinds)
+    console.log('All Subkinds:', allSubkinds)
+
+    // Caso 3: Cuando se ingresa kindId
+    const kindId = '1'
+    const subkindsByKind = getSubkindsByKindId(data, kindId)
+    console.log('Subkinds with kindId:', subkindsByKind)
+
+    // Caso 4: Cuando no se ingresa kindId
+    const allSubkindsByKind = getSubkindsByKindId(data, '')
+    console.log('All Subkinds:', allSubkindsByKind)
+  }, []) // Este efecto se ejecuta cada vez que `categoriesInfo` cambia
 
   //! ******************************
 
