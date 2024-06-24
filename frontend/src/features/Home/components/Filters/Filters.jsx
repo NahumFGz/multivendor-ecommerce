@@ -32,7 +32,6 @@ export function Filters (
     onOrderingChange(order)
   }
 
-  //! Test useInfoAPI **************
   const { getAllFilters } = useInfoAPI()
   const [filtersInfo, setFiltersInfo] = useState([])
   const [categoriesInfo, setCategoriesInfo] = useState([])
@@ -64,8 +63,6 @@ export function Filters (
     }
   }, [filtersInfo])
 
-  //! ******************************
-
   const handleCategoriesChange = (values) => {
     console.log('values... ', values)
     const { kinds: allKinds } = getKindsByCategoryId(filtersInfo, values)
@@ -90,6 +87,16 @@ export function Filters (
         return 'newest'
     }
   }
+
+  const selectedCategoryNames = selectedCategories.map(id => {
+    const category = categoriesInfo.find(cat => cat.id === id)
+    return category ? category.categoryName : ''
+  })
+
+  const selectedKindNames = selectedKinds.map(id => {
+    const kind = kindsInfo.find(kind => kind.id === id)
+    return kind ? kind.kindName : ''
+  })
 
   return (
     <div className='flex flex-col'>
@@ -172,17 +179,38 @@ export function Filters (
 
       {/* List of applied filters */}
       <div className='mb-4 mt-2 flex flex-wrap items-center gap-2'>
-        {Array.from({ length: 6 }).map((_, index) => (
+        {selectedCategoryNames.map((name, index) => (
           <Chip
-            key={index}
+            key={`category-${index}`}
             classNames={{
               content: 'text-default-700',
               closeButton: 'text-default-500'
             }}
             variant='flat'
-            onClose={() => { console.log('close') }}
+            onClose={() => {
+              const updatedCategories = [...selectedCategories]
+              updatedCategories.splice(index, 1)
+              onCategoriesChange(updatedCategories)
+            }}
           >
-            Filter {index + 1}
+            {name}
+          </Chip>
+        ))}
+        {selectedKindNames.map((name, index) => (
+          <Chip
+            key={`kind-${index}`}
+            classNames={{
+              content: 'text-default-700',
+              closeButton: 'text-default-500'
+            }}
+            variant='flat'
+            onClose={() => {
+              const updatedKinds = [...selectedKinds]
+              updatedKinds.splice(index, 1)
+              onKindsChange(updatedKinds)
+            }}
+          >
+            {name}
           </Chip>
         ))}
       </div>

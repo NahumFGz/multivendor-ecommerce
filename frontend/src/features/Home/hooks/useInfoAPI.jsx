@@ -15,12 +15,11 @@ export function useInfoAPI () {
 
 export const getCategories = (data) => {
   const categoriesMap = new Map()
-  let categoryIdCounter = 0
 
   data.forEach(item => {
     if (!categoriesMap.has(item.categoryId)) {
       categoriesMap.set(item.categoryId, {
-        id: categoryIdCounter++,
+        id: parseInt(item.categoryId, 10),
         categoryId: item.categoryId,
         categoryName: item.categoryName
       })
@@ -34,12 +33,11 @@ export const getKindsByCategoryId = (data, categoryIds) => {
   const filteredData = Array.isArray(categoryIds) && categoryIds.length > 0 ? data.filter(item => categoryIds.includes(item.categoryId)) : data
 
   const kinds = []
-  let kindIdCounter = 0
 
   filteredData.forEach(item => {
     if (!kinds.some(kind => kind.kindId === item.kindId)) {
       kinds.push({
-        id: kindIdCounter++,
+        id: parseInt(item.kindId, 10),
         kindId: item.kindId,
         kindName: item.kindName
       })
