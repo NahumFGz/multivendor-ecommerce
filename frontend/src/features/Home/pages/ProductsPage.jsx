@@ -14,7 +14,7 @@ export function ProductsPage () {
   const [pageSize, setPageSize] = useState(10)
   const [ordering, setOrdering] = useState('')
   const [selectedCategories, setSelectedCategories] = useState([])
-  const [selectedKinds, setSelectedKinds] = useState([])
+  const [selectedSubCategories, setSelectedSubCategories] = useState([])
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -56,10 +56,10 @@ export function ProductsPage () {
     return { page, size, order, categories, kinds }
   }
 
-  const fetchProducts = async (page = 1, size = 10, order = '', selectedCategories = [], selectedKinds = [], selectedSubKinds = []) => {
+  const fetchProducts = async (page = 1, size = 10, order = '', selectedCategories = [], selectedSubCategories = []) => {
     try {
       setIsLoading(true)
-      const response = await getProducts(page, size, order, selectedCategories, selectedKinds, selectedSubKinds)
+      const response = await getProducts(page, size, order, selectedCategories, selectedSubCategories)
       setProducts(response.products)
       setTotalProducts(response.totalProducts)
       setIsLoading(false)
@@ -75,33 +75,33 @@ export function ProductsPage () {
     setPageSize(size)
     setOrdering(order)
     setSelectedCategories(categories)
-    setSelectedKinds(kinds)
+    setSelectedSubCategories(kinds)
     fetchProducts(page, size, order, categories, kinds)
   }, [location.search])
 
   const handlePageChange = (page) => {
     setCurrentPage(page)
-    updateUrlParams(page, pageSize, ordering, selectedCategories, selectedKinds)
+    updateUrlParams(page, pageSize, ordering, selectedCategories, selectedSubCategories)
   }
 
   const handlePageSizeChange = (size) => {
     setPageSize(size)
-    updateUrlParams(1, size, ordering, selectedCategories, selectedKinds) // Reinicia la paginación a la primera página
+    updateUrlParams(1, size, ordering, selectedCategories, selectedSubCategories) // Reinicia la paginación a la primera página
   }
 
   const handleOrderingChange = (order) => {
     setOrdering(order)
-    updateUrlParams(1, pageSize, order, selectedCategories, selectedKinds) // Reinicia la paginación a la primera página
+    updateUrlParams(1, pageSize, order, selectedCategories, selectedSubCategories) // Reinicia la paginación a la primera página
   }
 
   const handleCategoriesChange = (categories) => {
     setSelectedCategories(categories)
-    updateUrlParams(1, pageSize, ordering, categories, selectedKinds)
+    updateUrlParams(1, pageSize, ordering, categories, selectedSubCategories)
   }
 
-  const handleKindsChange = (kinds) => {
-    setSelectedKinds(kinds)
-    updateUrlParams(1, pageSize, ordering, selectedCategories, kinds)
+  const handleSubCategoriesChange = (subCategories) => {
+    setSelectedSubCategories(subCategories)
+    updateUrlParams(1, pageSize, ordering, selectedCategories, subCategories)
   }
 
   return (
@@ -111,9 +111,9 @@ export function ProductsPage () {
         ordering={ordering}
         onOrderingChange={handleOrderingChange}
         selectedCategories={selectedCategories}
-        selectedKinds={selectedKinds}
+        selectedSubCategories={selectedSubCategories}
         onCategoriesChange={handleCategoriesChange}
-        onKindsChange={handleKindsChange}
+        onSubCategoriesChange={handleSubCategoriesChange}
       />
       <div>
         <Products products={products} isLoading={isLoading} pageSize={pageSize} />

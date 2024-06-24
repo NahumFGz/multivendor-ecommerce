@@ -6,7 +6,7 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 const roundToTwoDecimals = (num) => Math.round(num * 100) / 100
 // const roundToTwoDecimals = (num) => parseFloat(num.toFixed(2))
 
-export async function getProductsApi (page = 1, pageSize = 10, ordering = '', categories = [], kinds = [], subKinds = []) {
+export async function getProductsApi (page = 1, pageSize = 10, ordering = '', categories = [], subCategories = []) {
   try {
     const axiosInstance = createAxiosInstance()
     const params = {
@@ -18,11 +18,8 @@ export async function getProductsApi (page = 1, pageSize = 10, ordering = '', ca
     if (categories.length > 0) {
       params.categories = categories.join(',')
     }
-    if (kinds.length > 0) {
-      params.kind_of_product = kinds.join(',')
-    }
-    if (subKinds.length > 0) {
-      params.sub_kind_of_product = subKinds.join(',')
+    if (subCategories.length > 0) {
+      params.kind_of_product = subCategories.join(',')
     }
 
     const response = await axiosInstance.get('/api/products/', { params })
@@ -46,10 +43,7 @@ export async function getProductsApi (page = 1, pageSize = 10, ordering = '', ca
       return {
         products,
         links: data.products.links,
-        totalProducts: data.products.count,
-        categories: data.categories,
-        kinds: data.kinds,
-        subKinds: data.sub_kinds
+        totalProducts: data.products.count
       }
     } else {
       throw new Error('Get products failed')

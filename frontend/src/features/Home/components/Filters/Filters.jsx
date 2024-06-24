@@ -16,9 +16,9 @@ export function Filters (
     ordering,
     onOrderingChange,
     selectedCategories,
-    selectedKinds,
+    selectedSubCategories,
     onCategoriesChange,
-    onKindsChange
+    onSubCategoriesChange
   }) {
   const handleSortChange = (key) => {
     let order = ''
@@ -70,9 +70,9 @@ export function Filters (
     onCategoriesChange(values.map(Number))
   }
 
-  const handleKindsChange = (values) => {
+  const handleSubCategoriesChange = (values) => {
     console.log('values... ', values)
-    onKindsChange(values.map(Number))
+    onSubCategoriesChange(values.map(Number))
   }
 
   const getKeyFromOrdering = (ordering) => {
@@ -93,7 +93,7 @@ export function Filters (
     return category ? category.categoryName : ''
   })
 
-  const selectedSubCategoryNames = selectedKinds.map(id => {
+  const selectedSubCategoryNames = selectedSubCategories.map(id => {
     const subCategory = subCategoriesInfo.find(kind => kind.id === id)
     return subCategory ? subCategory.subCategoryName : ''
   })
@@ -136,14 +136,14 @@ export function Filters (
               </CheckboxGroup>
             </PopoverFilterWrapper>
 
-            {/* Kind */}
+            {/* SubCategories */}
             <PopoverFilterWrapper title='Colección'>
               <CheckboxGroup
                 aria-label='Select collection'
                 className='gap-1'
                 orientation='horizontal'
-                value={selectedKinds.map(String)}
-                onChange={handleKindsChange}
+                value={selectedSubCategories.map(String)}
+                onChange={handleSubCategoriesChange}
               >
                 {subCategoriesInfo.map(val => (
                   <TagGroupItem key={val.id} value={val.subCategoryId}>{val.kindName}</TagGroupItem>
@@ -205,9 +205,9 @@ export function Filters (
             }}
             variant='flat'
             onClose={() => {
-              const updatedKinds = [...selectedKinds]
+              const updatedKinds = [...selectedSubCategories]
               updatedKinds.splice(index, 1)
-              onKindsChange(updatedKinds)
+              onSubCategoriesChange(updatedKinds)
             }}
           >
             {name}
