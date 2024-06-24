@@ -17,10 +17,8 @@ export function Filters (
     onOrderingChange,
     selectedCategories,
     selectedKinds,
-    selectedSubKinds,
     onCategoriesChange,
-    onKindsChange,
-    onSubKindsChange
+    onKindsChange
   }) {
   const handleSortChange = (key) => {
     let order = ''
@@ -69,12 +67,14 @@ export function Filters (
   //! ******************************
 
   const handleCategoriesChange = (values) => {
+    console.log('values... ', values)
     const { kinds: allKinds } = getKindsByCategoryId(filtersInfo, values)
     setKindsInfo(allKinds)
     onCategoriesChange(values.map(Number))
   }
 
   const handleKindsChange = (values) => {
+    console.log('values... ', values)
     onKindsChange(values.map(Number))
   }
 

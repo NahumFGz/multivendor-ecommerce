@@ -26,12 +26,18 @@ export function ProductsPage () {
     searchParams.set('pageSize', size)
     if (order) {
       searchParams.set('ordering', order)
+    } else {
+      searchParams.delete('ordering')
     }
     if (categories.length > 0) {
       searchParams.set('categories', categories.join(','))
+    } else {
+      searchParams.delete('categories')
     }
     if (kinds.length > 0) {
       searchParams.set('kind_of_product', kinds.join(','))
+    } else {
+      searchParams.delete('kind_of_product')
     }
     navigate({
       pathname: location.pathname,
