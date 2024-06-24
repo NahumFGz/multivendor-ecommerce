@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { Filters } from '../components/Filters/Filters'
 import { Products } from '../components/Products/Products'
 import { Pagination } from '@nextui-org/react'
+import { useInfoAPI, getCategories, getKindsAndSubkindsByCategoryId, getSubkindsByKindId } from '../hooks/useInfoAPI'
 
 export function ProductsPage () {
   const { getProducts } = useProductsAPI()
@@ -17,6 +18,28 @@ export function ProductsPage () {
   const [selectedKinds, setSelectedKinds] = useState([])
   const [selectedSubKinds, setSelectedSubKinds] = useState([])
 
+  //! Test useInfoAPI **************
+  const { getAllFilters } = useInfoAPI()
+  const [filtersInfo, setFiltersInfo] = useState([])
+  const [categoriesInfo, setCategoriesInfo] = useState([])
+  const [kindsInfo, setKindsInfo] = useState([])
+  const [subKindsInfo, setSubKindsInfo] = useState([])
+
+  const fetchInfo = async () => {
+    try {
+      const response = await getAllFilters()
+      setFiltersInfo(response)
+    } catch (error) {
+      throw new Error('Get all filters failed')
+    }
+  }
+
+  useEffect(() => {
+    fetchInfo()
+    console.log('filtersInfo... ', filtersInfo)
+  }, [])
+
+  //! ******************************
   const [categories, setCategories] = useState([])
   const [kinds, setKinds] = useState([])
   const [subKinds, setSubKinds] = useState([])

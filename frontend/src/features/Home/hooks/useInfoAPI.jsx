@@ -29,7 +29,7 @@ export const getCategories = (data) => {
   return Array.from(categoriesMap.values())
 }
 
-export const getKindsAndSubkinds = (data, categoryId) => {
+export const getKindsAndSubkindsByCategoryId = (data, categoryId) => {
   const filteredData = data.filter(item => item.categoryId === categoryId)
 
   const kinds = []
