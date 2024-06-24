@@ -47,13 +47,13 @@ export function Filters (
   useEffect(() => {
     const fetchInfo = async () => {
       try {
-        const response = await getAllFilters()
-        setFiltersInfo(response.allFiltersInfo)
+        const { allFiltersInfo } = await getAllFilters()
+        setFiltersInfo(allFiltersInfo)
 
-        const categories = getCategories(response.allFiltersInfo)
+        const categories = getCategories(allFiltersInfo)
         setCategoriesInfo(categories)
 
-        const { kinds: allKinds, subkinds: allSubkinds } = getKindsAndSubkindsByCategoryId(response.allFiltersInfo, '')
+        const { kinds: allKinds, subkinds: allSubkinds } = getKindsAndSubkindsByCategoryId(allFiltersInfo, '')
         setKindsInfo(allKinds)
         setSubKindsInfo(allSubkinds)
       } catch (error) {
@@ -75,14 +75,17 @@ export function Filters (
   //! ******************************
 
   const handleCategoriesChange = (values) => {
+    console.log('values categories ... ', values)
     onCategoriesChange(values.map(Number))
   }
 
   const handleKindsChange = (values) => {
+    console.log('values kinds ... ', values)
     onKindsChange(values.map(Number))
   }
 
   const handleSubKindsChange = (values) => {
+    console.log('values subkinds ... ', values)
     onSubKindsChange(values.map(Number))
   }
 
@@ -131,8 +134,8 @@ export function Filters (
                 value={selectedCategories.map(String)}
                 onChange={handleCategoriesChange}
               >
-                {categories.map(category => (
-                  <TagGroupItem key={category.id} value={category.id.toString()}>{category.name}</TagGroupItem>
+                {categoriesInfo.map(val => (
+                  <TagGroupItem key={val.id} value={val.categoryId}>{val.categoryName}</TagGroupItem>
                 ))}
               </CheckboxGroup>
             </PopoverFilterWrapper>
@@ -146,8 +149,8 @@ export function Filters (
                 value={selectedKinds.map(String)}
                 onChange={handleKindsChange}
               >
-                {kinds.map(kind => (
-                  <TagGroupItem key={kind.id} value={kind.id.toString()}>{kind.name}</TagGroupItem>
+                {kindsInfo.map(val => (
+                  <TagGroupItem key={val.id} value={val.kindId}>{val.kindName}</TagGroupItem>
                 ))}
               </CheckboxGroup>
             </PopoverFilterWrapper>
@@ -161,8 +164,8 @@ export function Filters (
                 value={selectedSubKinds.map(String)}
                 onChange={handleSubKindsChange}
               >
-                {subKinds.map(subKind => (
-                  <TagGroupItem key={subKind.id} value={subKind.id.toString()}>{subKind.name}</TagGroupItem>
+                {subKindsInfo.map(val => (
+                  <TagGroupItem key={val.id} value={val.subKindIds}>{val.subKindName}</TagGroupItem>
                 ))}
               </CheckboxGroup>
             </PopoverFilterWrapper>
