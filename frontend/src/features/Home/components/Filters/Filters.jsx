@@ -83,8 +83,9 @@ export function Filters (
   }
 
   const handleKindsChange = (values) => {
-    console.log('Selected kinds ... ', selectedKinds)
     console.log('values kinds ... ', values)
+    const subkinds = getSubkindsByKindId(filtersInfo, values)
+    setSubKindsInfo(subkinds)
     onKindsChange(values.map(Number))
   }
 

@@ -12,7 +12,6 @@ export function useInfoAPI () {
 
   return { getAllFilters }
 }
-
 export const getCategories = (data) => {
   const categoriesMap = new Map()
   let categoryIdCounter = 0
@@ -34,7 +33,7 @@ export const getKindsAndSubkindsByCategoryId = (data, categoryIds) => {
   const filteredData = Array.isArray(categoryIds) && categoryIds.length > 0 ? data.filter(item => categoryIds.includes(item.categoryId)) : data
 
   const kinds = []
-  const subkindsMap = new Map()
+  const subkinds = []
   let kindIdCounter = 0
   let subkindIdCounter = 0
 
@@ -47,17 +46,12 @@ export const getKindsAndSubkindsByCategoryId = (data, categoryIds) => {
       })
     }
 
-    if (!subkindsMap.has(item.subKindName)) {
-      subkindsMap.set(item.subKindName, [])
-    }
-    subkindsMap.get(item.subKindName).push(parseInt(item.subKindId, 10))
+    subkinds.push({
+      id: subkindIdCounter++,
+      subKindName: item.subKindName,
+      subKindId: parseInt(item.subKindId, 10)
+    })
   })
-
-  const subkinds = Array.from(subkindsMap, ([subKindName, subKindIds]) => ({
-    id: subkindIdCounter++,
-    subKindName,
-    subKindIds
-  }))
 
   return { kinds, subkinds }
 }
@@ -65,21 +59,16 @@ export const getKindsAndSubkindsByCategoryId = (data, categoryIds) => {
 export const getSubkindsByKindId = (data, kindIds) => {
   const filteredData = Array.isArray(kindIds) && kindIds.length > 0 ? data.filter(item => kindIds.includes(item.kindId)) : data
 
-  const subkindsMap = new Map()
+  const subkinds = []
   let subkindIdCounter = 0
 
   filteredData.forEach(item => {
-    if (!subkindsMap.has(item.subKindName)) {
-      subkindsMap.set(item.subKindName, [])
-    }
-    subkindsMap.get(item.subKindName).push(parseInt(item.subKindId, 10))
+    subkinds.push({
+      id: subkindIdCounter++,
+      subKindName: item.subKindName,
+      subKindId: parseInt(item.subKindId, 10)
+    })
   })
-
-  const subkinds = Array.from(subkindsMap, ([subKindName, subKindIds]) => ({
-    id: subkindIdCounter++,
-    subKindName,
-    subKindIds
-  }))
 
   return subkinds
 }
