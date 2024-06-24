@@ -31,9 +31,9 @@ const PopoverFilterWrapper = forwardRef(({ title, children, ...props }, ref) => 
           <Button size='sm' variant='flat' onPress={onClose}>
             Cancel
           </Button>
-          <Button color='primary' size='sm' variant='flat' onPress={onClose}>
+          {/* <Button color='primary' size='sm' variant='flat' onPress={onClose}>
             Apply
-          </Button>
+          </Button> */}
         </div>
       </PopoverContent>
     </Popover>
