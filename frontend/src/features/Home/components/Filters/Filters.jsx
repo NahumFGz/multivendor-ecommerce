@@ -46,7 +46,7 @@ export function Filters (
         const categories = getCategories(allFiltersInfo)
         setCategoriesInfo(categories)
 
-        const subCategories = getSubCategoryByCategoryId(allFiltersInfo, '')
+        const subCategories = getSubCategoryByCategoryId(allFiltersInfo, selectedCategories.map(String))
         setSubCategoriesInfo(subCategories)
       } catch (error) {
         console.error('Get all filters failed', error)
