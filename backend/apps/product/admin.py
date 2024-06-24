@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, KindProduct, Product, SubKindProduct
+from .models import Category, Product, SubCategory
 
 
 # Register your models here.
@@ -16,18 +16,9 @@ class CategoryAdmin(admin.ModelAdmin):
     ]
 
 
-@admin.register(KindProduct)
-class KindProductAdmin(admin.ModelAdmin):
+@admin.register(SubCategory)
+class SubCategoryAdmin(admin.ModelAdmin):
     list_display = ["name", "category", "slug", "updated_at"]
-    readonly_fields = [
-        "created_at",
-        "updated_at",
-    ]
-
-
-@admin.register(SubKindProduct)
-class SubKindProductAdmin(admin.ModelAdmin):
-    list_display = ["name", "kind", "updated_at"]
     readonly_fields = [
         "created_at",
         "updated_at",
@@ -39,8 +30,7 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ["title", "slug"]
     list_display = [
         "category",
-        "kind_of_product",
-        "sub_kind_of_product",
+        "sub_category",
         "title",
         "updated_at",
     ]

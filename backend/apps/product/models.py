@@ -44,50 +44,25 @@ def pre_save_category(sender, instance, **kwargs):
         )
 
 
-class KindProduct(TimeStampModel):
+class SubCategory(TimeStampModel):
     category = models.ForeignKey(
-        Category, related_name="kinds", blank=True, null=True, on_delete=models.CASCADE
+        Category, related_name="sub_category", blank=True, null=True, on_delete=models.CASCADE
     )
     name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, blank=True, null=True, unique=True)
     principal_image = ImageField(upload_to="product/kind/", blank=True, null=True)
 
     class Meta:
-        verbose_name = "Kind"
-        verbose_name_plural = "Kinds"
+        verbose_name = "Sub Category"
+        verbose_name_plural = "Sub Categories"
         ordering = ["-updated_at"]
 
     def __str__(self):
         return f"{self.name}"
 
 
-@receiver(signals.pre_save, sender=KindProduct)
+@receiver(signals.pre_save, sender=SubCategory)
 def pre_save_kind_product(sender, instance, **kwargs):
-    if not instance.slug:
-        instance.slug = generate_unique_slug(
-            instance=instance, source_field_name="name", destination_field_name="slug"
-        )
-
-
-class SubKindProduct(TimeStampModel):
-    kind = models.ForeignKey(
-        KindProduct, related_name="subkinds", blank=True, null=True, on_delete=models.CASCADE
-    )
-    name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, blank=True, null=True, unique=True)
-
-    class Meta:
-        verbose_name = "SubKind"
-        verbose_name_plural = "SubKinds"
-        unique_together = (("kind", "name"),)
-        # constraints = [models.UniqueConstraint(fields=["kind", "name"], name="unique_kind_name")]
-
-    def __str__(self):
-        return f"{self.name}"
-
-
-@receiver(signals.pre_save, sender=SubKindProduct)
-def pre_save_sub_kind_product(sender, instance, **kwargs):
     if not instance.slug:
         instance.slug = generate_unique_slug(
             instance=instance, source_field_name="name", destination_field_name="slug"
@@ -98,12 +73,9 @@ class Product(TimeStampUUIDModel):
     category = models.ForeignKey(
         Category, related_name="product_category", blank=True, null=True, on_delete=models.CASCADE
     )
-    kind_of_product = models.ForeignKey(
-        KindProduct, related_name="product_kind", blank=True, null=True, on_delete=models.CASCADE
-    )
-    sub_kind_of_product = models.ForeignKey(
-        SubKindProduct,
-        related_name="product_subkind",
+    sub_category = models.ForeignKey(
+        SubCategory,
+        related_name="product_sub_category",
         blank=True,
         null=True,
         on_delete=models.CASCADE,

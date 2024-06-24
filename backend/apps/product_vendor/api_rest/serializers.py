@@ -1,7 +1,6 @@
 from apps.product.api_rest.serializers import (
     TinyCategorySerializer,
-    TinyKindProductSerializer,
-    TinySubKindProductSerializer,
+    TinySubCategorySerializer,
 )
 from rest_framework import serializers
 
@@ -17,8 +16,7 @@ class TinyUserSerializer(serializers.ModelSerializer):
 class ProductVendorSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
     category = TinyCategorySerializer()
-    kind_of_product = TinyKindProductSerializer()
-    sub_kind_of_product = TinySubKindProductSerializer()
+    sub_category = TinySubCategorySerializer()
     vendor = TinyUserSerializer()
 
     class Meta:
@@ -27,8 +25,7 @@ class ProductVendorSerializer(serializers.ModelSerializer):
             "id",
             "vendor",
             "category",
-            "kind_of_product",
-            "sub_kind_of_product",
+            "sub_category",
             "title",
             "slug",
             "price",
@@ -52,8 +49,7 @@ class ProductVendorSerializer(serializers.ModelSerializer):
 class ProductVendorDetailSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
     category = TinyCategorySerializer()
-    kind_of_product = TinyKindProductSerializer()
-    sub_kind_of_product = TinySubKindProductSerializer()
+    sub_category = TinySubCategorySerializer()
     vendor = TinyUserSerializer()
 
     class Meta:
@@ -62,8 +58,7 @@ class ProductVendorDetailSerializer(serializers.ModelSerializer):
             "id",
             "vendor",
             "category",
-            "kind_of_product",
-            "sub_kind_of_product",
+            "sub_category",
             "title",
             "short_description",
             "description",

@@ -52,19 +52,3 @@ class ProductVendorCRUDView(
 
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
-
-
-# class ProductVendorViewSet(viewsets.ModelViewSet):
-#     queryset = ProductVendor.objects.all()
-#     serializer_class = ProductVendorSerializer
-#     permission_classes = [IsAuthenticatedOrReadOnly]
-#     http_method_names = ["get", "post", "patch"]
-#     lookup_field = "slug"
-
-#     def get_object(self):
-#         queryset = self.filter_queryset(self.get_queryset())
-#         slug = self.kwargs.get(self.lookup_field)
-#         try:
-#             return queryset.get(slug=slug)
-#         except ProductVendor.DoesNotExist:
-#             raise NotFound(detail="ProductVendor not found.")

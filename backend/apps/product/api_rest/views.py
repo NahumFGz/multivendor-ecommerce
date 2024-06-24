@@ -5,39 +5,28 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
-from ..models import Category, KindProduct, Product, SubKindProduct
+from ..models import Category, Product, SubCategory
 from .filters import ProductFilter
 from .serializers import (
     CategorySerializer,
     FiltersProductSerializers,
-    KindProductSerializer,
     ProductCUDSerializer,
     ProductDetailSerializer,
     ProductListSerializer,
-    SubKindProductSerializer,
-    TinyCategorySerializer,
-    TinyKindProductSerializer,
-    TinySubKindProductSerializer,
+    SubCategorySerializer,
 )
 
 
 class FiltersProductViewSet(generics.ListAPIView):
-    queryset = SubKindProduct.objects.all()
+    queryset = SubCategory.objects.all()
     serializer_class = FiltersProductSerializers
     permission_classes = [IsAuthenticatedOrReadOnly]
     pagination_class = None
 
 
-class SubKindProductViewSet(generics.ListAPIView):
-    queryset = SubKindProduct.objects.all()
-    serializer_class = SubKindProductSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    pagination_class = None
-
-
-class KindProductViewSet(generics.ListAPIView):
-    queryset = KindProduct.objects.all()
-    serializer_class = KindProductSerializer
+class SubCategoryProductViewSet(generics.ListAPIView):
+    queryset = SubCategory.objects.all()
+    serializer_class = SubCategorySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     pagination_class = None
 
