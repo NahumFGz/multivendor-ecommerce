@@ -25,19 +25,21 @@ export function ProductsPage () {
   const [kindsInfo, setKindsInfo] = useState([])
   const [subKindsInfo, setSubKindsInfo] = useState([])
 
-  const fetchInfo = async () => {
-    try {
-      const response = await getAllFilters()
-      setFiltersInfo(response)
-    } catch (error) {
-      throw new Error('Get all filters failed')
+  useEffect(() => {
+    const fetchInfo = async () => {
+      try {
+        const response = await getAllFilters()
+        setFiltersInfo(response)
+      } catch (error) {
+        throw new Error('Get all filters failed')
+      }
     }
-  }
+    fetchInfo()
+  }, []) // Este efecto solo se ejecuta una vez cuando el componente se monta
 
   useEffect(() => {
-    fetchInfo()
     console.log('filtersInfo... ', filtersInfo)
-  }, [])
+  }, [filtersInfo]) // Este efecto se ejecuta cada vez que `filtersInfo` cambia
 
   //! ******************************
   const [categories, setCategories] = useState([])
