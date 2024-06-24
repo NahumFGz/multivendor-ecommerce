@@ -8,16 +8,13 @@ import {
 import PopoverFilterWrapper from './PopoverFilterWrapper'
 import TagGroupItem from './TagGroupItem'
 import { useEffect, useState } from 'react'
-import { useInfoAPI, getCategories, getKindsAndSubkindsByCategoryId, getSubkindsByKindId } from '../../hooks/useInfoAPI'
+import { useInfoAPI, getCategories, getKindsByCategoryId } from '../../hooks/useInfoAPI'
 
 export function Filters (
   {
     totalProducts,
     ordering,
     onOrderingChange,
-    categories,
-    kinds,
-    subKinds,
     selectedCategories,
     selectedKinds,
     selectedSubKinds,
@@ -42,7 +39,6 @@ export function Filters (
   const [filtersInfo, setFiltersInfo] = useState([])
   const [categoriesInfo, setCategoriesInfo] = useState([])
   const [kindsInfo, setKindsInfo] = useState([])
-  const [subKindsInfo, setSubKindsInfo] = useState([])
 
   useEffect(() => {
     const fetchInfo = async () => {
@@ -53,9 +49,8 @@ export function Filters (
         const categories = getCategories(allFiltersInfo)
         setCategoriesInfo(categories)
 
-        const { kinds: allKinds, subkinds: allSubkinds } = getKindsAndSubkindsByCategoryId(allFiltersInfo, '')
+        const { kinds: allKinds } = getKindsByCategoryId(allFiltersInfo, '')
         setKindsInfo(allKinds)
-        setSubKindsInfo(allSubkinds)
       } catch (error) {
         console.error('Get all filters failed', error)
       }
@@ -68,31 +63,19 @@ export function Filters (
       console.log('filtersInfo... ', filtersInfo)
       console.log('categoriesInfo... ', categoriesInfo)
       console.log('kindsInfo... ', kindsInfo)
-      console.log('subKindsInfo... ', subKindsInfo)
     }
   }, [filtersInfo])
 
   //! ******************************
 
   const handleCategoriesChange = (values) => {
-    console.log('values categories ... ', values)
-    const { kinds: allKinds, subkinds: allSubkinds } = getKindsAndSubkindsByCategoryId(filtersInfo, values)
+    const { kinds: allKinds } = getKindsByCategoryId(filtersInfo, values)
     setKindsInfo(allKinds)
-    setSubKindsInfo(allSubkinds)
     onCategoriesChange(values.map(Number))
   }
 
   const handleKindsChange = (values) => {
-    console.log('values kinds ... ', values)
-    const subkinds = getSubkindsByKindId(filtersInfo, values)
-    setSubKindsInfo(subkinds)
     onKindsChange(values.map(Number))
-  }
-
-  const handleSubKindsChange = (values) => {
-    console.log('Selected subkinds ... ', selectedSubKinds)
-    console.log('values subkinds ... ', values)
-    onSubKindsChange(values.map(Number))
   }
 
   const getKeyFromOrdering = (ordering) => {
@@ -132,9 +115,9 @@ export function Filters (
           <div className='-ml-2 flex w-full flex-wrap items-center justify-start gap-2 md:ml-0 md:justify-end'>
 
             {/* Categories */}
-            <PopoverFilterWrapper title='Category'>
+            <PopoverFilterWrapper title='Productos'>
               <CheckboxGroup
-                aria-label='Select category'
+                aria-label='Select products'
                 className='gap-1'
                 orientation='horizontal'
                 value={selectedCategories.map(String)}
@@ -147,9 +130,9 @@ export function Filters (
             </PopoverFilterWrapper>
 
             {/* Kind */}
-            <PopoverFilterWrapper title='Kind'>
+            <PopoverFilterWrapper title='Colección'>
               <CheckboxGroup
-                aria-label='Select kind'
+                aria-label='Select collection'
                 className='gap-1'
                 orientation='horizontal'
                 value={selectedKinds.map(String)}
@@ -161,26 +144,11 @@ export function Filters (
               </CheckboxGroup>
             </PopoverFilterWrapper>
 
-            {/* Sub-Kind */}
-            <PopoverFilterWrapper title='Sub Kind'>
-              <CheckboxGroup
-                aria-label='Select sub-kind'
-                className='gap-1'
-                orientation='horizontal'
-                value={selectedSubKinds.map(String)}
-                onChange={handleSubKindsChange}
-              >
-                {subKindsInfo.map(val => (
-                  <TagGroupItem key={val.id} value={val.subKindId}>{val.subKindName}</TagGroupItem>
-                ))}
-              </CheckboxGroup>
-            </PopoverFilterWrapper>
-
             <Select
               aria-label='Sort by'
               classNames={{
                 base: 'items-center justify-end max-w-fit',
-                value: 'w-[142px]'
+                value: 'w-[162px]'
               }}
               selectedKeys={[getKeyFromOrdering(ordering)]}
               labelPlacement='outside-left'
@@ -189,13 +157,13 @@ export function Filters (
               onSelectionChange={(keys) => handleSortChange(Array.from(keys)[0])}
             >
               <SelectItem key='newest' value='newest'>
-                Newest
+                Productos nuevos
               </SelectItem>
               <SelectItem key='price_low_to_high' value='price_low_to_high'>
-                Price: Low to High
+                Precio: menos a más
               </SelectItem>
               <SelectItem key='price_high_to_low' value='price_high_to_low'>
-                Price: High to Low
+                Precio: más a menos
               </SelectItem>
             </Select>
           </div>
