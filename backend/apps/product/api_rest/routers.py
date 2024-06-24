@@ -3,7 +3,6 @@ from rest_framework.routers import DefaultRouter
 
 from .views import (
     CategoryViewSet,
-    FiltersProductViewSet,
     ProductCUDView,
     ProductDetailView,
     ProductListView,
@@ -16,5 +15,4 @@ urlpatterns = [
     path("products/<slug:slug>/", ProductDetailView.as_view(), name="product-detail"),
     path("info/categories/", CategoryViewSet.as_view(), name="category-list"),
     path("info/sub-categories/", SubCategoryProductViewSet.as_view(), name="sub-categories-list"),
-    path("info/all-filters/", FiltersProductViewSet.as_view(), name="all-filters-product-list"),
 ]

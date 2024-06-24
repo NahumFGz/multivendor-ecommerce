@@ -3,32 +3,16 @@ from rest_framework import serializers
 from ..models import Category, Product, SubCategory
 
 
-class FiltersProductSerializers(serializers.ModelSerializer):
-    kind_id = serializers.IntegerField(source="kind.id")
-    kind_name = serializers.CharField(source="kind.name")
-    category_id = serializers.IntegerField(source="kind.category.id")
-    category_name = serializers.CharField(source="kind.category.name")
+class TinyCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ("id", "name")
 
+
+class TinySubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = SubCategory
-        fields = ("kind_id", "kind_name", "id", "name", "category_id", "category_name")
-
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        return {
-            "category_id": representation["category_id"],
-            "category_name": representation["category_name"],
-            "kind_id": representation["kind_id"],
-            "kind_name": representation["kind_name"],
-            "subkind_id": representation["id"],
-            "subkind_name": representation["name"],
-        }
-
-
-class SubCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SubCategory
-        fields = "__all__"
+        fields = ("id", "name")
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -47,16 +31,21 @@ class CategorySerializer(serializers.ModelSerializer):
         }
 
 
-class TinySubCategorySerializer(serializers.ModelSerializer):
+class SubCategorySerializer(serializers.ModelSerializer):
+    category = TinyCategorySerializer()
+
     class Meta:
         model = SubCategory
-        fields = ("id", "name")
+        fields = ("id", "name", "category")
 
-
-class TinyCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ("id", "name")
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return {
+            "category_id": instance.category.id,
+            "category_name": instance.category.name,
+            "sub_category_id": representation["id"],
+            "sub_category_name": representation["name"],
+        }
 
 
 class ProductListSerializer(serializers.ModelSerializer):

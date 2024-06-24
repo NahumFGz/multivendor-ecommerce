@@ -9,19 +9,11 @@ from ..models import Category, Product, SubCategory
 from .filters import ProductFilter
 from .serializers import (
     CategorySerializer,
-    FiltersProductSerializers,
     ProductCUDSerializer,
     ProductDetailSerializer,
     ProductListSerializer,
     SubCategorySerializer,
 )
-
-
-class FiltersProductViewSet(generics.ListAPIView):
-    queryset = SubCategory.objects.all()
-    serializer_class = FiltersProductSerializers
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    pagination_class = None
 
 
 class SubCategoryProductViewSet(generics.ListAPIView):
