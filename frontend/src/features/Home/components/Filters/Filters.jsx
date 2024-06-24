@@ -5,11 +5,26 @@ import {
   SelectItem
 } from '@nextui-org/react'
 
-// import PriceSlider from './PriceSlider'
 import PopoverFilterWrapper from './PopoverFilterWrapper'
 import TagGroupItem from './TagGroupItem'
+import { useEffect, useState } from 'react'
+import { useInfoAPI, getCategories, getKindsAndSubkindsByCategoryId, getSubkindsByKindId } from '../../hooks/useInfoAPI'
 
-export function Filters ({ totalProducts, ordering, onOrderingChange, categories, kinds, subKinds, selectedCategories, selectedKinds, selectedSubKinds, onCategoriesChange, onKindsChange, onSubKindsChange }) {
+export function Filters (
+  {
+    totalProducts,
+    ordering,
+    onOrderingChange,
+    categories,
+    kinds,
+    subKinds,
+    selectedCategories,
+    selectedKinds,
+    selectedSubKinds,
+    onCategoriesChange,
+    onKindsChange,
+    onSubKindsChange
+  }) {
   const handleSortChange = (key) => {
     let order = ''
     if (key === 'newest') {
@@ -21,6 +36,31 @@ export function Filters ({ totalProducts, ordering, onOrderingChange, categories
     }
     onOrderingChange(order)
   }
+
+  //! Test useInfoAPI **************
+  const { getAllFilters } = useInfoAPI()
+  const [filtersInfo, setFiltersInfo] = useState([])
+  const [categoriesInfo, setCategoriesInfo] = useState([])
+  const [kindsInfo, setKindsInfo] = useState([])
+  const [subKindsInfo, setSubKindsInfo] = useState([])
+
+  useEffect(() => {
+    const fetchInfo = async () => {
+      try {
+        const response = await getAllFilters()
+        setFiltersInfo(response)
+      } catch (error) {
+        throw new Error('Get all filters failed')
+      }
+    }
+    fetchInfo()
+  }, []) // Este efecto solo se ejecuta una vez cuando el componente se monta
+
+  useEffect(() => {
+    console.log('filtersInfo... ', filtersInfo)
+  }, [filtersInfo]) // Este efecto se ejecuta cada vez que `filtersInfo` cambia
+
+  //! ******************************
 
   const handleCategoriesChange = (values) => {
     onCategoriesChange(values.map(Number))
