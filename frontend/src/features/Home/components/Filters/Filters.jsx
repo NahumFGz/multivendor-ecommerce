@@ -53,15 +53,7 @@ export function Filters (
       }
     }
     fetchInfo()
-  }, [])
-
-  useEffect(() => {
-    if (filtersInfo.length) {
-      console.log('filtersInfo... ', filtersInfo)
-      console.log('categoriesInfo... ', categoriesInfo)
-      console.log('subCategoriesInfo... ', subCategoriesInfo)
-    }
-  }, [filtersInfo])
+  }, [selectedCategories])
 
   const handleCategoriesChange = (values) => {
     console.log('values... ', values)

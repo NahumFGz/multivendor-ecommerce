@@ -14,8 +14,6 @@ export async function getAllFiltersApi () {
         subCategoryName: info.sub_category_name || ''
       }))
 
-      console.log('allFiltersInfo', allFiltersInfo)
-
       return {
         allFiltersInfo
       }
