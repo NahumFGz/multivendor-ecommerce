@@ -1,7 +1,7 @@
+// /Users/nahumfg/Projects/GitHubProjects/multivendor-ecommerce/frontend/src/features/Home/pages/DefaultEcommercePage.jsx
 import { useEffect, useState } from 'react'
 import { useProductsAPI } from '../hooks/useProductsAPI'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Filters } from '../components/Filters/Filters'
 import { Products } from '../components/Products/Products'
 import { Pagination } from '@nextui-org/react'
 
@@ -89,32 +89,8 @@ export function DefaultEcommercePage () {
     updateUrlParams(1, size, ordering, selectedCategories, selectedSubCategories) // Reinicia la paginación a la primera página
   }
 
-  const handleOrderingChange = (order) => {
-    setOrdering(order)
-    updateUrlParams(1, pageSize, order, selectedCategories, selectedSubCategories) // Reinicia la paginación a la primera página
-  }
-
-  const handleCategoriesChange = (categories) => {
-    setSelectedCategories(categories)
-    updateUrlParams(1, pageSize, ordering, categories, selectedSubCategories)
-  }
-
-  const handleSubCategoriesChange = (subCategories) => {
-    setSelectedSubCategories(subCategories)
-    updateUrlParams(1, pageSize, ordering, selectedCategories, subCategories)
-  }
-
   return (
     <div className='mx-12 mt-2'>
-      <Filters
-        totalProducts={totalProducts}
-        ordering={ordering}
-        onOrderingChange={handleOrderingChange}
-        selectedCategories={selectedCategories}
-        selectedSubCategories={selectedSubCategories}
-        onCategoriesChange={handleCategoriesChange}
-        onSubCategoriesChange={handleSubCategoriesChange}
-      />
       <div>
         <Products products={products} isLoading={isLoading} pageSize={pageSize} />
         <div className='flex items-center justify-center mt-4'>
