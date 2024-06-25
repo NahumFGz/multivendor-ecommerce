@@ -14,6 +14,7 @@ export function HomeLayout ({ children }) {
   const [ordering, setOrdering] = useState('')
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedSubCategories, setSelectedSubCategories] = useState([])
+  const [filterTitle, setFilterTitle] = useState('')
 
   const navigate = useNavigate()
 
@@ -50,6 +51,19 @@ export function HomeLayout ({ children }) {
     return { order, categories, subCategories }
   }
 
+  // Funcion para obtener el titulo del filtro
+  const getFilterTitle = (pathname) => {
+    if (pathname === homeUrls.products) {
+      return 'Productos'
+    } else if (pathname === homeUrls.boardGames) {
+      return 'Juegos de mesa'
+    } else if (pathname === homeUrls.marketplace) {
+      return 'Productos publicados'
+    } else if (pathname === homeUrls.promos) {
+      return 'Promociones'
+    }
+  }
+
   const fetchProducts = async (order = '', selectedCategories = [], selectedSubCategories = []) => {
     try {
       const response = await getProducts(1, 10, order, selectedCategories, selectedSubCategories)
@@ -66,6 +80,11 @@ export function HomeLayout ({ children }) {
     setSelectedSubCategories(subCategories)
     fetchProducts(order, categories, subCategories)
   }, [location.search])
+
+  useEffect(() => {
+    console.log('location.pathname... ', location.pathname)
+    setFilterTitle(getFilterTitle(location.pathname))
+  }, [location.pathname])
 
   const handleOrderingChange = (order) => {
     setOrdering(order)
@@ -97,6 +116,8 @@ export function HomeLayout ({ children }) {
             selectedSubCategories={selectedSubCategories}
             onCategoriesChange={handleCategoriesChange}
             onSubCategoriesChange={handleSubCategoriesChange}
+            filterTitle={filterTitle}
+            showCategories={location.pathname !== homeUrls.boardGames}
           />
         </div>
       )}

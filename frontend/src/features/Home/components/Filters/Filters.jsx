@@ -18,7 +18,9 @@ export function Filters (
     selectedCategories,
     selectedSubCategories,
     onCategoriesChange,
-    onSubCategoriesChange
+    onSubCategoriesChange,
+    filterTitle,
+    showCategories
   }) {
   const handleSortChange = (key) => {
     let order = ''
@@ -96,7 +98,7 @@ export function Filters (
 
         {/* Mobile Title */}
         <div className='flex items-center gap-1 md:hidden md:gap-2'>
-          <h2 className='text-large font-medium'>Products</h2>
+          <h2 className='text-large font-medium'>{filterTitle}</h2>
           <span className='text-small text-default-400'>{`(${totalProducts})`}</span>
         </div>
 
@@ -104,8 +106,8 @@ export function Filters (
 
           {/* Desktop Title */}
           <div className='flex flex-row gap-2'>
-            <div className='hidden items-center gap-1 md:flex'>
-              <h2 className='text-medium font-medium'>Products</h2>
+            <div className='hidden items-center gap-1 md:flex w-52'>
+              <h2 className='text-medium font-medium'>{filterTitle}</h2>
               <span className='text-small text-default-400'>{`(${totalProducts})`}</span>
             </div>
           </div>
@@ -114,19 +116,23 @@ export function Filters (
           <div className='-ml-2 flex w-full flex-wrap items-center justify-start gap-2 md:ml-0 md:justify-end'>
 
             {/* Categories */}
-            <PopoverFilterWrapper title='Productos'>
-              <CheckboxGroup
-                aria-label='Select products'
-                className='gap-1'
-                orientation='horizontal'
-                value={selectedCategories.map(String)}
-                onChange={handleCategoriesChange}
-              >
-                {categoriesInfo.map(val => (
-                  <TagGroupItem key={val.id} value={val.categoryId}>{val.categoryName}</TagGroupItem>
-                ))}
-              </CheckboxGroup>
-            </PopoverFilterWrapper>
+            {
+              showCategories && (
+                <PopoverFilterWrapper title='Productos'>
+                  <CheckboxGroup
+                    aria-label='Select products'
+                    className='gap-1'
+                    orientation='horizontal'
+                    value={selectedCategories.map(String)}
+                    onChange={handleCategoriesChange}
+                  >
+                    {categoriesInfo.map(val => (
+                      <TagGroupItem key={val.id} value={val.categoryId}>{val.categoryName}</TagGroupItem>
+                    ))}
+                  </CheckboxGroup>
+                </PopoverFilterWrapper>
+              )
+            }
 
             {/* SubCategories */}
             <PopoverFilterWrapper title='Colección'>

@@ -307,9 +307,6 @@ export function Header () {
             onSelectionChange={handleTabChange}
           >
             <Tab key='home' title='Home' />
-            <Tab key='products' title='Productos' />
-            <Tab key='boardgames' title='Juegos de mesa' />
-            <Tab key='marketplace' title='Marketplace' />
             <Tab
               key='promos'
               title={
@@ -319,6 +316,9 @@ export function Header () {
                 </div>
               }
             />
+            <Tab key='products' title='Productos' />
+            <Tab key='marketplace' title='Marketplace' />
+            <Tab key='boardgames' title='Juegos de mesa' />
           </Tabs>
         </ScrollShadow>
       </main>
