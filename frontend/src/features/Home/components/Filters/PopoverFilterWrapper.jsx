@@ -7,13 +7,12 @@ import {
   useDisclosure
 } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-import { forwardRef } from 'react'
 
-const PopoverFilterWrapper = forwardRef(({ title, children, ...props }, ref) => {
+export function PopoverFilterWrapper ({ title, children, ...props }) {
   const { isOpen, onClose, onOpenChange } = useDisclosure()
 
   return (
-    <Popover ref={ref} isOpen={isOpen} onOpenChange={onOpenChange} {...props}>
+    <Popover isOpen={isOpen} onOpenChange={onOpenChange} {...props}>
       <PopoverTrigger>
         <Button
           className='border-default-200 text-default-500'
@@ -38,8 +37,4 @@ const PopoverFilterWrapper = forwardRef(({ title, children, ...props }, ref) => 
       </PopoverContent>
     </Popover>
   )
-})
-
-PopoverFilterWrapper.displayName = 'PopoverFilterWrapper'
-
-export default PopoverFilterWrapper
+}

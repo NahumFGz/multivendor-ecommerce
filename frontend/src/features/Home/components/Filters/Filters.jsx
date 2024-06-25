@@ -5,8 +5,8 @@ import {
   SelectItem
 } from '@nextui-org/react'
 
-import PopoverFilterWrapper from './PopoverFilterWrapper'
-import TagGroupItem from './TagGroupItem'
+import { PopoverFilterWrapper } from './PopoverFilterWrapper'
+import { TagGroupItem } from './TagGroupItem'
 import { useEffect, useState } from 'react'
 import { useInfoAPI, getCategories, getSubCategoryByCategoryId } from '../../hooks/useInfoAPI'
 

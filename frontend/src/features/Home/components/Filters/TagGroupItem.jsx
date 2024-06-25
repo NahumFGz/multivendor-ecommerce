@@ -1,15 +1,14 @@
 import { Chip, VisuallyHidden, useCheckbox, cn } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-import { forwardRef } from 'react'
 
-const TagGroupItem = forwardRef(({ icon, size = 'md', ...props }, ref) => {
+export function TagGroupItem ({ icon, size = 'md', ...props }) {
   const { children, isSelected, isFocusVisible, getBaseProps, getLabelProps, getInputProps } =
     useCheckbox({
       ...props
     })
 
   return (
-    <label {...getBaseProps()} ref={ref}>
+    <label {...getBaseProps()}>
       <VisuallyHidden>
         <input {...getInputProps()} />
       </VisuallyHidden>
@@ -46,8 +45,4 @@ const TagGroupItem = forwardRef(({ icon, size = 'md', ...props }, ref) => {
       </Chip>
     </label>
   )
-})
-
-TagGroupItem.displayName = 'TagGroupItem'
-
-export default TagGroupItem
+}
