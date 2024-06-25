@@ -1,10 +1,7 @@
-import { FormularioComplejo } from '../components/FormularioComplejo'
+import { DefaultEcommercePage } from './DefaultEcommercePage'
 
 export function BoardGamesPage () {
   return (
-    <div>
-      <h1>Board Games Page</h1>
-      <FormularioComplejo />
-    </div>
+    <DefaultEcommercePage />
   )
 }
