@@ -1,4 +1,3 @@
-// /Users/nahumfg/Projects/GitHubProjects/multivendor-ecommerce/frontend/src/features/Home/pages/DefaultEcommercePage.jsx
 import { useEffect, useState } from 'react'
 import { useProductsAPI } from '../hooks/useProductsAPI'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -7,35 +6,36 @@ import { Pagination } from '@nextui-org/react'
 
 export function DefaultEcommercePage () {
   const { getProducts } = useProductsAPI()
-  const [products, setProducts] = useState([])
-  const [totalProducts, setTotalProducts] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
-  const [ordering, setOrdering] = useState('')
-  const [selectedCategories, setSelectedCategories] = useState([])
-  const [selectedSubCategories, setSelectedSubCategories] = useState([])
+  const [state, setState] = useState({
+    products: [],
+    totalProducts: 0,
+    isLoading: true,
+    currentPage: 1,
+    pageSize: 10,
+    ordering: '',
+    selectedCategories: [],
+    selectedSubCategories: []
+  })
 
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Función para actualizar la URL
-  const updateUrlParams = (page, size, order, categories, subCategories) => {
+  const updateUrlParams = (params) => {
     const searchParams = new URLSearchParams(location.search)
-    searchParams.set('page', page)
-    searchParams.set('pageSize', size)
-    if (order) {
-      searchParams.set('ordering', order)
+    searchParams.set('page', params.currentPage)
+    searchParams.set('pageSize', params.pageSize)
+    if (params.ordering) {
+      searchParams.set('ordering', params.ordering)
     } else {
       searchParams.delete('ordering')
     }
-    if (categories.length > 0) {
-      searchParams.set('categories', categories.join(','))
+    if (params.selectedCategories.length > 0) {
+      searchParams.set('categories', params.selectedCategories.join(','))
     } else {
       searchParams.delete('categories')
     }
-    if (subCategories.length > 0) {
-      searchParams.set('sub_categories', subCategories.join(','))
+    if (params.selectedSubCategories.length > 0) {
+      searchParams.set('sub_categories', params.selectedSubCategories.join(','))
     } else {
       searchParams.delete('sub_categories')
     }
@@ -45,67 +45,60 @@ export function DefaultEcommercePage () {
     })
   }
 
-  // Función para leer parámetros de la URL
   const getQueryParams = () => {
     const searchParams = new URLSearchParams(location.search)
-    const page = parseInt(searchParams.get('page')) || 1
-    const size = parseInt(searchParams.get('pageSize')) || 10
-    const order = searchParams.get('ordering') || ''
-    const categories = searchParams.get('categories') ? searchParams.get('categories').split(',').map(Number) : []
-    const subCategories = searchParams.get('sub_categories') ? searchParams.get('sub_categories').split(',').map(Number) : []
-    return { page, size, order, categories, subCategories }
+    const currentPage = parseInt(searchParams.get('page')) || 1
+    const pageSize = parseInt(searchParams.get('pageSize')) || 10
+    const ordering = searchParams.get('ordering') || ''
+    const selectedCategories = searchParams.get('categories') ? searchParams.get('categories').split(',').map(Number) : []
+    const selectedSubCategories = searchParams.get('sub_categories') ? searchParams.get('sub_categories').split(',').map(Number) : []
+    return { currentPage, pageSize, ordering, selectedCategories, selectedSubCategories }
   }
 
-  const fetchProducts = async (page = 1, size = 10, order = '', selectedCategories = [], selectedSubCategories = []) => {
+  const fetchProducts = async (params) => {
     try {
-      setIsLoading(true)
-      const response = await getProducts(page, size, order, selectedCategories, selectedSubCategories)
-      setProducts(response.products)
-      setTotalProducts(response.totalProducts)
-      setIsLoading(false)
+      setState((prevState) => ({ ...prevState, isLoading: true }))
+      const response = await getProducts(params.currentPage, params.pageSize, params.ordering, params.selectedCategories, params.selectedSubCategories)
+      setState((prevState) => ({
+        ...prevState,
+        products: response.products,
+        totalProducts: response.totalProducts,
+        isLoading: false
+      }))
     } catch (error) {
       console.error(error)
-      setIsLoading(false)
+      setState((prevState) => ({ ...prevState, isLoading: false }))
     }
   }
 
   useEffect(() => {
-    const { page, size, order, categories, subCategories } = getQueryParams()
-    setCurrentPage(page)
-    setPageSize(size)
-    setOrdering(order)
-    setSelectedCategories(categories)
-    setSelectedSubCategories(subCategories)
-    fetchProducts(page, size, order, categories, subCategories)
+    const queryParams = getQueryParams()
+    setState((prevState) => ({ ...prevState, ...queryParams }))
+    fetchProducts(queryParams)
   }, [location.search])
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page)
-    updateUrlParams(page, pageSize, ordering, selectedCategories, selectedSubCategories)
-  }
-
-  const handlePageSizeChange = (size) => {
-    setPageSize(size)
-    updateUrlParams(1, size, ordering, selectedCategories, selectedSubCategories) // Reinicia la paginación a la primera página
+  const handleParamChange = (newParams) => {
+    const updatedParams = { ...state, ...newParams }
+    setState(updatedParams)
+    updateUrlParams(updatedParams)
   }
 
   return (
     <div className='mx-12 mt-2'>
       <div>
-        <Products products={products} isLoading={isLoading} pageSize={pageSize} />
+        <Products products={state.products} isLoading={state.isLoading} pageSize={state.pageSize} />
         <div className='flex items-center justify-center mt-4'>
-          {totalProducts > 0 && pageSize > 0 && (
+          {state.totalProducts > 0 && state.pageSize > 0 && (
             <Pagination
               showControls
-              total={Math.ceil(totalProducts / pageSize)}
-              page={currentPage} // Utiliza el estado controlado
-              onChange={(page) => handlePageChange(page)}
+              total={Math.ceil(state.totalProducts / state.pageSize)}
+              page={state.currentPage} // Utiliza el estado controlado
+              onChange={(currentPage) => handleParamChange({ currentPage })}
             />
           )}
         </div>
-        {/* Ejemplo de un selector para cambiar el pageSize */}
         <div className='flex items-center justify-center mt-4'>
-          <select value={pageSize} onChange={(e) => handlePageSizeChange(parseInt(e.target.value))}>
+          <select value={state.pageSize} onChange={(e) => handleParamChange({ pageSize: parseInt(e.target.value), currentPage: 1 })}>
             <option value={5}>5</option>
             <option value={10}>10</option>
             <option value={20}>20</option>

@@ -1,4 +1,3 @@
-// /Users/nahumfg/Projects/GitHubProjects/multivendor-ecommerce/frontend/src/features/Home/layouts/HomeLayout.jsx
 import { Footer } from '../components/Footer/Footer'
 import { Header } from '../components/Header/Header'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -10,29 +9,30 @@ import { useProductsAPI } from '../hooks/useProductsAPI'
 export function HomeLayout ({ children }) {
   const location = useLocation()
   const { getProducts } = useProductsAPI()
+  const [filterParams, setFilterParams] = useState({
+    ordering: '',
+    selectedCategories: [],
+    selectedSubCategories: [],
+    filterTitle: ''
+  })
   const [totalProducts, setTotalProducts] = useState(0)
-  const [ordering, setOrdering] = useState('')
-  const [selectedCategories, setSelectedCategories] = useState([])
-  const [selectedSubCategories, setSelectedSubCategories] = useState([])
-  const [filterTitle, setFilterTitle] = useState('')
 
   const navigate = useNavigate()
 
-  // Función para actualizar la URL
-  const updateUrlParams = (order, categories, subCategories) => {
+  const updateUrlParams = (params) => {
     const searchParams = new URLSearchParams(location.search)
-    if (order) {
-      searchParams.set('ordering', order)
+    if (params.ordering) {
+      searchParams.set('ordering', params.ordering)
     } else {
       searchParams.delete('ordering')
     }
-    if (categories.length > 0) {
-      searchParams.set('categories', categories.join(','))
+    if (params.selectedCategories.length > 0) {
+      searchParams.set('categories', params.selectedCategories.join(','))
     } else {
       searchParams.delete('categories')
     }
-    if (subCategories.length > 0) {
-      searchParams.set('sub_categories', subCategories.join(','))
+    if (params.selectedSubCategories.length > 0) {
+      searchParams.set('sub_categories', params.selectedSubCategories.join(','))
     } else {
       searchParams.delete('sub_categories')
     }
@@ -42,16 +42,14 @@ export function HomeLayout ({ children }) {
     })
   }
 
-  // Función para leer parámetros de la URL
   const getQueryParams = () => {
     const searchParams = new URLSearchParams(location.search)
-    const order = searchParams.get('ordering') || ''
-    const categories = searchParams.get('categories') ? searchParams.get('categories').split(',').map(Number) : []
-    const subCategories = searchParams.get('sub_categories') ? searchParams.get('sub_categories').split(',').map(Number) : []
-    return { order, categories, subCategories }
+    const ordering = searchParams.get('ordering') || ''
+    const selectedCategories = searchParams.get('categories') ? searchParams.get('categories').split(',').map(Number) : []
+    const selectedSubCategories = searchParams.get('sub_categories') ? searchParams.get('sub_categories').split(',').map(Number) : []
+    return { ordering, selectedCategories, selectedSubCategories }
   }
 
-  // Funcion para obtener el titulo del filtro
   const getFilterTitle = (pathname) => {
     if (pathname === homeUrls.products) {
       return 'Productos'
@@ -64,9 +62,9 @@ export function HomeLayout ({ children }) {
     }
   }
 
-  const fetchProducts = async (order = '', selectedCategories = [], selectedSubCategories = []) => {
+  const fetchProducts = async (params) => {
     try {
-      const response = await getProducts(1, 10, order, selectedCategories, selectedSubCategories)
+      const response = await getProducts(1, 10, params.ordering, params.selectedCategories, params.selectedSubCategories)
       setTotalProducts(response.totalProducts)
     } catch (error) {
       console.error(error)
@@ -74,31 +72,19 @@ export function HomeLayout ({ children }) {
   }
 
   useEffect(() => {
-    const { order, categories, subCategories } = getQueryParams()
-    setOrdering(order)
-    setSelectedCategories(categories)
-    setSelectedSubCategories(subCategories)
-    fetchProducts(order, categories, subCategories)
+    const queryParams = getQueryParams()
+    setFilterParams((prevParams) => ({ ...prevParams, ...queryParams }))
+    fetchProducts(queryParams)
   }, [location.search])
 
   useEffect(() => {
-    console.log('location.pathname... ', location.pathname)
-    setFilterTitle(getFilterTitle(location.pathname))
+    const filterTitle = getFilterTitle(location.pathname)
+    setFilterParams((prevParams) => ({ ...prevParams, filterTitle }))
   }, [location.pathname])
 
-  const handleOrderingChange = (order) => {
-    setOrdering(order)
-    updateUrlParams(order, selectedCategories, selectedSubCategories)
-  }
-
-  const handleCategoriesChange = (categories) => {
-    setSelectedCategories(categories)
-    updateUrlParams(ordering, categories, selectedSubCategories)
-  }
-
-  const handleSubCategoriesChange = (subCategories) => {
-    setSelectedSubCategories(subCategories)
-    updateUrlParams(ordering, selectedCategories, subCategories)
+  const handleParamChange = (newParams) => {
+    setFilterParams((prevParams) => ({ ...prevParams, ...newParams }))
+    updateUrlParams({ ...filterParams, ...newParams })
   }
 
   return (
@@ -110,13 +96,13 @@ export function HomeLayout ({ children }) {
         <div className='mx-12 mt-2'>
           <Filters
             totalProducts={totalProducts}
-            ordering={ordering}
-            onOrderingChange={handleOrderingChange}
-            selectedCategories={selectedCategories}
-            selectedSubCategories={selectedSubCategories}
-            onCategoriesChange={handleCategoriesChange}
-            onSubCategoriesChange={handleSubCategoriesChange}
-            filterTitle={filterTitle}
+            ordering={filterParams.ordering}
+            onOrderingChange={(ordering) => handleParamChange({ ordering })}
+            selectedCategories={filterParams.selectedCategories}
+            selectedSubCategories={filterParams.selectedSubCategories}
+            onCategoriesChange={(selectedCategories) => handleParamChange({ selectedCategories })}
+            onSubCategoriesChange={(selectedSubCategories) => handleParamChange({ selectedSubCategories })}
+            filterTitle={filterParams.filterTitle}
             showCategories={location.pathname !== homeUrls.boardGames}
           />
         </div>
