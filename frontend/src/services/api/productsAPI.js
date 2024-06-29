@@ -6,7 +6,7 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 const roundToTwoDecimals = (num) => Math.round(num * 100) / 100
 // const roundToTwoDecimals = (num) => parseFloat(num.toFixed(2))
 
-export async function getProductsApi (page = 1, pageSize = 10, ordering = '', categories = [], subCategories = [], vendorType = 1) {
+export async function getProductsApi (page, pageSize, ordering = '', categories = [], subCategories = [], vendorType = 1) {
   try {
     const axiosInstance = createAxiosInstance()
     const params = {

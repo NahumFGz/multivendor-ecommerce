@@ -11,7 +11,7 @@ export function DefaultEcommercePage () {
     totalProducts: 0,
     isLoading: true,
     currentPage: 1,
-    pageSize: 10,
+    pageSize: 12,
     ordering: '',
     selectedCategories: [],
     selectedSubCategories: []
@@ -48,7 +48,7 @@ export function DefaultEcommercePage () {
   const getQueryParams = () => {
     const searchParams = new URLSearchParams(location.search)
     const currentPage = parseInt(searchParams.get('page')) || 1
-    const pageSize = parseInt(searchParams.get('pageSize')) || 10
+    const pageSize = parseInt(searchParams.get('pageSize')) || 12
     const ordering = searchParams.get('ordering') || ''
     const selectedCategories = searchParams.get('categories') ? searchParams.get('categories').split(',').map(Number) : []
     const selectedSubCategories = searchParams.get('sub_categories') ? searchParams.get('sub_categories').split(',').map(Number) : []
@@ -99,10 +99,10 @@ export function DefaultEcommercePage () {
         </div>
         <div className='flex items-center justify-center mt-4'>
           <select value={state.pageSize} onChange={(e) => handleParamChange({ pageSize: parseInt(e.target.value), currentPage: 1 })}>
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={50}>50</option>
+            <option value={12}>12</option>
+            <option value={24}>24</option>
+            <option value={36}>36</option>
+            <option value={48}>48</option>
           </select>
         </div>
       </div>
