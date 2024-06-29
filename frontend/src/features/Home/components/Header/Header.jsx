@@ -263,14 +263,14 @@ export function Header () {
               Home
             </Link>
           </NavbarMenuItem>
+          <NavbarMenuItem isActive={location.pathname === homeUrls.promos}>
+            <Link className='w-full' color='foreground' to={homeUrls.promos}>
+              Promos
+            </Link>
+          </NavbarMenuItem>
           <NavbarMenuItem isActive={location.pathname === homeUrls.products}>
             <Link className='w-full' to={homeUrls.products}>
               Products
-            </Link>
-          </NavbarMenuItem>
-          <NavbarMenuItem isActive={location.pathname === homeUrls.boardGames}>
-            <Link className='w-full' color='foreground' to={homeUrls.boardGames}>
-              Juegos de mesa
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem isActive={location.pathname === homeUrls.marketplace}>
@@ -278,11 +278,11 @@ export function Header () {
               Marketplace
             </Link>
           </NavbarMenuItem>
-          <NavbarMenuItem isActive={location.pathname === homeUrls.promos}>
-            <Link className='w-full' color='foreground' to={homeUrls.promos}>
-              Promos
+          {/* <NavbarMenuItem isActive={location.pathname === homeUrls.boardGames}>
+            <Link className='w-full' color='foreground' to={homeUrls.boardGames}>
+              Juegos de mesa
             </Link>
-          </NavbarMenuItem>
+          </NavbarMenuItem> */}
         </NavbarMenu>
       </Navbar>
 
@@ -318,7 +318,7 @@ export function Header () {
             />
             <Tab key='products' title='Productos' />
             <Tab key='marketplace' title='Marketplace' />
-            <Tab key='boardgames' title='Juegos de mesa' />
+            {/* <Tab key='boardgames' title='Juegos de mesa' /> */}
           </Tabs>
         </ScrollShadow>
       </main>
