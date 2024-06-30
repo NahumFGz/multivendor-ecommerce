@@ -62,6 +62,7 @@ export function HomeLayout ({ children }) {
     }
   }
 
+  // Corregir doble llamado a fetchProducts
   const fetchProducts = async (params) => {
     try {
       const response = await getProducts(1, 10, params.ordering, params.selectedCategories, params.selectedSubCategories)

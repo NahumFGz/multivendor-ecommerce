@@ -55,6 +55,7 @@ export function DefaultEcommercePage () {
     return { currentPage, pageSize, ordering, selectedCategories, selectedSubCategories }
   }
 
+  // Corregir doble llamado a fetchProducts
   const fetchProducts = async (params) => {
     try {
       setState((prevState) => ({ ...prevState, isLoading: true }))
