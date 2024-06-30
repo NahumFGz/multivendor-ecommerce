@@ -55,7 +55,6 @@ export function DefaultEcommercePage () {
     return { currentPage, pageSize, ordering, selectedCategories, selectedSubCategories }
   }
 
-  // Corregir doble llamado a fetchProducts
   const fetchProducts = async (params) => {
     try {
       setState((prevState) => ({ ...prevState, isLoading: true }))
@@ -93,7 +92,7 @@ export function DefaultEcommercePage () {
             <Pagination
               showControls
               total={Math.ceil(state.totalProducts / state.pageSize)}
-              page={state.currentPage} // Utiliza el estado controlado
+              page={state.currentPage}
               onChange={(currentPage) => handleParamChange({ currentPage })}
             />
           )}

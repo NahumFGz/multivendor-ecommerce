@@ -1,46 +1,18 @@
 import { Footer } from '../components/Footer/Footer'
 import { Header } from '../components/Header/Header'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { homeUrls } from '../../../routes/urls/homeUrls'
 import { Filters } from '../components/Filters/Filters'
 import { useState, useEffect } from 'react'
-import { useProductsAPI } from '../hooks/useProductsAPI'
 
 export function HomeLayout ({ children }) {
   const location = useLocation()
-  const { getProducts } = useProductsAPI()
   const [filterParams, setFilterParams] = useState({
     ordering: '',
     selectedCategories: [],
     selectedSubCategories: [],
     filterTitle: ''
   })
-  const [totalProducts, setTotalProducts] = useState(0)
-
-  const navigate = useNavigate()
-
-  const updateUrlParams = (params) => {
-    const searchParams = new URLSearchParams(location.search)
-    if (params.ordering) {
-      searchParams.set('ordering', params.ordering)
-    } else {
-      searchParams.delete('ordering')
-    }
-    if (params.selectedCategories.length > 0) {
-      searchParams.set('categories', params.selectedCategories.join(','))
-    } else {
-      searchParams.delete('categories')
-    }
-    if (params.selectedSubCategories.length > 0) {
-      searchParams.set('sub_categories', params.selectedSubCategories.join(','))
-    } else {
-      searchParams.delete('sub_categories')
-    }
-    navigate({
-      pathname: location.pathname,
-      search: searchParams.toString()
-    })
-  }
 
   const getQueryParams = () => {
     const searchParams = new URLSearchParams(location.search)
@@ -62,20 +34,9 @@ export function HomeLayout ({ children }) {
     }
   }
 
-  // Corregir doble llamado a fetchProducts
-  const fetchProducts = async (params) => {
-    try {
-      const response = await getProducts(1, 10, params.ordering, params.selectedCategories, params.selectedSubCategories)
-      setTotalProducts(response.totalProducts)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   useEffect(() => {
     const queryParams = getQueryParams()
     setFilterParams((prevParams) => ({ ...prevParams, ...queryParams }))
-    fetchProducts(queryParams)
   }, [location.search])
 
   useEffect(() => {
@@ -85,7 +46,6 @@ export function HomeLayout ({ children }) {
 
   const handleParamChange = (newParams) => {
     setFilterParams((prevParams) => ({ ...prevParams, ...newParams }))
-    updateUrlParams({ ...filterParams, ...newParams })
   }
 
   return (
@@ -96,7 +56,7 @@ export function HomeLayout ({ children }) {
       {location.pathname !== homeUrls.home && (
         <div className='mx-12 mt-2'>
           <Filters
-            totalProducts={totalProducts}
+            totalProducts={0} // Esto debe ser eliminado si ya no es necesario
             ordering={filterParams.ordering}
             onOrderingChange={(ordering) => handleParamChange({ ordering })}
             selectedCategories={filterParams.selectedCategories}
