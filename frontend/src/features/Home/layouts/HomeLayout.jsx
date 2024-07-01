@@ -4,23 +4,20 @@ import { useLocation } from 'react-router-dom'
 import { homeUrls } from '../../../routes/urls/homeUrls'
 import { Filters } from '../components/Filters/Filters'
 import { useState, useEffect } from 'react'
+import { useProducts } from '../../../store/ProductStore'
 
 export function HomeLayout ({ children }) {
   const location = useLocation()
+  const {
+    totalProducts, setOrdering, setSelectedCategories, setSelectedSubCategories, getQueryParams
+  } = useProducts()
+
   const [filterParams, setFilterParams] = useState({
     ordering: '',
     selectedCategories: [],
     selectedSubCategories: [],
     filterTitle: ''
   })
-
-  const getQueryParams = () => {
-    const searchParams = new URLSearchParams(location.search)
-    const ordering = searchParams.get('ordering') || ''
-    const selectedCategories = searchParams.get('categories') ? searchParams.get('categories').split(',').map(Number) : []
-    const selectedSubCategories = searchParams.get('sub_categories') ? searchParams.get('sub_categories').split(',').map(Number) : []
-    return { ordering, selectedCategories, selectedSubCategories }
-  }
 
   const getFilterTitle = (pathname) => {
     if (pathname === homeUrls.products) {
@@ -35,8 +32,14 @@ export function HomeLayout ({ children }) {
   }
 
   useEffect(() => {
-    const queryParams = getQueryParams()
-    setFilterParams((prevParams) => ({ ...prevParams, ...queryParams }))
+    const queryParams = getQueryParams(location)
+    setOrdering(queryParams.ordering)
+    setSelectedCategories(queryParams.selectedCategories)
+    setSelectedSubCategories(queryParams.selectedSubCategories)
+    setFilterParams((prevParams) => ({
+      ...prevParams,
+      ...queryParams
+    }))
   }, [location.search])
 
   useEffect(() => {
@@ -45,6 +48,9 @@ export function HomeLayout ({ children }) {
   }, [location.pathname])
 
   const handleParamChange = (newParams) => {
+    setOrdering(newParams.ordering)
+    setSelectedCategories(newParams.selectedCategories)
+    setSelectedSubCategories(newParams.selectedSubCategories)
     setFilterParams((prevParams) => ({ ...prevParams, ...newParams }))
   }
 
@@ -56,7 +62,7 @@ export function HomeLayout ({ children }) {
       {location.pathname !== homeUrls.home && (
         <div className='mx-12 mt-2'>
           <Filters
-            totalProducts={0} // Esto debe ser eliminado si ya no es necesario
+            totalProducts={totalProducts}
             ordering={filterParams.ordering}
             onOrderingChange={(ordering) => handleParamChange({ ordering })}
             selectedCategories={filterParams.selectedCategories}
