@@ -59,6 +59,9 @@ export function DefaultEcommercePage () {
     try {
       setState((prevState) => ({ ...prevState, isLoading: true }))
       const response = await getProducts(params.currentPage, params.pageSize, params.ordering, params.selectedCategories, params.selectedSubCategories)
+      // console.log(response)
+      // console.log(response.totalProducts)
+
       setState((prevState) => ({
         ...prevState,
         products: response.products,
