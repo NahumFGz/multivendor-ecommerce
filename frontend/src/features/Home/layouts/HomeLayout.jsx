@@ -6,6 +6,18 @@ import { Filters } from '../components/Filters/Filters'
 import { useState, useEffect } from 'react'
 import { useProducts } from '../../../store/ProductStore'
 
+const getFilterTitle = (pathname) => {
+  if (pathname === homeUrls.products) {
+    return 'Productos'
+  } else if (pathname === homeUrls.boardGames) {
+    return 'Juegos de mesa'
+  } else if (pathname === homeUrls.marketplace) {
+    return 'Productos publicados'
+  } else if (pathname === homeUrls.promos) {
+    return 'Promociones'
+  }
+}
+
 export function HomeLayout ({ children }) {
   const location = useLocation()
   const {
@@ -18,18 +30,6 @@ export function HomeLayout ({ children }) {
     selectedSubCategories: [],
     filterTitle: ''
   })
-
-  const getFilterTitle = (pathname) => {
-    if (pathname === homeUrls.products) {
-      return 'Productos'
-    } else if (pathname === homeUrls.boardGames) {
-      return 'Juegos de mesa'
-    } else if (pathname === homeUrls.marketplace) {
-      return 'Productos publicados'
-    } else if (pathname === homeUrls.promos) {
-      return 'Promociones'
-    }
-  }
 
   useEffect(() => {
     const queryParams = getQueryParams(location)
