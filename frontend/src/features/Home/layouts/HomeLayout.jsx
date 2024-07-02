@@ -5,6 +5,7 @@ import { homeUrls } from '../../../routes/urls/homeUrls'
 import { Filters } from '../components/Filters/Filters'
 import { useState, useEffect } from 'react'
 import { useProducts } from '../../../store/ProductStore'
+import { useUrlParams } from '../hooks/useUrlParams'
 
 const getFilterTitle = (pathname) => {
   if (pathname === homeUrls.products) {
@@ -21,8 +22,13 @@ const getFilterTitle = (pathname) => {
 export function HomeLayout ({ children }) {
   const location = useLocation()
   const {
-    totalProducts, setOrdering, setSelectedCategories, setSelectedSubCategories, getQueryParams
+    totalProducts,
+    setOrdering,
+    setSelectedCategories,
+    setSelectedSubCategories
   } = useProducts()
+
+  const { getQueryParams } = useUrlParams()
 
   const [filterParams, setFilterParams] = useState({
     ordering: '',
@@ -36,10 +42,7 @@ export function HomeLayout ({ children }) {
     setOrdering(queryParams.ordering)
     setSelectedCategories(queryParams.selectedCategories)
     setSelectedSubCategories(queryParams.selectedSubCategories)
-    setFilterParams((prevParams) => ({
-      ...prevParams,
-      ...queryParams
-    }))
+    setFilterParams((prevParams) => ({ ...prevParams, ...queryParams }))
   }, [location.search])
 
   useEffect(() => {

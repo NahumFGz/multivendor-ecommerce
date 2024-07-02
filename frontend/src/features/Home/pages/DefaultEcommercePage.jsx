@@ -1,18 +1,19 @@
 import { useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { Products } from '../components/Products/Products'
 import { Pagination } from '@nextui-org/react'
 import { useProducts } from '../../../store/ProductStore'
+import { useUrlParams } from '../hooks/useUrlParams'
 
 export function DefaultEcommercePage () {
   const {
     products, totalProducts, isLoading, currentPage, pageSize,
     ordering, selectedCategories, selectedSubCategories,
     setCurrentPage, setPageSize, setOrdering, setSelectedCategories, setSelectedSubCategories,
-    fetchProducts, updateUrlParams, getQueryParams
+    fetchProducts
   } = useProducts()
 
-  const navigate = useNavigate()
+  const { updateUrlParams, getQueryParams } = useUrlParams()
   const location = useLocation()
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export function DefaultEcommercePage () {
     setOrdering(updatedParams.ordering)
     setSelectedCategories(updatedParams.selectedCategories)
     setSelectedSubCategories(updatedParams.selectedSubCategories)
-    updateUrlParams(updatedParams, navigate, location)
+    updateUrlParams(updatedParams)
     fetchProducts(updatedParams)
   }
 
