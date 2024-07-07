@@ -9,6 +9,7 @@ import { PopoverFilterWrapper } from './PopoverFilterWrapper'
 import { TagGroupItem } from './TagGroupItem'
 import { useEffect, useState } from 'react'
 import { useInfoAPI, getCategories, getSubCategoryByCategoryId } from '../../hooks/useInfoAPI'
+import { useProducts } from '../../../../store/ProductsStore'
 
 export function Filters (
   {
@@ -20,7 +21,8 @@ export function Filters (
     onCategoriesChange,
     onSubCategoriesChange,
     filterTitle,
-    showCategories
+    showCategories,
+    showSearchQuery
   }) {
   const handleSortChange = (key) => {
     let order = ''
@@ -35,6 +37,8 @@ export function Filters (
   }
 
   const { getAllFilters } = useInfoAPI()
+  const { searchQuery, setSearchQuery } = useProducts()
+
   const [filtersInfo, setFiltersInfo] = useState([])
   const [categoriesInfo, setCategoriesInfo] = useState([])
   const [subCategoriesInfo, setSubCategoriesInfo] = useState([])
@@ -177,6 +181,22 @@ export function Filters (
 
       {/* List of applied filters */}
       <div className='mb-4 mt-2 flex flex-wrap items-center gap-2'>
+        {
+          (searchQuery && showSearchQuery) && (
+            <Chip
+              key={`search-${searchQuery}`}
+              classNames={{
+                content: 'text-default-700',
+                closeButton: 'text-default-500'
+              }}
+              variant='flat'
+              onClose={() => setSearchQuery('')}
+            >
+              {searchQuery}
+            </Chip>
+          )
+        }
+
         {selectedCategoryNames.map((name, index) => (
           <Chip
             key={`category-${index}`}
@@ -194,6 +214,7 @@ export function Filters (
             {name}
           </Chip>
         ))}
+
         {selectedSubCategoryNames.map((name, index) => (
           <Chip
             key={`subCategory-${index}`}

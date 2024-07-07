@@ -44,7 +44,7 @@ export function Header () {
   const profile = useAuthStore((store) => store.profile)
   const cleanStore = useAuthStore((store) => store.cleanStore)
 
-  const { setSearchQuery } = useProducts()
+  const { searchQuery, setSearchQuery } = useProducts()
 
   useEffect(() => {
     const getATinyAvatarUrl = () => {
@@ -134,6 +134,7 @@ export function Header () {
               startContent={
                 <Icon className='text-default-500' icon='solar:magnifer-linear' width={20} />
               }
+              value={searchQuery}
               onValueChange={(value) => handleSearch(value)}
             />
           </NavbarItem>

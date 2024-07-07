@@ -61,6 +61,7 @@ export function DefaultEcommercePage ({ useStore }) {
           onSubCategoriesChange={setSelectedSubCategories}
           filterTitle={filterTitle}
           showCategories={location.pathname !== homeUrls.boardGames}
+          showSearchQuery={location.pathname === homeUrls.products}
         />
       )}
 
