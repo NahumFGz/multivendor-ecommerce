@@ -4,15 +4,20 @@ import { useLocation } from 'react-router-dom'
 import { homeUrls } from '../../../routes/urls/homeUrls'
 import { Filters } from '../components/Filters/Filters'
 import { useState, useEffect } from 'react'
+import { useProducts } from '../../../store/ProducstStore'
 
 export function HomeLayout ({ children }) {
   const location = useLocation()
-  const [filterParams, setFilterParams] = useState({
-    ordering: '',
-    selectedCategories: [],
-    selectedSubCategories: [],
-    filterTitle: ''
-  })
+  const [filterTitle, setFilterTitle] = useState('')
+  const {
+    totalProducts,
+    ordering,
+    setOrdering,
+    selectedCategories,
+    setSelectedCategories,
+    selectedSubCategories,
+    setSelectedSubCategories
+  } = useProducts()
 
   const getFilterTitle = (pathname) => {
     if (pathname === homeUrls.products) {
@@ -27,13 +32,9 @@ export function HomeLayout ({ children }) {
   }
 
   useEffect(() => {
-    const filterTitle = getFilterTitle(location.pathname)
-    setFilterParams((prevParams) => ({ ...prevParams, filterTitle }))
+    const newFilterTitle = getFilterTitle(location.pathname)
+    setFilterTitle(newFilterTitle)
   }, [location.pathname])
-
-  const handleParamChange = (newParams) => {
-    setFilterParams((prevParams) => ({ ...prevParams, ...newParams }))
-  }
 
   return (
     <div className='flex flex-col'>
@@ -43,14 +44,14 @@ export function HomeLayout ({ children }) {
       {location.pathname !== homeUrls.home && (
         <div className='mx-12 mt-2'>
           <Filters
-            totalProducts={0}
-            ordering={filterParams.ordering}
-            onOrderingChange={(ordering) => handleParamChange({ ordering })}
-            selectedCategories={filterParams.selectedCategories}
-            selectedSubCategories={filterParams.selectedSubCategories}
-            onCategoriesChange={(selectedCategories) => handleParamChange({ selectedCategories })}
-            onSubCategoriesChange={(selectedSubCategories) => handleParamChange({ selectedSubCategories })}
-            filterTitle={filterParams.filterTitle}
+            totalProducts={totalProducts}
+            ordering={ordering}
+            onOrderingChange={setOrdering}
+            selectedCategories={selectedCategories}
+            selectedSubCategories={selectedSubCategories}
+            onCategoriesChange={setSelectedCategories}
+            onSubCategoriesChange={setSelectedSubCategories}
+            filterTitle={filterTitle}
             showCategories={location.pathname !== homeUrls.boardGames}
           />
         </div>
