@@ -26,19 +26,19 @@ export function DefaultEcommercePage ({ useStore }) {
 
   const [filterTitle, setFilterTitle] = useState('')
 
-  const getFilterTitle = (pathname) => {
-    if (pathname === homeUrls.products) {
-      return 'Productos'
-    } else if (pathname === homeUrls.boardGames) {
-      return 'Juegos de mesa'
-    } else if (pathname === homeUrls.marketplace) {
-      return 'Productos publicados'
-    } else if (pathname === homeUrls.promos) {
-      return 'Promociones'
-    }
-  }
-
   useEffect(() => {
+    const getFilterTitle = (pathname) => {
+      if (pathname === homeUrls.products) {
+        return 'Productos'
+      } else if (pathname === homeUrls.boardGames) {
+        return 'Juegos de mesa'
+      } else if (pathname === homeUrls.marketplace) {
+        return 'Productos publicados'
+      } else if (pathname === homeUrls.promos) {
+        return 'Promociones'
+      }
+    }
+
     const newFilterTitle = getFilterTitle(location.pathname)
     setFilterTitle(newFilterTitle)
   }, [location.pathname])
@@ -62,6 +62,7 @@ export function DefaultEcommercePage ({ useStore }) {
           showCategories={location.pathname !== homeUrls.boardGames}
         />
       )}
+
       <div>
         <Products products={products} isLoading={isLoading} pageSize={pageSize} />
         <div className='flex items-center justify-center mt-4'>
@@ -74,6 +75,7 @@ export function DefaultEcommercePage ({ useStore }) {
             />
           )}
         </div>
+
         <div className='flex items-center justify-center mt-4'>
           <select value={pageSize} onChange={(e) => setPageSize(parseInt(e.target.value), setCurrentPage(1))}>
             <option value={12}>12</option>
@@ -82,6 +84,7 @@ export function DefaultEcommercePage ({ useStore }) {
             <option value={48}>48</option>
           </select>
         </div>
+
       </div>
     </div>
   )
