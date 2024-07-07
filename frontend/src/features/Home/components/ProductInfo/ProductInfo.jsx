@@ -56,7 +56,7 @@ const item = {
   ]
 }
 
-export default function Component () {
+export function ProductInfo () {
   return (
     <div className='max-w-8xl h-full w-full px-2 lg:px-24'>
       <nav className='my-4 py-2'>

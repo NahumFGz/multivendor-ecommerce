@@ -1,7 +1,7 @@
-import Component from '../components/ProductInfo/App'
+import { ProductInfo } from '../components/ProductInfo/ProductInfo'
 
 export function ProductInfoPage () {
   return (
-    <Component />
+    <ProductInfo />
   )
 }
