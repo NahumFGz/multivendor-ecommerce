@@ -4,36 +4,15 @@ import { useLocation } from 'react-router-dom'
 import { homeUrls } from '../../../routes/urls/homeUrls'
 import { Filters } from '../components/Filters/Filters'
 import { useState, useEffect } from 'react'
-import { useProductsAPI } from '../hooks/useProductsAPI'
 
 export function HomeLayout ({ children }) {
   const location = useLocation()
-  const { getProducts } = useProductsAPI()
   const [filterParams, setFilterParams] = useState({
     ordering: '',
     selectedCategories: [],
     selectedSubCategories: [],
     filterTitle: ''
   })
-  const [totalProducts, setTotalProducts] = useState(0)
-
-  const fetchProducts = async (params) => {
-    try {
-      const response = await getProducts(1, 10, params.ordering, params.selectedCategories, params.selectedSubCategories)
-      setTotalProducts(response.totalProducts)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  useEffect(() => {
-    fetchProducts(filterParams)
-  }, [filterParams])
-
-  useEffect(() => {
-    const filterTitle = getFilterTitle(location.pathname)
-    setFilterParams((prevParams) => ({ ...prevParams, filterTitle }))
-  }, [location.pathname])
 
   const getFilterTitle = (pathname) => {
     if (pathname === homeUrls.products) {
@@ -47,6 +26,11 @@ export function HomeLayout ({ children }) {
     }
   }
 
+  useEffect(() => {
+    const filterTitle = getFilterTitle(location.pathname)
+    setFilterParams((prevParams) => ({ ...prevParams, filterTitle }))
+  }, [location.pathname])
+
   const handleParamChange = (newParams) => {
     setFilterParams((prevParams) => ({ ...prevParams, ...newParams }))
   }
@@ -59,7 +43,7 @@ export function HomeLayout ({ children }) {
       {location.pathname !== homeUrls.home && (
         <div className='mx-12 mt-2'>
           <Filters
-            totalProducts={totalProducts}
+            totalProducts={0}
             ordering={filterParams.ordering}
             onOrderingChange={(ordering) => handleParamChange({ ordering })}
             selectedCategories={filterParams.selectedCategories}
