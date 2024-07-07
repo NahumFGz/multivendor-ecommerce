@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react'
 import { Products } from '../components/Products/Products'
 import { Pagination } from '@nextui-org/react'
 import { Filters } from '../components/Filters/Filters'
-import { useProducts } from '../../../store/ProducstStore'
 import { useLocation } from 'react-router-dom'
 import { homeUrls } from '../../../routes/urls/homeUrls'
 
-export function DefaultEcommercePage () {
+export function DefaultEcommercePage ({ useStore }) {
   const location = useLocation()
   const {
     products,
@@ -23,7 +22,7 @@ export function DefaultEcommercePage () {
     setSelectedCategories,
     setSelectedSubCategories,
     fetchProducts
-  } = useProducts()
+  } = useStore()
 
   const [filterTitle, setFilterTitle] = useState('')
 

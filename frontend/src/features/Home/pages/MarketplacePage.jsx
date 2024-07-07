@@ -1,7 +1,8 @@
 import { DefaultEcommercePage } from './DefaultEcommercePage'
+import { useMarketplace } from '../../../store/MarketplaceStore'
 
 export function MarketplacePage () {
   return (
-    <DefaultEcommercePage />
+    <DefaultEcommercePage useStore={useMarketplace} />
   )
 }
