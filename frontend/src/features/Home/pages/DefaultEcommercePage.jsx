@@ -1,9 +1,13 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Products } from '../components/Products/Products'
 import { Pagination } from '@nextui-org/react'
+import { Filters } from '../components/Filters/Filters'
 import { useProducts } from '../../../store/ProducstStore'
+import { useLocation } from 'react-router-dom'
+import { homeUrls } from '../../../routes/urls/homeUrls'
 
 export function DefaultEcommercePage () {
+  const location = useLocation()
   const {
     products,
     totalProducts,
@@ -15,8 +19,30 @@ export function DefaultEcommercePage () {
     selectedSubCategories,
     setCurrentPage,
     setPageSize,
+    setOrdering,
+    setSelectedCategories,
+    setSelectedSubCategories,
     fetchProducts
   } = useProducts()
+
+  const [filterTitle, setFilterTitle] = useState('')
+
+  const getFilterTitle = (pathname) => {
+    if (pathname === homeUrls.products) {
+      return 'Productos'
+    } else if (pathname === homeUrls.boardGames) {
+      return 'Juegos de mesa'
+    } else if (pathname === homeUrls.marketplace) {
+      return 'Productos publicados'
+    } else if (pathname === homeUrls.promos) {
+      return 'Promociones'
+    }
+  }
+
+  useEffect(() => {
+    const newFilterTitle = getFilterTitle(location.pathname)
+    setFilterTitle(newFilterTitle)
+  }, [location.pathname])
 
   useEffect(() => {
     fetchProducts({ currentPage, pageSize, ordering, selectedCategories, selectedSubCategories })
@@ -24,6 +50,19 @@ export function DefaultEcommercePage () {
 
   return (
     <div className='mx-12 mt-2'>
+      {location.pathname !== homeUrls.home && (
+        <Filters
+          totalProducts={totalProducts}
+          ordering={ordering}
+          onOrderingChange={setOrdering}
+          selectedCategories={selectedCategories}
+          selectedSubCategories={selectedSubCategories}
+          onCategoriesChange={setSelectedCategories}
+          onSubCategoriesChange={setSelectedSubCategories}
+          filterTitle={filterTitle}
+          showCategories={location.pathname !== homeUrls.boardGames}
+        />
+      )}
       <div>
         <Products products={products} isLoading={isLoading} pageSize={pageSize} />
         <div className='flex items-center justify-center mt-4'>
