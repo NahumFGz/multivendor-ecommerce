@@ -1,6 +1,6 @@
 import { RadioGroup } from '@nextui-org/react'
 
-import { cn } from './cn'
+import { cn } from '../../../../services/utilities/cn'
 
 import RatingRadioItem from './rating-radio-item'
 import { forwardRef, useMemo, useState } from 'react'

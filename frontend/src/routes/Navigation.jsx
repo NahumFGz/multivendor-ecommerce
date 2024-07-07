@@ -4,6 +4,7 @@ import { homeUrls } from './urls/homeUrls'
 import { HomeLayout } from '../features/Home/layouts/HomeLayout'
 import { HomePage } from '../features/Home/pages/HomePage'
 import { ProductsPage } from '../features/Home/pages/ProductsPage'
+import { ProductInfoPage } from '../features/Home/pages/ProductInfoPage'
 import { MarketplacePage } from '../features/Home/pages/MarketplacePage'
 import { PromosPage } from '../features/Home/pages/PromosPage'
 
@@ -38,6 +39,7 @@ export function Navigation () {
         <Route path={homeUrls.products} element={<HomeLayout><ProductsPage /></HomeLayout>} />
         <Route path={homeUrls.marketplace} element={<HomeLayout><MarketplacePage /></HomeLayout>} />
         <Route path={homeUrls.promos} element={<HomeLayout><PromosPage /></HomeLayout>} />
+        <Route path={homeUrls.productInfo} element={<HomeLayout><ProductInfoPage /></HomeLayout>} />
 
         <Route path='/login' element={<Navigate to={authUrls.login} />} />
         <Route path='/register' element={<Navigate to={authUrls.register} />} />
