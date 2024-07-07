@@ -13,6 +13,7 @@ const useMarketplaceStore = create(
     ordering: '',
     selectedCategories: [],
     selectedSubCategories: [],
+    searchQuery: '',
     setProducts: (products) => set({ products }),
     setTotalProducts: (totalProducts) => set({ totalProducts }),
     setLoading: (isLoading) => set({ isLoading }),
@@ -21,6 +22,7 @@ const useMarketplaceStore = create(
     setOrdering: (ordering) => set({ ordering }),
     setSelectedCategories: (selectedCategories) => set({ selectedCategories }),
     setSelectedSubCategories: (selectedSubCategories) => set({ selectedSubCategories }),
+    setSearchQuery: (searchQuery) => set({ searchQuery }),
     fetchProducts: async (params) => {
       try {
         const { getProducts } = useProductsAPI()
@@ -47,6 +49,7 @@ export function useMarketplace () {
   const ordering = useMarketplaceStore(state => state.ordering)
   const selectedCategories = useMarketplaceStore(state => state.selectedCategories)
   const selectedSubCategories = useMarketplaceStore(state => state.selectedSubCategories)
+  const searchQuery = useMarketplaceStore(state => state.searchQuery)
   const setProducts = useMarketplaceStore(state => state.setProducts)
   const setTotalProducts = useMarketplaceStore(state => state.setTotalProducts)
   const setLoading = useMarketplaceStore(state => state.setLoading)
@@ -55,6 +58,7 @@ export function useMarketplace () {
   const setOrdering = useMarketplaceStore(state => state.setOrdering)
   const setSelectedCategories = useMarketplaceStore(state => state.setSelectedCategories)
   const setSelectedSubCategories = useMarketplaceStore(state => state.setSelectedSubCategories)
+  const setSearchQuery = useMarketplaceStore(state => state.setSearchQuery)
   const fetchProducts = useMarketplaceStore(state => state.fetchProducts)
 
   return {
@@ -66,6 +70,7 @@ export function useMarketplace () {
     ordering,
     selectedCategories,
     selectedSubCategories,
+    searchQuery,
     setProducts,
     setTotalProducts,
     setLoading,
@@ -74,6 +79,7 @@ export function useMarketplace () {
     setOrdering,
     setSelectedCategories,
     setSelectedSubCategories,
+    setSearchQuery,
     fetchProducts
   }
 }

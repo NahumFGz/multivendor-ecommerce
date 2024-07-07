@@ -34,6 +34,7 @@ import { accountUrls } from '../../../../routes/urls/accountUrls'
 import { useAuthStore } from '../../../../store/AuthStore'
 import { useEffect, useState } from 'react'
 import { authUrls } from '../../../../routes/urls/authUrls'
+import { useProducts } from '../../../../store/ProductsStore'
 
 const BASE_URL = import.meta.env.VITE_BASE_API_URL
 
@@ -42,6 +43,8 @@ export function Header () {
   const isAuth = useAuthStore((store) => store.isAuth)
   const profile = useAuthStore((store) => store.profile)
   const cleanStore = useAuthStore((store) => store.cleanStore)
+
+  const { setSearchQuery } = useProducts()
 
   useEffect(() => {
     const getATinyAvatarUrl = () => {
@@ -92,6 +95,13 @@ export function Header () {
     return null
   }
 
+  const handleSearch = (value) => {
+    console.log(value)
+    setSearchQuery(value)
+    navigate(`${homeUrls.products}`)
+    // navigate(`${homeUrls.products}?search=${value}`)
+  }
+
   return (
     <div className='w-full'>
       <Navbar
@@ -124,6 +134,7 @@ export function Header () {
               startContent={
                 <Icon className='text-default-500' icon='solar:magnifer-linear' width={20} />
               }
+              onValueChange={(value) => handleSearch(value)}
             />
           </NavbarItem>
           {/* Swap theme */}

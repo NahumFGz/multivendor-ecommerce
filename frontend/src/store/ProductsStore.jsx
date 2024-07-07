@@ -13,6 +13,7 @@ const useProductsStore = create(
     ordering: '',
     selectedCategories: [],
     selectedSubCategories: [],
+    searchQuery: '',
     setProducts: (products) => set({ products }),
     setTotalProducts: (totalProducts) => set({ totalProducts }),
     setLoading: (isLoading) => set({ isLoading }),
@@ -21,11 +22,20 @@ const useProductsStore = create(
     setOrdering: (ordering) => set({ ordering }),
     setSelectedCategories: (selectedCategories) => set({ selectedCategories }),
     setSelectedSubCategories: (selectedSubCategories) => set({ selectedSubCategories }),
+    setSearchQuery: (searchQuery) => set({ searchQuery }),
     fetchProducts: async (params) => {
+      console.log('fetchProducts', params)
       try {
         const { getProducts } = useProductsAPI()
         set({ isLoading: true })
-        const response = await getProducts(params.currentPage, params.pageSize, params.ordering, params.selectedCategories, params.selectedSubCategories)
+        const response = await getProducts(
+          params.currentPage,
+          params.pageSize,
+          params.ordering,
+          params.selectedCategories,
+          params.selectedSubCategories,
+          params.searchQuery
+        )
         set({ products: response.products, totalProducts: response.totalProducts, isLoading: false })
       } catch (error) {
         console.error('Fetch products failed', error)
@@ -47,6 +57,7 @@ export function useProducts () {
   const ordering = useProductsStore(state => state.ordering)
   const selectedCategories = useProductsStore(state => state.selectedCategories)
   const selectedSubCategories = useProductsStore(state => state.selectedSubCategories)
+  const searchQuery = useProductsStore(state => state.searchQuery)
   const setProducts = useProductsStore(state => state.setProducts)
   const setTotalProducts = useProductsStore(state => state.setTotalProducts)
   const setLoading = useProductsStore(state => state.setLoading)
@@ -55,6 +66,7 @@ export function useProducts () {
   const setOrdering = useProductsStore(state => state.setOrdering)
   const setSelectedCategories = useProductsStore(state => state.setSelectedCategories)
   const setSelectedSubCategories = useProductsStore(state => state.setSelectedSubCategories)
+  const setSearchQuery = useProductsStore(state => state.setSearchQuery)
   const fetchProducts = useProductsStore(state => state.fetchProducts)
 
   return {
@@ -66,6 +78,7 @@ export function useProducts () {
     ordering,
     selectedCategories,
     selectedSubCategories,
+    searchQuery,
     setProducts,
     setTotalProducts,
     setLoading,
@@ -74,6 +87,7 @@ export function useProducts () {
     setOrdering,
     setSelectedCategories,
     setSelectedSubCategories,
+    setSearchQuery,
     fetchProducts
   }
 }

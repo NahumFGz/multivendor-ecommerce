@@ -13,6 +13,7 @@ const usePromosStore = create(
     ordering: '',
     selectedCategories: [],
     selectedSubCategories: [],
+    searchQuery: '',
     setProducts: (products) => set({ products }),
     setTotalProducts: (totalProducts) => set({ totalProducts }),
     setLoading: (isLoading) => set({ isLoading }),
@@ -21,6 +22,7 @@ const usePromosStore = create(
     setOrdering: (ordering) => set({ ordering }),
     setSelectedCategories: (selectedCategories) => set({ selectedCategories }),
     setSelectedSubCategories: (selectedSubCategories) => set({ selectedSubCategories }),
+    setSearchQuery: (searchQuery) => set({ searchQuery }),
     fetchProducts: async (params) => {
       try {
         const { getProducts } = useProductsAPI()
@@ -47,6 +49,7 @@ export function usePromos () {
   const ordering = usePromosStore(state => state.ordering)
   const selectedCategories = usePromosStore(state => state.selectedCategories)
   const selectedSubCategories = usePromosStore(state => state.selectedSubCategories)
+  const searchQuery = usePromosStore(state => state.searchQuery)
   const setProducts = usePromosStore(state => state.setProducts)
   const setTotalProducts = usePromosStore(state => state.setTotalProducts)
   const setLoading = usePromosStore(state => state.setLoading)
@@ -55,6 +58,7 @@ export function usePromos () {
   const setOrdering = usePromosStore(state => state.setOrdering)
   const setSelectedCategories = usePromosStore(state => state.setSelectedCategories)
   const setSelectedSubCategories = usePromosStore(state => state.setSelectedSubCategories)
+  const setSearchQuery = usePromosStore(state => state.setSearchQuery)
   const fetchProducts = usePromosStore(state => state.fetchProducts)
 
   return {
@@ -66,6 +70,7 @@ export function usePromos () {
     ordering,
     selectedCategories,
     selectedSubCategories,
+    searchQuery,
     setProducts,
     setTotalProducts,
     setLoading,
@@ -74,6 +79,7 @@ export function usePromos () {
     setOrdering,
     setSelectedCategories,
     setSelectedSubCategories,
+    setSearchQuery,
     fetchProducts
   }
 }

@@ -16,6 +16,7 @@ export function DefaultEcommercePage ({ useStore }) {
     ordering,
     selectedCategories,
     selectedSubCategories,
+    searchQuery,
     setCurrentPage,
     setPageSize,
     setOrdering,
@@ -44,8 +45,8 @@ export function DefaultEcommercePage ({ useStore }) {
   }, [location.pathname])
 
   useEffect(() => {
-    fetchProducts({ currentPage, pageSize, ordering, selectedCategories, selectedSubCategories })
-  }, [currentPage, pageSize, ordering, selectedCategories, selectedSubCategories, fetchProducts])
+    fetchProducts({ currentPage, pageSize, ordering, selectedCategories, selectedSubCategories, searchQuery })
+  }, [currentPage, pageSize, ordering, selectedCategories, selectedSubCategories, searchQuery])
 
   return (
     <div className='mx-12 mt-2'>

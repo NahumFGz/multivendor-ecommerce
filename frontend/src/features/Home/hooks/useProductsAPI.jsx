@@ -1,9 +1,9 @@
 import { getProductDetailApi, getProductsApi } from '../../../services/api/productsAPI'
 
 export function useProductsAPI () {
-  const getProducts = async (page = 1, pageSize = 10, ordering = '', categories = [], subCategories = []) => {
+  const getProducts = async (page = 1, pageSize = 12, ordering = '', categories = [], subCategories = [], searchQuery = '') => {
     try {
-      const response = await getProductsApi(page, pageSize, ordering, categories, subCategories)
+      const response = await getProductsApi(page, pageSize, ordering, categories, subCategories, searchQuery)
       return response
     } catch (error) {
       throw new Error('Get products failed')
