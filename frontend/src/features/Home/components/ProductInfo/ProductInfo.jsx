@@ -32,7 +32,7 @@ export function ProductInfo () {
         setItem({
           id: response.id.toString(),
           name: response.productName,
-          description: response.description,
+          description: response.descriptionShort,
           images: [
             response.images.principal
           ],

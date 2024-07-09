@@ -8,7 +8,7 @@ export function Products ({ itemClassName, className, isLoading, products, pageS
 
   useEffect(() => {
     if (!isLoading) {
-      const timeout = setTimeout(() => setLoading(false), 170) // Duración de la transición
+      const timeout = setTimeout(() => setLoading(false), 0) // Duración de la transición
       return () => clearTimeout(timeout)
     } else {
       setLoading(true)
