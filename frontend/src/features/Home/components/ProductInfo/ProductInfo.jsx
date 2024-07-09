@@ -1,6 +1,6 @@
 import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react'
 
-import ProductViewInfo from './product-view-item'
+import ProductViewInfo from './ProductViewInfo'
 
 const item = {
   id: '942837-003',
@@ -18,42 +18,7 @@ const item = {
 
   price: 80.97,
   rating: 4.8,
-  ratingCount: 669,
-  sizes: ['36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '48', '50'],
-  isPopular: true,
-  availableColors: [
-    { name: 'Gray', hex: '#808080' },
-    { name: 'White', hex: '#ffffff' },
-    { name: 'Black', hex: '#222222' }
-  ],
-
-  details: [
-    {
-      title: 'Size & Fit',
-      items: [
-        'Fits small; we recommend ordering a half size up',
-        'Mid-weight, non-stretchy fabric',
-        'Designed for a mini length'
-      ]
-    },
-    {
-      title: 'Shipping & Returns',
-      items: [
-        'Free shipping & returns',
-        'Free, no-hassle returns',
-        'Complimentary gift packaging',
-        'Ships within 24 hours!'
-      ]
-    },
-    {
-      title: 'Designer Notes',
-      items: [
-        'Fits small; we recommend ordering a half size up',
-        'Mid-weight, non-stretchy fabric',
-        'Designed for a mini length'
-      ]
-    }
-  ]
+  ratingCount: 669
 }
 
 export function ProductInfo () {

@@ -1,20 +1,12 @@
 import {
-  Accordion,
-  AccordionItem,
   Button,
-  Chip,
   Image,
-  Link,
-  RadioGroup,
   ScrollShadow
 } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 
 import { cn } from '../../../../services/utilities/cn'
-
-import ColorRadioItem from './color-radio-item'
-import RatingRadioGroup from './rating-radio-group'
-import TagGroupRadioItem from './tag-group-radio-item'
+import RatingRadioGroup from './RatingRadioGroup'
 import { forwardRef, useState } from 'react'
 
 const ProductViewInfo = forwardRef(
@@ -23,13 +15,9 @@ const ProductViewInfo = forwardRef(
       name,
       images,
       price,
-      sizes,
-      details,
       description,
-      availableColors,
       rating,
       ratingCount,
-      isPopular,
       className,
       ...props
     },
@@ -49,16 +37,6 @@ const ProductViewInfo = forwardRef(
       >
         {/* Product Gallery */}
         <div className='relative h-full w-full flex-none'>
-          {isPopular && (
-            <Chip
-              className='absolute left-3 top-3 z-20 h-10 gap-1 bg-background/60 pl-3 pr-2 text-foreground/90 shadow-medium backdrop-blur-md backdrop-saturate-150 dark:bg-default-100/50'
-              size='lg'
-              startContent={<Icon icon='solar:star-bold' />}
-            >
-              Popular
-            </Chip>
-          )}
-
           {/* Main Image */}
           <Image alt={name} className='h-full w-full' radius='lg' src={selectedImage} />
           {/* Image Gallery */}
@@ -97,69 +75,17 @@ const ProductViewInfo = forwardRef(
               {ratingCount} {ratingCount === 1 ? 'review' : 'reviews'}
             </p>
           </div>
-          <p className='text-xl font-medium tracking-tight'>${price}</p>
+          <p className='text-xl font-medium tracking-tight'>S/. {price}</p>
           <div className='mt-4'>
             <p className='sr-only'>Product description</p>
             <p className='line-clamp-3 text-medium text-default-500'>{description}</p>
           </div>
-          <RadioGroup
-            aria-label='Color'
-            classNames={{
-              base: 'ml-1 mt-6',
-              wrapper: 'gap-2'
-            }}
-            defaultValue={availableColors?.at(0)?.hex}
-            orientation='horizontal'
-          >
-            {availableColors?.map(({ name, hex }) => (
-              <ColorRadioItem key={name} color={hex} tooltip={name} value={hex} />
-            ))}
-          </RadioGroup>
           <div className='mt-6 flex flex-col gap-1'>
             <div className='mb-4 flex items-center gap-2 text-default-700'>
               <Icon icon='carbon:delivery' width={24} />
               <p className='text-small font-medium'>Free shipping and 30 days return</p>
             </div>
-            <RadioGroup
-              aria-label='Select size'
-              className='gap-1'
-              defaultValue='39'
-              orientation='horizontal'
-            >
-              {sizes?.map((size) => (
-                <TagGroupRadioItem key={size} size='lg' value={size}>
-                  {size}
-                </TagGroupRadioItem>
-              ))}
-            </RadioGroup>
-            <Link isExternal className='my-2 text-default-400' href='#' size='sm'>
-              See guide
-              <Icon className='[&>path]:stroke-[2px]' icon='solar:arrow-right-up-linear' />
-            </Link>
           </div>
-          <Accordion
-            className='-mx-1 mt-2'
-            itemClasses={{
-              title: 'text-default-400',
-              content: 'pt-0 pb-6 text-base text-default-500'
-            }}
-            items={details}
-            selectionMode='multiple'
-          >
-            {details
-              ? details.map(({ title, items }) => (
-                <AccordionItem key={title} title={title}>
-                  <ul className='list-inside list-disc'>
-                    {items.map((item) => (
-                      <li key={item} className='text-default-500'>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </AccordionItem>
-              ))
-              : []}
-          </Accordion>
           <div className='mt-2 flex gap-2'>
             <Button
               fullWidth
