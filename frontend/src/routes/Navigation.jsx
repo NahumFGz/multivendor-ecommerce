@@ -2,6 +2,7 @@ import { NotFound } from '../components/NotFound'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import { homeUrls } from './urls/homeUrls'
+import { HomeLayout } from '../features/Home/layouts/HomeLayout'
 import { HomePage } from '../features/Home/pages/HomePage'
 import { ProductsPage } from '../features/Home/pages/ProductsPage'
 import { ProductInfoPage } from '../features/Home/pages/ProductInfoPage'
@@ -35,11 +36,11 @@ export function Navigation () {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Navigate to={homeUrls.home} />} />
-        <Route path={homeUrls.home} element={<HomePage />} />
-        <Route path={homeUrls.products} element={<ProductsPage />} />
-        <Route path={homeUrls.productInfo} element={<ProductInfoPage />} />
-        <Route path={homeUrls.marketplace} element={<MarketplacePage />} />
-        <Route path={homeUrls.promos} element={<PromosPage />} />
+        <Route path={homeUrls.home} element={<HomeLayout><HomePage /></HomeLayout>} />
+        <Route path={homeUrls.products} element={<HomeLayout><ProductsPage /></HomeLayout>} />
+        <Route path={homeUrls.productInfo} element={<HomeLayout><ProductInfoPage /></HomeLayout>} />
+        <Route path={homeUrls.marketplace} element={<HomeLayout><MarketplacePage /></HomeLayout>} />
+        <Route path={homeUrls.promos} element={<HomeLayout><PromosPage /></HomeLayout>} />
 
         <Route path='/login' element={<Navigate to={authUrls.login} />} />
         <Route path='/register' element={<Navigate to={authUrls.register} />} />
