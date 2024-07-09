@@ -1,6 +1,8 @@
-import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react'
-
 import ProductViewInfo from './ProductViewInfo'
+import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react'
+import { useEffect, useState } from 'react'
+import { useProductsAPI } from '../../hooks/useProductsAPI'
+import { useParams } from 'react-router-dom'
 
 const item = {
   id: '942837-003',
@@ -22,13 +24,37 @@ const item = {
 }
 
 export function ProductInfo () {
+  const { 'product-slug': productSlug } = useParams()
+  const { getProductDetail } = useProductsAPI()
+  const [catSubCat, setCatSubCat] = useState({
+    categories: '',
+    subCategories: ''
+  })
+
+  useEffect(() => {
+    const fetchProductDetail = async () => {
+      try {
+        const response = await getProductDetail(productSlug)
+        setCatSubCat({
+          categories: response.categoryName,
+          subCategories: response.subCategoryName
+        })
+        console.log(response)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchProductDetail()
+  }, [])
+
   return (
     <div className='max-w-8xl h-full w-full px-2 lg:px-24'>
       <nav className='my-4 py-2'>
         <Breadcrumbs>
-          <BreadcrumbItem>Home</BreadcrumbItem>
-          <BreadcrumbItem>Shoes Category</BreadcrumbItem>
-          <BreadcrumbItem>Training Shoes</BreadcrumbItem>
+          <BreadcrumbItem>Productos</BreadcrumbItem>
+          <BreadcrumbItem>{catSubCat?.categories}</BreadcrumbItem>
+          <BreadcrumbItem>{catSubCat?.subCategories}</BreadcrumbItem>
         </Breadcrumbs>
       </nav>
       <ProductViewInfo {...item} />
