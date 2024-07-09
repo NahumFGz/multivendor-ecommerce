@@ -1,3 +1,4 @@
+import { NotFound } from '../components/NotFound'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import { homeUrls } from './urls/homeUrls'
@@ -62,6 +63,8 @@ export function Navigation () {
           <Route path={accountUrls.tracking} element={<AccountLayout><TrackingPage /></AccountLayout>} />
           <Route path={accountUrls.publishProduct} element={<AccountLayout><PublishProductPage /></AccountLayout>} />
         </Route>
+
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )
