@@ -1,9 +1,12 @@
 import { Button, Image, cn } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { homeUrls } from '../../../../routes/urls/homeUrls'
 
 export function ProductListItem ({
   name,
+  productSlugName,
   price,
   rating,
   ratingCount,
@@ -16,8 +19,13 @@ export function ProductListItem ({
   className,
   stock
 }) {
+  const navigate = useNavigate()
   const [isStarred, setIsStarred] = useState(false)
   const hasColors = availableColors && availableColors?.length > 0
+
+  const handleProductClick = () => {
+    navigate(homeUrls.productInfo.replace(':product-slug', productSlugName))
+  }
 
   return (
     <div
@@ -66,7 +74,7 @@ export function ProductListItem ({
             'h-full justify-between': isPopular
           }
         )}
-        onClick={() => console.log('Product clicked')}
+        onClick={() => handleProductClick()}
       >
         <div
           className={cn('flex flex-col gap-2 px-4 pt-6', {
