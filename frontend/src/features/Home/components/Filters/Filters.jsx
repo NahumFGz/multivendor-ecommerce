@@ -8,8 +8,9 @@ import {
 import { PopoverFilterWrapper } from './PopoverFilterWrapper'
 import { TagGroupItem } from './TagGroupItem'
 import { useEffect, useState } from 'react'
-import { useInfoAPI, getCategories, getSubCategoryByCategoryId } from '../../hooks/useInfoAPI'
+import { getCategories, getSubCategoryByCategoryId } from '../../hooks/useInfoAPI'
 import { useProducts } from '../../../../store/ProductsStore'
+import { useFilters } from '../../../../store/FiltersStore'
 
 export function Filters (
   {
@@ -24,46 +25,30 @@ export function Filters (
     showCategories,
     showSearchQuery
   }) {
-  const handleSortChange = (key) => {
-    let order = ''
-    if (key === 'newest') {
-      order = '-updated_at'
-    } else if (key === 'price_low_to_high') {
-      order = 'price'
-    } else if (key === 'price_high_to_low') {
-      order = '-price'
-    }
-    onOrderingChange(order)
-  }
-
-  const { getAllFilters } = useInfoAPI()
+  const { filters } = useFilters()
   const { searchQuery, setSearchQuery } = useProducts()
 
-  const [filtersInfo, setFiltersInfo] = useState([])
   const [categoriesInfo, setCategoriesInfo] = useState([])
   const [subCategoriesInfo, setSubCategoriesInfo] = useState([])
 
   useEffect(() => {
-    const fetchInfo = async () => {
+    const initFilters = async () => {
       try {
-        const { allFiltersInfo } = await getAllFilters()
-        setFiltersInfo(allFiltersInfo)
-
-        const categories = getCategories(allFiltersInfo)
+        const categories = getCategories(filters)
         setCategoriesInfo(categories)
 
-        const subCategories = getSubCategoryByCategoryId(allFiltersInfo, selectedCategories.map(String))
+        const subCategories = getSubCategoryByCategoryId(filters, selectedCategories.map(String))
         setSubCategoriesInfo(subCategories)
       } catch (error) {
         console.error('Get all filters failed', error)
       }
     }
-    fetchInfo()
+    initFilters()
   }, [selectedCategories])
 
   const handleCategoriesChange = (values) => {
     console.log('values... ', values)
-    const subCategories = getSubCategoryByCategoryId(filtersInfo, values)
+    const subCategories = getSubCategoryByCategoryId(filters, values)
     setSubCategoriesInfo(subCategories)
     onCategoriesChange(values.map(Number))
   }
@@ -84,6 +69,18 @@ export function Filters (
       default:
         return 'newest'
     }
+  }
+
+  const handleSortChange = (key) => {
+    let order = ''
+    if (key === 'newest') {
+      order = '-updated_at'
+    } else if (key === 'price_low_to_high') {
+      order = 'price'
+    } else if (key === 'price_high_to_low') {
+      order = '-price'
+    }
+    onOrderingChange(order)
   }
 
   const selectedCategoryNames = selectedCategories.map(id => {
