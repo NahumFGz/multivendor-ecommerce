@@ -7,7 +7,7 @@ import { Icon } from '@iconify/react'
 
 import { cn } from '../../../../services/utilities/cn'
 import RatingRadioGroup from './RatingRadioGroup'
-import { forwardRef, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 
 const ProductViewInfo = forwardRef(
   (
@@ -24,7 +24,11 @@ const ProductViewInfo = forwardRef(
     ref
   ) => {
     const [isStarred, setIsStarred] = useState(false)
-    const [selectedImage, setSelectedImage] = useState(images[0])
+    const [selectedImage, setSelectedImage] = useState()
+
+    useEffect(() => {
+      setSelectedImage(images[0])
+    }, [images])
 
     return (
       <div

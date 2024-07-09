@@ -4,31 +4,21 @@ import { useEffect, useState } from 'react'
 import { useProductsAPI } from '../../hooks/useProductsAPI'
 import { useParams } from 'react-router-dom'
 
-const item = {
-  id: '942837-003',
-  name: 'Nike Air Max 270',
-  description:
-    'The Nike Air Max 270 delivers an even more adaptive fit than before. Stretch material in the upper moves with your foot, while the tri-star outsole pattern adjusts to your every step for a ride that delivers support and flexibility where you need it.',
-  images: [
-    'https://nextuipro.nyc3.cdn.digitaloceanspaces.com/components-images/shoes/product-view/1.jpeg',
-    'https://nextuipro.nyc3.cdn.digitaloceanspaces.com/components-images/shoes/product-view/2.jpeg',
-    'https://nextuipro.nyc3.cdn.digitaloceanspaces.com/components-images/shoes/product-view/3.jpeg',
-    'https://nextuipro.nyc3.cdn.digitaloceanspaces.com/components-images/shoes/product-view/4.jpeg',
-    'https://nextuipro.nyc3.cdn.digitaloceanspaces.com/components-images/shoes/product-view/5.jpeg',
-    'https://nextuipro.nyc3.cdn.digitaloceanspaces.com/components-images/shoes/product-view/6.jpeg'
-  ],
-
-  price: 80.97,
-  rating: 4.8,
-  ratingCount: 669
-}
-
 export function ProductInfo () {
   const { 'product-slug': productSlug } = useParams()
   const { getProductDetail } = useProductsAPI()
   const [catSubCat, setCatSubCat] = useState({
     categories: '',
     subCategories: ''
+  })
+  const [item, setItem] = useState({
+    id: '',
+    name: '',
+    description: '',
+    images: [],
+    price: 0,
+    rating: 0,
+    ratingCount: 0
   })
 
   useEffect(() => {
@@ -38,6 +28,17 @@ export function ProductInfo () {
         setCatSubCat({
           categories: response.categoryName,
           subCategories: response.subCategoryName
+        })
+        setItem({
+          id: response.id.toString(),
+          name: response.productName,
+          description: response.description,
+          images: [
+            response.images.principal
+          ],
+          price: response.price,
+          rating: response.rating,
+          ratingCount: 0 // Asumiendo que no tienes el número de calificaciones en la respuesta
         })
         console.log(response)
       } catch (error) {
