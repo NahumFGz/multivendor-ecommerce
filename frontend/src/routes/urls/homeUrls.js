@@ -4,6 +4,6 @@ export const homeUrls = {
   home: `${homeBasePath}`,
   promos: `${homeBasePath}/promos`,
   products: `${homeBasePath}/products`,
-  productInfo: `${homeBasePath}/products-info`,
+  productInfo: `${homeBasePath}/product-info/:product-slug`,
   marketplace: `${homeBasePath}/marketplace`
 }
