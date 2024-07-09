@@ -88,11 +88,10 @@ export function Header () {
 
   const getActiveTab = () => {
     if (location.pathname === homeUrls.home) return 'home'
-    if (location.pathname.startsWith(homeUrls.products)) return 'products'
-    if (location.pathname.startsWith(homeUrls.boardGames)) return 'boardgames'
-    if (location.pathname.startsWith(homeUrls.marketplace)) return 'marketplace'
-    if (location.pathname.startsWith(homeUrls.promos)) return 'promos'
-    return null
+    if (location.pathname === homeUrls.products) return 'products'
+    if (location.pathname === homeUrls.marketplace) return 'marketplace'
+    if (location.pathname === homeUrls.promos) return 'promos'
+    return 'others'
   }
 
   const handleSearch = (value) => {
@@ -330,7 +329,7 @@ export function Header () {
             />
             <Tab key='products' title='Productos' />
             <Tab key='marketplace' title='Marketplace' />
-            {/* <Tab key='boardgames' title='Juegos de mesa' /> */}
+            <Tab key='others' title='Otros' className='hidden' />
           </Tabs>
         </ScrollShadow>
       </main>
