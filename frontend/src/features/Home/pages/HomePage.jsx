@@ -1,9 +1,10 @@
+import { HomeLayout } from '../layouts/HomeLayout'
 import { TestFilters } from '../components/TestFilters1/App'
 
 export function HomePage () {
   return (
-    <div>
+    <HomeLayout>
       <TestFilters />
-    </div>
+    </HomeLayout>
   )
 }
