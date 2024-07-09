@@ -3,8 +3,11 @@ import { Icon } from '@iconify/react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { homeUrls } from '../../../../routes/urls/homeUrls'
+import { useCart } from '../../../../store/CartStore'
+import { useFavorites } from '../../../../store/FavoritesStore'
 
 export function ProductListItem ({
+  id,
   name,
   productSlugName,
   price,
@@ -23,9 +26,32 @@ export function ProductListItem ({
   const [isStarred, setIsStarred] = useState(false)
   const hasColors = availableColors && availableColors?.length > 0
 
+  const { addToCart } = useCart()
+  const { addToFavorites, removeFromFavorites, favoriteItems } = useFavorites()
+
   const handleProductClick = () => {
     navigate(homeUrls.productInfo.replace(':product-slug', productSlugName))
   }
+
+  const handleAddToCart = () => {
+    const product = { id, name, price, imageSrc, productSlugName, stock }
+    addToCart(product)
+  }
+
+  const handleAddOrRemoveFromFavorites = () => {
+    const product = { id, name, price, imageSrc, productSlugName, stock }
+    if (isStarred) {
+      removeFromFavorites(product.id)
+    } else {
+      addToFavorites(product)
+    }
+    setIsStarred(!isStarred)
+  }
+
+  // Update the starred state based on the favorite items
+  useState(() => {
+    setIsStarred(favoriteItems.some(item => item.id === id))
+  }, [favoriteItems])
 
   return (
     <div
@@ -45,7 +71,11 @@ export function ProductListItem ({
           )
         : null}
       {/* Stock info */}
-      <span className={`absolute left-7 top-7 z-20 text-tiny font-semibold ${stock > 0 ? 'text-default-700' : 'text-default-400'}`}>
+      <span
+        className={`absolute left-7 top-7 z-20 text-tiny font-semibold ${
+          stock > 0 ? 'text-default-700' : 'text-default-400'
+        }`}
+      >
         {stock > 20 ? '+20 en stock' : stock > 0 ? `${stock} en stock` : 'Agotado'}
       </span>
 
@@ -57,7 +87,7 @@ export function ProductListItem ({
         radius='full'
         size='sm'
         variant='flat'
-        onPress={() => setIsStarred(!isStarred)}
+        onPress={handleAddOrRemoveFromFavorites}
       >
         <Icon
           className={cn('text-default-500', {
@@ -151,6 +181,7 @@ export function ProductListItem ({
             color='primary'
             radius='lg'
             variant={isPopular ? 'flat' : 'solid'}
+            onPress={handleAddToCart}
           >
             Add to cart
           </Button>
