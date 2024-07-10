@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react'
 import { forwardRef } from 'react'
 
 const CartItem = forwardRef(
-  ({ image, name, price, quantity, onIncrement, onDecrement, className, ...props }, ref) => {
+  ({ image, name, price, quantity, onIncrement, onDecrement, onRemove, className, ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -31,7 +31,7 @@ const CartItem = forwardRef(
             </Button>
           </div>
         </div>
-        <Button isIconOnly radius='full' variant='light'>
+        <Button isIconOnly radius='full' variant='light' onClick={onRemove}>
           <Icon className='text-default-500' icon='solar:trash-bin-minimalistic-broken' width={22} />
         </Button>
       </div>
