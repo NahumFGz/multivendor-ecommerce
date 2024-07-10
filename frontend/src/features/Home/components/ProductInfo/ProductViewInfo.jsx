@@ -8,10 +8,13 @@ import { Icon } from '@iconify/react'
 import { cn } from '../../../../services/utilities/cn'
 import RatingRadioGroup from './RatingRadioGroup'
 import { forwardRef, useEffect, useState } from 'react'
+import { useCart } from '../../../../store/CartStore'
+import { useFavorites } from '../../../../store/FavoritesStore'
 
 const ProductViewInfo = forwardRef(
   (
     {
+      id,
       name,
       images,
       price,
@@ -26,9 +29,25 @@ const ProductViewInfo = forwardRef(
     const [isStarred, setIsStarred] = useState(false)
     const [selectedImage, setSelectedImage] = useState()
 
+    const { addToCart } = useCart()
+    const { addToFavorites, removeFromFavorites } = useFavorites()
+
     useEffect(() => {
       setSelectedImage(images[0])
     }, [images])
+
+    const handleAddToCart = () => {
+      addToCart({ id, name, price, imageSrc: selectedImage })
+    }
+
+    const handleToggleFavorite = () => {
+      if (isStarred) {
+        removeFromFavorites(id)
+      } else {
+        addToFavorites({ id, name, price, imageSrc: selectedImage })
+      }
+      setIsStarred(!isStarred)
+    }
 
     return (
       <div
@@ -97,6 +116,7 @@ const ProductViewInfo = forwardRef(
               color='primary'
               size='lg'
               startContent={<Icon icon='solar:cart-large-2-bold' width={24} />}
+              onPress={handleAddToCart}
             >
               Add to cart
             </Button>
@@ -105,7 +125,7 @@ const ProductViewInfo = forwardRef(
               className='text-default-600'
               size='lg'
               variant='flat'
-              onPress={() => setIsStarred(!isStarred)}
+              onPress={handleToggleFavorite}
             >
               {isStarred
                 ? (
