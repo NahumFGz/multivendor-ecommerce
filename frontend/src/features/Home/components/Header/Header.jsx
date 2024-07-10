@@ -23,18 +23,19 @@ import {
   Badge
 } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-import { AcmeIcon } from '../../../../assets/Social'
-import { Notifications } from './Notifications'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { AcmeIcon } from '../../../../assets/Social'
 import { homeUrls } from '../../../../routes/urls/homeUrls'
+import { useCart } from '../../../../store/CartStore'
+import { useAuthStore } from '../../../../store/AuthStore'
 import { useSwapTheme } from '../../../../store/ThemeStore'
+import { useProducts } from '../../../../store/ProductsStore'
+import { authUrls } from '../../../../routes/urls/authUrls'
+import { accountUrls } from '../../../../routes/urls/accountUrls'
 import { Cart } from './Cart'
 import { Favorites } from './Favorites'
-import { accountUrls } from '../../../../routes/urls/accountUrls'
-import { useAuthStore } from '../../../../store/AuthStore'
-import { useEffect, useState } from 'react'
-import { authUrls } from '../../../../routes/urls/authUrls'
-import { useProducts } from '../../../../store/ProductsStore'
+// import { Notifications } from './Notifications'
 
 const BASE_URL = import.meta.env.VITE_BASE_API_URL
 
@@ -45,6 +46,7 @@ export function Header () {
   const cleanStore = useAuthStore((store) => store.cleanStore)
 
   const { searchQuery, setSearchQuery } = useProducts()
+  const { totalQuantity } = useCart()
 
   useEffect(() => {
     const getATinyAvatarUrl = () => {
@@ -98,7 +100,6 @@ export function Header () {
     console.log(value)
     setSearchQuery(value)
     navigate(`${homeUrls.products}`)
-    // navigate(`${homeUrls.products}?search=${value}`)
   }
 
   return (
@@ -146,6 +147,7 @@ export function Header () {
             </Button>
           </NavbarItem> */}
           {/* Notifications */}
+          {/*
           <NavbarItem className='hidden md:flex'>
             <Popover offset={12} placement='bottom-end'>
               <PopoverTrigger>
@@ -166,6 +168,7 @@ export function Header () {
               </PopoverContent>
             </Popover>
           </NavbarItem>
+           */}
           {/* Favorites */}
           <NavbarItem className='hidden md:flex'>
             <Popover offset={12} placement='bottom-end'>
@@ -187,6 +190,7 @@ export function Header () {
               </PopoverContent>
             </Popover>
           </NavbarItem>
+
           {/* Shopping Cart */}
           <NavbarItem className='flex'>
             <Popover offset={12} placement='bottom-end'>
@@ -198,7 +202,7 @@ export function Header () {
                   radius='full'
                   variant='light'
                 >
-                  <Badge color='danger' content='9' showOutline={false} size='md'>
+                  <Badge color='danger' content={totalQuantity} showOutline={false} size='md'>
                     <Icon className='text-default-500' icon='solar:cart-plus-outline' width={24} />
                   </Badge>
                 </Button>
@@ -208,6 +212,7 @@ export function Header () {
               </PopoverContent>
             </Popover>
           </NavbarItem>
+
           {/* User Menu */}
           <NavbarItem className='px-2'>
             <Dropdown placement='bottom-end'>
