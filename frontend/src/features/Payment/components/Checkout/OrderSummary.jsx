@@ -46,24 +46,24 @@ const OrderSummary = forwardRef(({ hideTitle, ...props }, ref) => {
         <dl className='flex flex-col gap-4 py-4'>
           <div className='flex justify-between'>
             <dt className='text-small text-default-500'>Subtotal</dt>
-            <dd className='text-small font-semibold text-default-700'>${totalPrice.toFixed(2)}</dd>
+            <dd className='text-small font-semibold text-default-700'>S/. {totalPrice.toFixed(2)}</dd>
           </div>
           <div className='flex justify-between'>
             <dt className='text-small text-default-500'>Delivery</dt>
-            <dd className='text-small font-semibold text-default-700'>$0.00</dd>
+            <dd className='text-small font-semibold text-default-700'>S/. 0.00</dd>
           </div>
           <div className='flex justify-between'>
             <dt className='text-small text-default-500'>Tax</dt>
-            <dd className='text-small font-semibold text-default-700'>$0.00</dd>
+            <dd className='text-small font-semibold text-default-700'>S/. 0.00</dd>
           </div>
           <div className='flex justify-between'>
             <dt className='text-small text-default-500'>Discount</dt>
-            <dd className='text-small font-semibold text-success'>- $0.00</dd>
+            <dd className='text-small font-semibold text-success'>- S/. 0.00</dd>
           </div>
           <Divider />
           <div className='flex justify-between'>
             <dt className='text-small font-semibold text-default-500'>Total</dt>
-            <dd className='text-small font-semibold text-default-700'>${totalPrice.toFixed(2)}</dd>
+            <dd className='text-small font-semibold text-default-700'>S/. {totalPrice.toFixed(2)}</dd>
           </div>
         </dl>
       </div>

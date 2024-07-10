@@ -20,18 +20,8 @@ const OrderSummaryItem = forwardRef(
             {name || children}
           </Link>
         </h4>
-        <div className='flex items-center gap-3'>
-          <p>
-            <span className='text-small text-default-500'>Color: </span>
-            <span className='text-small font-medium capitalize text-default-700'>{color}</span>
-          </p>
-          <p>
-            <span className='text-small text-default-500'>Size: </span>
-            <span className='text-small font-medium text-default-700'>{size}</span>
-          </p>
-        </div>
         <div className='mt-2 flex items-center gap-2'>
-          <span className='text-small font-semibold text-default-700'>${price}</span>
+          <span className='text-small font-semibold text-default-700'>S/. {price}</span>
           <span className='text-small text-default-500'>x {quantity}</span>
         </div>
       </div>

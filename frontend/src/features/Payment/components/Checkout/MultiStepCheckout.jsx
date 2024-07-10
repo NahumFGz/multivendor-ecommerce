@@ -18,9 +18,11 @@ import { AcmeIcon } from '../../../../assets/AcmeIcon'
 import { VisaIcon, MasterCardIcon, PayPalIcon } from '../../../../assets/Providers'
 import { useNavigate } from 'react-router-dom'
 import { homeUrls } from '../../../../routes/urls/homeUrls'
+import { useCart } from '../../../../store/CartStore'
 
 export default function MultiStepCheckout () {
   const navigate = useNavigate()
+  const { cartItems, totalQuantity, totalPrice } = useCart()
   const [[page, direction], setPage] = useState([0, 0])
 
   const variants = {
@@ -163,10 +165,10 @@ export default function MultiStepCheckout () {
           </div>
           <div className='flex items-center gap-2'>
             <p>
-              <span className='text-small font-semibold text-default-700'>$172.96</span>
-              <span className='ml-1 text-small text-default-500'>(3 items)</span>
+              <span className='text-small font-semibold text-default-700'>S/.{totalPrice.toFixed(2)}</span>
+              <span className='ml-1 text-small text-default-500'>({cartItems.length} items)</span>
             </p>
-            <Badge content='4' showOutline={false}>
+            <Badge content={totalQuantity} showOutline={false}>
               <Icon icon='solar:cart-check-outline' width={28} />
             </Badge>
           </div>
