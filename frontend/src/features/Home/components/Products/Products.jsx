@@ -66,7 +66,7 @@ export function Products ({ itemClassName, className, isLoading, products, pageS
             )
           : (
             <div className='flex h-full w-full flex-col items-center justify-center gap-2 py-20'>
-              <Icon className='text-default-400' icon='solar:shopping-bag-outline' width={40} />
+              <Icon className='text-default-400' icon='mdi:emoticon-cry-outline' width={40} />
               <p className='text-small text-default-400'>No hay productos disponibles.</p>
             </div>
             )}
