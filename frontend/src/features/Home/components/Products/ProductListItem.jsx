@@ -93,7 +93,7 @@ export function ProductListItem ({
           className={cn('text-default-500', {
             'text-warning': isStarred
           })}
-          icon='solar:star-bold'
+          icon='solar:heart-bold'
           width={16}
         />
       </Button>

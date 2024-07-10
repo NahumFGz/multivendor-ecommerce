@@ -74,7 +74,7 @@ export function Cart (props) {
         </ScrollShadow>
       </CardBody>
       <CardFooter className='flex justify-between items-center px-4'>
-        <p className='text-large font-medium'>Total: ${totalPrice.toFixed(2)}</p>
+        <p className='text-large font-medium'>Total: S/. {totalPrice.toFixed(2)}</p>
         <Button variant='flat' onPress={clearCart}>Checkout</Button>
       </CardFooter>
     </Card>

@@ -20,7 +20,7 @@ const FavoriteItem = React.forwardRef(
           <p className='text-small text-foreground'>
             <strong className='font-medium'>{name}</strong>
           </p>
-          <p className='text-tiny text-default-400'>${price}</p>
+          <p className='text-tiny text-default-400'>S/. {price}</p>
         </div>
         <Button isIconOnly radius='full' variant='light' onClick={onAddToCart}>
           <Icon className='text-default-500' icon='solar:cart-plus-outline' width={22} />

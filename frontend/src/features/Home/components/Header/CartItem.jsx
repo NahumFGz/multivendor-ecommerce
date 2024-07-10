@@ -20,7 +20,7 @@ const CartItem = forwardRef(
           <p className='text-small text-foreground'>
             <strong className='font-medium'>{name}</strong>
           </p>
-          <p className='text-tiny text-default-400'>${price}</p>
+          <p className='text-tiny text-default-400'>S/. {price}</p>
           <div className='flex items-center gap-2'>
             <Button isIconOnly radius='full' variant='light' onClick={onDecrement}>
               <Icon className='text-default-500' icon='solar:minus-circle-outline' width={22} />
