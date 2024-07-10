@@ -2,8 +2,7 @@ import { forwardRef } from 'react'
 
 import { Icon } from '@iconify/react'
 import { Button, Image, Link, Tooltip } from '@nextui-org/react'
-
-import { cn } from './cn'
+import { cn } from '../../../../services/utilities/cn'
 
 const OrderSummaryItem = forwardRef(
   ({ children, name, href, price, color, size, quantity, imageSrc, className, ...props }, ref) => (

@@ -30,6 +30,7 @@ const OrderSummary = forwardRef(({ hideTitle, items, ...props }, ref) => (
           labelPlacement='outside'
           placeholder='Enter coupon code'
           variant='bordered'
+          aria-label='Coupon code'
         />
 
         <Button type='submit'>Apply</Button>

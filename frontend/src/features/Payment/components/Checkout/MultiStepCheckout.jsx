@@ -8,17 +8,16 @@ import {
   Progress,
   RadioGroup
 } from '@nextui-org/react'
+import { useMemo, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { AnimatePresence, LazyMotion, m, domAnimation } from 'framer-motion'
-
-import { VisaIcon, MasterCardIcon, PayPalIcon } from './providers'
-import { AcmeIcon } from './acme'
 import ShippingForm from './shipping-form'
 import OrderSummary from './order-summary'
 import cartItems from './cart-items'
 import PaymentForm from './payment-form'
 import PaymentMethodRadio from './payment-method-radio'
-import { useMemo, useState } from 'react'
+import { AcmeIcon } from '../../../../assets/AcmeIcon'
+import { VisaIcon, MasterCardIcon, PayPalIcon } from '../../../../assets/Providers'
 
 export default function MultiStepCheckout () {
   const [[page, direction], setPage] = useState([0, 0])
@@ -221,6 +220,7 @@ export default function MultiStepCheckout () {
                   indicator: '!bg-foreground'
                 }}
                 value={page >= 0 ? 100 : 0}
+                aria-label='Review progress'
               />
             </div>
             <div className='flex w-full flex-col items-start gap-2'>
@@ -230,6 +230,7 @@ export default function MultiStepCheckout () {
                   indicator: '!bg-foreground'
                 }}
                 value={page >= 1 ? 100 : 0}
+                aria-label='Delivery progress'
               />
             </div>
             <div className='flex w-full flex-col items-start gap-2'>
@@ -239,6 +240,7 @@ export default function MultiStepCheckout () {
                   indicator: '!bg-foreground'
                 }}
                 value={page >= 2 ? 100 : 0}
+                aria-label='Payment progress'
               />
             </div>
           </div>

@@ -1,7 +1,6 @@
-import { Chip, Radio } from '@nextui-org/react'
-
-import { cn } from './cn'
 import { forwardRef } from 'react'
+import { Chip, Radio } from '@nextui-org/react'
+import { cn } from '../../../../services/utilities/cn'
 
 const PaymentMethodRadio = forwardRef(
   (
