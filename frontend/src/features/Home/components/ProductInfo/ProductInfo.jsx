@@ -12,7 +12,7 @@ export function ProductInfo () {
     subCategories: ''
   })
   const [item, setItem] = useState({
-    id: '',
+    id: 0,
     name: '',
     description: '',
     images: [],
@@ -30,7 +30,7 @@ export function ProductInfo () {
           subCategories: response.subCategoryName
         })
         setItem({
-          id: response.id.toString(),
+          id: response.id,
           name: response.productName,
           description: response.descriptionShort,
           images: [
@@ -38,7 +38,7 @@ export function ProductInfo () {
           ],
           price: response.price,
           rating: response.rating,
-          ratingCount: 0 // Asumiendo que no tienes el número de calificaciones en la respuesta
+          ratingCount: 0
         })
         console.log(response)
       } catch (error) {

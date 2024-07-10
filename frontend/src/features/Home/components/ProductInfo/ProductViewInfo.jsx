@@ -30,11 +30,16 @@ const ProductViewInfo = forwardRef(
     const [selectedImage, setSelectedImage] = useState()
 
     const { addToCart } = useCart()
-    const { addToFavorites, removeFromFavorites } = useFavorites()
+    const { favoriteItems, addToFavorites, removeFromFavorites } = useFavorites()
 
     useEffect(() => {
       setSelectedImage(images[0])
     }, [images])
+
+    useEffect(() => {
+      const isFavorite = favoriteItems.some(item => item.id === id)
+      setIsStarred(isFavorite)
+    }, [favoriteItems, id])
 
     const handleAddToCart = () => {
       addToCart({ id, name, price, imageSrc: selectedImage })
@@ -127,13 +132,13 @@ const ProductViewInfo = forwardRef(
               variant='flat'
               onPress={handleToggleFavorite}
             >
-              {isStarred
-                ? (
-                  <Icon icon='solar:heart-bold' width={24} />
-                  )
-                : (
-                  <Icon icon='solar:heart-linear' width={24} />
-                  )}
+              <Icon
+                className={cn('text-default-500', {
+                  'text-warning': isStarred
+                })}
+                icon={isStarred ? 'solar:heart-bold' : 'solar:heart-linear'}
+                width={24}
+              />
             </Button>
           </div>
         </div>
