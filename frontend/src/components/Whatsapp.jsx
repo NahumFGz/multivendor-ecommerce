@@ -1,5 +1,5 @@
 import React from 'react'
-import whatsappLogo from '../../../assets/whatsapp.png'
+import whatsappLogo from '../assets/whatsapp.png'
 
 export function Whatsapp () {
   return (
