@@ -5,7 +5,7 @@ import { Button, Image, Link, Tooltip } from '@nextui-org/react'
 import { cn } from '../../../../services/utilities/cn'
 
 const OrderSummaryItem = forwardRef(
-  ({ children, name, href, price, color, size, quantity, imageSrc, className, ...props }, ref) => (
+  ({ children, name, href, price, color, size, quantity, imageSrc, className, productSlugName, ...props }, ref) => (
     <li
       ref={ref}
       className={cn('flex items-center gap-x-4 border-b-small border-divider py-4', className)}
