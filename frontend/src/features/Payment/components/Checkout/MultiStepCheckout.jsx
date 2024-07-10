@@ -81,7 +81,9 @@ export default function MultiStepCheckout () {
 
     switch (page) {
       case 0:
-        return <OrderSummary hideTitle items={cartItems} />
+        return (
+          <OrderSummary hideTitle items={cartItems} />
+        )
       case 1:
         return (
           <div className='mt-4 flex flex-col gap-6'>
@@ -184,7 +186,7 @@ export default function MultiStepCheckout () {
 
           <AnimatePresence custom={direction} initial={false} mode='wait'>
             <LazyMotion features={domAnimation}>
-              <m.form
+              <m.div
                 key={page}
                 animate='center'
                 className='mt-8 flex flex-col gap-3'
@@ -196,7 +198,6 @@ export default function MultiStepCheckout () {
                   opacity: { duration: 0.2 }
                 }}
                 variants={variants}
-                onSubmit={(e) => e.preventDefault()}
               >
                 <h1 className='text-2xl font-medium'>{stepTitle}</h1>
                 {stepsContent}
@@ -208,7 +209,7 @@ export default function MultiStepCheckout () {
                 >
                   {ctaLabel}
                 </Button>
-              </m.form>
+              </m.div>
             </LazyMotion>
           </AnimatePresence>
 
