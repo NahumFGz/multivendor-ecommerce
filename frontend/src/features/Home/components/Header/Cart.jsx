@@ -7,9 +7,11 @@ import {
   ScrollShadow,
   CardFooter
 } from '@nextui-org/react'
+import { useNavigate } from 'react-router-dom'
 import { Icon } from '@iconify/react'
-import CartItem from './CartItem'
 import { useCart } from '../../../../store/CartStore'
+import CartItem from './CartItem'
+import { checkoutUrls } from '../../../../routes/urls/checkoutUrls'
 
 export function Cart (props) {
   const {
@@ -17,9 +19,10 @@ export function Cart (props) {
     totalQuantity,
     totalPrice,
     updateQuantity,
-    removeFromCart,
-    clearCart
+    removeFromCart
   } = useCart()
+
+  const navigate = useNavigate()
 
   const incrementQuantity = (id) => {
     const item = cartItems.find(item => item.id === id)
@@ -33,6 +36,10 @@ export function Cart (props) {
     }
   }
 
+  const handleNavigateToCheckout = () => {
+    navigate(checkoutUrls.checkout)
+  }
+
   return (
     <Card className='w-full max-w-[420px]' {...props}>
       <CardHeader className='flex flex-col px-0 pb-0'>
@@ -43,7 +50,7 @@ export function Cart (props) {
               {totalQuantity}
             </Chip>
           </div>
-          <Button className='h-8 px-3' color='primary' radius='full' variant='light'>
+          <Button className='h-8 px-3' color='primary' radius='full' variant='light' onPress={() => handleNavigateToCheckout()}>
             Checkout
           </Button>
         </div>
@@ -75,7 +82,7 @@ export function Cart (props) {
       </CardBody>
       <CardFooter className='flex justify-between items-center px-4'>
         <p className='text-large font-medium'>Total: S/. {totalPrice.toFixed(2)}</p>
-        <Button variant='flat' onPress={clearCart}>Checkout</Button>
+        <Button variant='flat' onPress={() => handleNavigateToCheckout()}>Checkout</Button>
       </CardFooter>
     </Card>
   )
