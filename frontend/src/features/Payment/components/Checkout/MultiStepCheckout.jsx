@@ -4,7 +4,6 @@ import {
   Badge,
   Button,
   Image,
-  Link,
   Progress,
   RadioGroup
 } from '@nextui-org/react'
@@ -17,6 +16,8 @@ import PaymentForm from './PaymentForm'
 import PaymentMethodRadio from './PaymentMethodRadio'
 import { AcmeIcon } from '../../../../assets/AcmeIcon'
 import { VisaIcon, MasterCardIcon, PayPalIcon } from '../../../../assets/Providers'
+import { useNavigate } from 'react-router-dom'
+import { homeUrls } from '../../../../routes/urls/homeUrls'
 
 const cartItems = [
   {
@@ -52,6 +53,7 @@ const cartItems = [
 ]
 
 export default function MultiStepCheckout () {
+  const navigate = useNavigate()
   const [[page, direction], setPage] = useState([0, 0])
 
   const variants = {
@@ -187,7 +189,10 @@ export default function MultiStepCheckout () {
       {/* Left */}
       <div className='w-full flex-none py-4 lg:w-[44%]'>
         <div className='flex justify-between px-2'>
-          <div className='flex items-center'>
+          <div
+            className='flex items-center hover:scale-105 hover:cursor-pointer'
+            onClick={() => navigate(homeUrls.products)}
+          >
             <AcmeIcon size={40} />
             <p className='font-semibold'>ACME</p>
           </div>
@@ -297,9 +302,9 @@ export default function MultiStepCheckout () {
                 <Icon key={i} className='text-white/80' icon='solar:star-bold' width={16} />
               ))}
             </div>
-            <Link className='text-white/60' href='#' size='sm' underline='always'>
+            <a className='text-white/60' href='#' size='sm' underline='always'>
               120 reviews
-            </Link>
+            </a>
           </div>
         </div>
         <Image
