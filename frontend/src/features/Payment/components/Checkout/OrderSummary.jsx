@@ -4,11 +4,23 @@ import OrderSummaryItem from './OrderSummaryItem'
 import { useCart } from '../../../../store/CartStore'
 
 const OrderSummary = forwardRef(({ hideTitle, ...props }, ref) => {
-  const { cartItems, totalPrice } = useCart()
+  const { cartItems, totalPrice, updateQuantity, removeFromCart } = useCart()
 
   useEffect(() => {
     console.log('OrderSummary rendered', cartItems)
-  }, [])
+  }, [cartItems])
+
+  const incrementQuantity = (id) => {
+    const item = cartItems.find(item => item.id === id)
+    updateQuantity(id, item.quantity + 1)
+  }
+
+  const decrementQuantity = (id) => {
+    const item = cartItems.find(item => item.id === id)
+    if (item.quantity > 1) {
+      updateQuantity(id, item.quantity - 1)
+    }
+  }
 
   return (
     <div ref={ref} {...props}>
@@ -22,7 +34,13 @@ const OrderSummary = forwardRef(({ hideTitle, ...props }, ref) => {
       <h3 className='sr-only'>Items in your cart</h3>
       <ul>
         {cartItems?.map((item) => (
-          <OrderSummaryItem key={item.id} {...item} />
+          <OrderSummaryItem
+            key={item.id}
+            {...item}
+            onIncrement={() => incrementQuantity(item.id)}
+            onDecrement={() => decrementQuantity(item.id)}
+            onRemove={() => removeFromCart(item.id)}
+          />
         ))}
       </ul>
       <div>
