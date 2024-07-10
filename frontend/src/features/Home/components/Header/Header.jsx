@@ -35,6 +35,7 @@ import { authUrls } from '../../../../routes/urls/authUrls'
 import { accountUrls } from '../../../../routes/urls/accountUrls'
 import { Cart } from './Cart'
 import { Favorites } from './Favorites'
+import { useFavorites } from '../../../../store/FavoritesStore'
 // import { Notifications } from './Notifications'
 
 const BASE_URL = import.meta.env.VITE_BASE_API_URL
@@ -46,7 +47,8 @@ export function Header () {
   const cleanStore = useAuthStore((store) => store.cleanStore)
 
   const { searchQuery, setSearchQuery } = useProducts()
-  const { totalQuantity } = useCart()
+  const { favoriteItems } = useFavorites()
+  const { totalQuantity: totalCart } = useCart()
 
   useEffect(() => {
     const getATinyAvatarUrl = () => {
@@ -180,7 +182,7 @@ export function Header () {
                   radius='full'
                   variant='light'
                 >
-                  <Badge color='' content='' showOutline={false} size='md'>
+                  <Badge color={favoriteItems.length > 0 ? 'secondary' : ''} content='' showOutline={false} size='md'>
                     <Icon className='text-default-500' icon='carbon:favorite' width={22} />
                   </Badge>
                 </Button>
@@ -202,7 +204,7 @@ export function Header () {
                   radius='full'
                   variant='light'
                 >
-                  <Badge color='danger' content={totalQuantity} showOutline={false} size='md'>
+                  <Badge color='danger' content={totalCart} showOutline={false} size='md'>
                     <Icon className='text-default-500' icon='solar:cart-plus-outline' width={24} />
                   </Badge>
                 </Button>
