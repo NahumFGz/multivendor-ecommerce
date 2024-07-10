@@ -30,6 +30,9 @@ import { ForgotPasswordPage } from '../features/Auth/pages/ForgotPasswordPage'
 import { PrivacyPolicyPage } from '../features/Auth/pages/PrivacyPolicyPage'
 import { TermsOfServicePage } from '../features/Auth/pages/TermsOfServicePage'
 import { ProtectedRoutes } from './ProtectedRoutes'
+import { checkoutUrls } from './urls/checkoutUrls'
+import { PaymentLayout } from '../features/Payment/layouts/PaymentLayout'
+import { CheckoutPage } from '../features/Payment/pages/CheckoutPage'
 
 export function Navigation () {
   return (
@@ -51,6 +54,9 @@ export function Navigation () {
         <Route path={authUrls.passwordReset} element={<AuthLayout><PasswordResetPage /></AuthLayout>} />
         <Route path={authUrls.privacyPolicy} element={<AuthLayout><PrivacyPolicyPage /></AuthLayout>} />
         <Route path={authUrls.termsOfService} element={<AuthLayout><TermsOfServicePage /></AuthLayout>} />
+
+        <Route path={checkoutUrls.base} element={<Navigate to={checkoutUrls.checkout} />} />
+        <Route path={checkoutUrls.checkout} element={<PaymentLayout><CheckoutPage /></PaymentLayout>} />
 
         <Route element={<ProtectedRoutes />}>
           <Route path={accountUrls.base} element={<Navigate to={accountUrls.dashboard} />} />
