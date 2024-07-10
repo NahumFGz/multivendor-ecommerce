@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import { Button, Divider, Input } from '@nextui-org/react'
 
-import OrderSummaryItem from './order-summary-item'
+import OrderSummaryItem from './OrderSummaryItem'
 
 const OrderSummary = forwardRef(({ hideTitle, items, ...props }, ref) => (
   <div ref={ref} {...props}>

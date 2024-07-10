@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import { Autocomplete, AutocompleteItem, Avatar, Input } from '@nextui-org/react'
-import countries from '../../../../assets/countries'
 import { cn } from '../../../../services/utilities/cn'
+import countries from '../../../../assets/Countries'
 
 const ShippingForm = forwardRef(({ variant = 'flat', className, hideTitle }, ref) => {
   return (

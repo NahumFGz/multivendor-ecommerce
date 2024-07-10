@@ -11,13 +11,45 @@ import {
 import { useMemo, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { AnimatePresence, LazyMotion, m, domAnimation } from 'framer-motion'
-import ShippingForm from './shipping-form'
-import OrderSummary from './order-summary'
-import cartItems from './cart-items'
-import PaymentForm from './payment-form'
-import PaymentMethodRadio from './payment-method-radio'
+import ShippingForm from './ShippingForm'
+import OrderSummary from './OrderSummary'
+import PaymentForm from './PaymentForm'
+import PaymentMethodRadio from './PaymentMethodRadio'
 import { AcmeIcon } from '../../../../assets/AcmeIcon'
 import { VisaIcon, MasterCardIcon, PayPalIcon } from '../../../../assets/Providers'
+
+const cartItems = [
+  {
+    id: '1',
+    name: 'Training shoes',
+    href: '#',
+    price: 49.99,
+    color: 'black',
+    size: '42',
+    quantity: 1,
+    imageSrc: 'https://nextuipro.nyc3.cdn.digitaloceanspaces.com/components-images/shoes/1.png'
+  },
+  {
+    id: '2',
+    name: 'Sneakers',
+    href: '#',
+    price: 29.99,
+    color: 'red',
+    size: '42',
+    quantity: 1,
+    imageSrc: 'https://nextuipro.nyc3.cdn.digitaloceanspaces.com/components-images/shoes/2.png'
+  },
+  {
+    id: '3',
+    name: 'Running shoes',
+    href: '#',
+    price: 39.99,
+    color: 'blue',
+    size: '42',
+    quantity: 2,
+    imageSrc: 'https://nextuipro.nyc3.cdn.digitaloceanspaces.com/components-images/shoes/3.png'
+  }
+]
 
 export default function MultiStepCheckout () {
   const [[page, direction], setPage] = useState([0, 0])
