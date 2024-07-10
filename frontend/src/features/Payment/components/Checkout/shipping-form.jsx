@@ -1,12 +1,10 @@
-'use client'
-
-import React from 'react'
+import { forwardRef } from 'react'
 import { Autocomplete, AutocompleteItem, Avatar, Input } from '@nextui-org/react'
 
 import { cn } from './cn'
 import countries from './countries'
 
-const ShippingForm = React.forwardRef(({ variant = 'flat', className, hideTitle }, ref) => {
+const ShippingForm = forwardRef(({ variant = 'flat', className, hideTitle }, ref) => {
   return (
     <div ref={ref} className={cn('flex flex-col gap-4', className)}>
       {!hideTitle && <span className='relative text-foreground-500'>Shipping Information</span>}

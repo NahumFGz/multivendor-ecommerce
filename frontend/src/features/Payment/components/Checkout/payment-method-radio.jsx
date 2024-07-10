@@ -1,11 +1,9 @@
-'use client'
-
-import React from 'react'
 import { Chip, Radio } from '@nextui-org/react'
 
 import { cn } from './cn'
+import { forwardRef } from 'react'
 
-const PaymentMethodRadio = React.forwardRef(
+const PaymentMethodRadio = forwardRef(
   (
     {
       label,

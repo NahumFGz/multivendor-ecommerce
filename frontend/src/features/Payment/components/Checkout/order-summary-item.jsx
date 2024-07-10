@@ -1,12 +1,11 @@
-'use client'
+import { forwardRef } from 'react'
 
-import React from 'react'
-import { Button, Image, Link, Tooltip } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
+import { Button, Image, Link, Tooltip } from '@nextui-org/react'
 
 import { cn } from './cn'
 
-const OrderSummaryItem = React.forwardRef(
+const OrderSummaryItem = forwardRef(
   ({ children, name, href, price, color, size, quantity, imageSrc, className, ...props }, ref) => (
     <li
       ref={ref}

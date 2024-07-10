@@ -1,12 +1,10 @@
-'use client'
-
-import React from 'react'
+import { forwardRef } from 'react'
 import { Icon } from '@iconify/react'
 import { Input } from '@nextui-org/react'
 
 import { cn } from './cn'
 
-const PaymentForm = React.forwardRef(({ variant = 'flat', className, ...props }, ref) => {
+const PaymentForm = forwardRef(({ variant = 'flat', className, ...props }, ref) => {
   const NumberInput = (props) => (
     <input
       className='w-11 rounded-sm bg-transparent text-small outline-none placeholder:text-default-400'

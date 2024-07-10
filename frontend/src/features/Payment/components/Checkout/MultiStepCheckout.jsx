@@ -1,6 +1,3 @@
-'use client'
-
-import React from 'react'
 import {
   Accordion,
   AccordionItem,
@@ -21,9 +18,10 @@ import OrderSummary from './order-summary'
 import cartItems from './cart-items'
 import PaymentForm from './payment-form'
 import PaymentMethodRadio from './payment-method-radio'
+import { useMemo, useState } from 'react'
 
 export default function MultiStepCheckout () {
-  const [[page, direction], setPage] = React.useState([0, 0])
+  const [[page, direction], setPage] = useState([0, 0])
 
   const variants = {
     enter: (direction) => ({
@@ -48,7 +46,7 @@ export default function MultiStepCheckout () {
     setPage([page + newDirection, newDirection])
   }
 
-  const ctaLabel = React.useMemo(() => {
+  const ctaLabel = useMemo(() => {
     switch (page) {
       case 0:
         return 'Continue to shipping'
@@ -61,7 +59,7 @@ export default function MultiStepCheckout () {
     }
   }, [page])
 
-  const stepTitle = React.useMemo(() => {
+  const stepTitle = useMemo(() => {
     switch (page) {
       case 0:
         return 'Review your order'
@@ -74,7 +72,7 @@ export default function MultiStepCheckout () {
     }
   }, [page])
 
-  const stepsContent = React.useMemo(() => {
+  const stepsContent = useMemo(() => {
     const paymentRadioClasses = {
       wrapper: 'group-data-[selected=true]:border-foreground',
       base: 'data-[selected=true]:border-foreground',
