@@ -1,39 +1,16 @@
-import { useState } from 'react'
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Chip,
-  ScrollShadow,
-  CardFooter
-} from '@nextui-org/react'
+import { Button, Card, CardBody, CardHeader, Chip, ScrollShadow, CardFooter } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-
 import FavoriteItem from './FavoriteItem'
+import { useFavorites } from '../../../../store/FavoritesStore'
+import { useCart } from '../../../../store/CartStore'
 
-const initialFavoriteItems = [
-  {
-    id: '1',
-    image: 'https://via.placeholder.com/150',
-    name: 'Product 1',
-    price: 29.99
-  },
-  {
-    id: '2',
-    image: 'https://via.placeholder.com/150',
-    name: 'Product 2',
-    price: 19.99
-  }
-  // Agrega más productos según sea necesario
-]
+export function Favorites ({ ...props }) {
+  const { favoriteItems, removeFromFavorites, clearFavorites } = useFavorites()
+  const { addToCart } = useCart()
 
-export function Favorites ({ cartItems, setCartItems, ...props }) {
-  // eslint-disable-next-line no-unused-vars
-  const [favoriteItems, setFavoriteItems] = useState(initialFavoriteItems)
-
-  const addToCart = (item) => {
-    console.log('Adding to cart:', item)
+  const handleAddToCart = (item) => {
+    addToCart(item)
+    removeFromFavorites(item.id)
   }
 
   const totalItems = favoriteItems.length
@@ -60,8 +37,11 @@ export function Favorites ({ cartItems, setCartItems, ...props }) {
                 favoriteItems.map((item) => (
                   <FavoriteItem
                     key={item.id}
-                    {...item}
-                    onAddToCart={() => addToCart(item)}
+                    image={item.imageSrc}
+                    name={item.name}
+                    price={item.price}
+                    onAddToCart={() => handleAddToCart(item)}
+                    onRemove={() => removeFromFavorites(item.id)}
                   />
                 ))
               )
@@ -74,7 +54,7 @@ export function Favorites ({ cartItems, setCartItems, ...props }) {
         </ScrollShadow>
       </CardBody>
       <CardFooter className='flex justify-end items-center px-4'>
-        <Button variant='flat'>Clear Favorites</Button>
+        <Button variant='flat' onPress={clearFavorites}>Clear Favorites</Button>
       </CardFooter>
     </Card>
   )

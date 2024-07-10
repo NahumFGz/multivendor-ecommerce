@@ -15,6 +15,8 @@ const useFavoritesStore = create(
             favoriteItems: [...favoriteItems, product]
           })
         }
+
+        console.log('Favorite items:', get().favoriteItems)
       },
 
       // Eliminar un producto de los favoritos
