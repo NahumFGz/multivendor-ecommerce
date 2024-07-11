@@ -1,7 +1,9 @@
 /* eslint-disable no-undef */
+import { useCallback } from 'react'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { useProductsAPI } from '../features/Home/hooks/useProductsAPI'
+import debounce from 'just-debounce-it'
 
 const useProductsStore = create(
   persist((set) => ({
@@ -69,6 +71,12 @@ export function useProducts () {
   const setSearchQuery = useProductsStore(state => state.setSearchQuery)
   const fetchProducts = useProductsStore(state => state.fetchProducts)
 
+  const debouncedFetchProducts = useCallback(
+    debounce((params) => {
+      fetchProducts(params)
+    }, 500), [fetchProducts]
+  )
+
   return {
     products,
     totalProducts,
@@ -88,6 +96,6 @@ export function useProducts () {
     setSelectedCategories,
     setSelectedSubCategories,
     setSearchQuery,
-    fetchProducts
+    fetchProducts: debouncedFetchProducts
   }
 }
