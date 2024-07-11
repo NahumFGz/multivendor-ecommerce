@@ -55,9 +55,6 @@ export function Navigation () {
         <Route path={authUrls.privacyPolicy} element={<AuthLayout><PrivacyPolicyPage /></AuthLayout>} />
         <Route path={authUrls.termsOfService} element={<AuthLayout><TermsOfServicePage /></AuthLayout>} />
 
-        <Route path={checkoutUrls.base} element={<Navigate to={checkoutUrls.checkout} />} />
-        <Route path={checkoutUrls.checkout} element={<PaymentLayout><CheckoutPage /></PaymentLayout>} />
-
         <Route element={<ProtectedRoutes />}>
           <Route path={accountUrls.base} element={<Navigate to={accountUrls.dashboard} />} />
           <Route path={accountUrls.dashboard} element={<AccountLayout><DashboardPage /></AccountLayout>} />
@@ -69,6 +66,9 @@ export function Navigation () {
           <Route path={accountUrls.payments} element={<AccountLayout><PaymentsPage /></AccountLayout>} />
           <Route path={accountUrls.tracking} element={<AccountLayout><TrackingPage /></AccountLayout>} />
           <Route path={accountUrls.publishProduct} element={<AccountLayout><PublishProductPage /></AccountLayout>} />
+
+          <Route path={checkoutUrls.base} element={<Navigate to={checkoutUrls.checkout} />} />
+          <Route path={checkoutUrls.checkout} element={<PaymentLayout><CheckoutPage /></PaymentLayout>} />
         </Route>
 
         <Route path='*' element={<NotFound />} />

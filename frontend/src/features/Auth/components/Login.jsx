@@ -2,7 +2,7 @@ import { Button, Input, Checkbox, Link, Divider } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 import { AcmeIcon } from '../../../assets/Social'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom' // Importa useLocation
 import { authUrls } from '../../../routes/urls/authUrls'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -20,6 +20,9 @@ const validationSchema = Yup.object().shape({
 
 export function Login () {
   const navigate = useNavigate()
+  const location = useLocation() // Captura la ubicación actual
+  const from = location.state?.from?.pathname || homeUrls.home // Ruta de origen o home por defecto
+
   const [isVisible, setIsVisible] = useState(false)
   const toggleVisibility = () => setIsVisible(!isVisible)
 
@@ -27,7 +30,7 @@ export function Login () {
   const isAuth = useAuthStore((store) => store.isAuth)
   const setToken = useAuthStore((state) => state.setToken)
   const setProfile = useAuthStore((state) => state.setProfile)
-  const setRmenberMe = useAuthStore((state) => state.setRememberMe)
+  const setRememberMe = useAuthStore((state) => state.setRememberMe)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const openModal = () => setIsModalOpen(true)
@@ -39,7 +42,7 @@ export function Login () {
     onSubmit: async (values) => {
       try {
         // Set remember me
-        setRmenberMe(values.remember)
+        setRememberMe(values.remember)
 
         // Access the login API endpoint
         const response = await loginAccess(values.email, values.password)
@@ -49,8 +52,9 @@ export function Login () {
         const responseMe = await authMe()
         setProfile(responseMe)
 
-        // Redirect to the home page
-        navigate(homeUrls.home)
+        // Redirige al usuario a la ruta de origen
+        // y reemplaza la ruta actual para que no pueda volver al login desde el historial
+        navigate(from, { replace: true })
       } catch (error) {
         toast.error(error.message)
       }
@@ -63,8 +67,9 @@ export function Login () {
   }
 
   useEffect(() => {
-    if (isAuth) navigate(homeUrls.home)
-  }, [isAuth])
+    // Redirige al usuario autenticado a la ruta de origen
+    if (isAuth) navigate(from, { replace: true })
+  }, [isAuth, navigate, from])
 
   if (isAuth) return null
 
