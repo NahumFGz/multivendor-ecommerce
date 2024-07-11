@@ -1,14 +1,10 @@
-import { forwardRef, useEffect } from 'react'
+import { forwardRef } from 'react'
 import { Button, Divider, Input } from '@nextui-org/react'
 import OrderSummaryItem from './OrderSummaryItem'
 import { useCart } from '../../../../store/CartStore'
 
 const OrderSummary = forwardRef(({ hideTitle, ...props }, ref) => {
   const { cartItems, totalPrice, updateQuantity, removeFromCart } = useCart()
-
-  useEffect(() => {
-    console.log('OrderSummary rendered', cartItems)
-  }, [cartItems])
 
   const incrementQuantity = (id) => {
     const item = cartItems.find(item => item.id === id)
@@ -70,10 +66,10 @@ const OrderSummary = forwardRef(({ hideTitle, ...props }, ref) => {
             <dt className='text-small text-default-500'>Delivery</dt>
             <dd className='text-small font-semibold text-default-700'>S/. 0.00</dd>
           </div>
-          <div className='flex justify-between'>
+          {/* <div className='flex justify-between'>
             <dt className='text-small text-default-500'>Tax</dt>
             <dd className='text-small font-semibold text-default-700'>S/. 0.00</dd>
-          </div>
+          </div> */}
           <div className='flex justify-between'>
             <dt className='text-small text-default-500'>Discount</dt>
             <dd className='text-small font-semibold text-success'>- S/. 0.00</dd>
