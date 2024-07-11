@@ -18,7 +18,8 @@ export function ProductInfo () {
     images: [],
     price: 0,
     rating: 0,
-    ratingCount: 0
+    ratingCount: 0,
+    stock: 0
   })
 
   useEffect(() => {
@@ -38,7 +39,8 @@ export function ProductInfo () {
           ],
           price: response.price,
           rating: response.rating,
-          ratingCount: 0
+          ratingCount: 0,
+          stock: response.stock
         })
         console.log(response)
       } catch (error) {

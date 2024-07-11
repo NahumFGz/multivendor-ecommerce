@@ -21,6 +21,7 @@ const ProductViewInfo = forwardRef(
       description,
       rating,
       ratingCount,
+      stock,
       className,
       ...props
     },
@@ -122,6 +123,7 @@ const ProductViewInfo = forwardRef(
               size='lg'
               startContent={<Icon icon='solar:cart-large-2-bold' width={24} />}
               onPress={handleAddToCart}
+              isDisabled={stock === 0}
             >
               Add to cart
             </Button>

@@ -182,6 +182,7 @@ export function ProductListItem ({
             radius='lg'
             variant={isPopular ? 'flat' : 'solid'}
             onPress={handleAddToCart}
+            isDisabled={stock === 0}
           >
             Add to cart
           </Button>
