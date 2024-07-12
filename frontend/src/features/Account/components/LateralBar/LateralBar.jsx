@@ -33,7 +33,7 @@ export function LateralBar ({ children }) {
       case accountUrls.dashboard:
         return 'Dashboard'
       case accountUrls.directions:
-        return 'Directions'
+        return 'Direcciones de envío'
       case accountUrls.profile:
         return 'Perfil de usuario'
       case accountUrls.selling:

@@ -1,7 +1,15 @@
+import { ChangePasswordForm } from '../components/Security/ChangePasswordForm'
+import { CloseAllSessions } from '../components/Security/CloseAllSessions'
+
 export function SecurityPage () {
   return (
     <div>
-      <h1>Security Page</h1>
+      <div className='mb-4'>
+        <ChangePasswordForm />
+      </div>
+      <div>
+        <CloseAllSessions />
+      </div>
     </div>
   )
 }
