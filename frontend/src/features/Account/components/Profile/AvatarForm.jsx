@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Button, Input } from '@nextui-org/react'
+import { Icon } from '@iconify/react'
 import { toast } from 'react-toastify'
+import { Button } from '@nextui-org/react'
 
 export function AvatarForm () {
   const defaultAvatarUrl = 'http://localhost:8000/media/thumbnails/account/profile_image/bippPiLLAcesbKtDrbtduF_tiny.jpg'
@@ -40,15 +41,29 @@ export function AvatarForm () {
                 alt='Current Avatar'
                 className='h-24 w-24 rounded-full border'
               />
-              <Input
+              <input
+                id='avatarInput'
                 type='file'
                 accept='image/*'
                 onChange={handleAvatarChange}
-                className='mt-4'
+                style={{ display: 'none' }}
               />
+              <label htmlFor='avatarInput'>
+                <Button
+                  size='sm'
+                  startContent={
+                    <Icon className='text-default-500' icon='solar:paperclip-linear' width={18} />
+                  }
+                  variant='flat'
+                  as='span'
+                  className='mt-4'
+                >
+                  Attach
+                </Button>
+              </label>
             </div>
             <Button
-              className='mx-10'
+              className='mt-4 sm:mt-0 mx-10'
               onPress={handleUpdateAvatar}
               color='primary'
             >
