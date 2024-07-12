@@ -12,6 +12,7 @@ export function DirectionForm () {
       lastName: '',
       address: '',
       apt: '',
+      reference: '',
       city: '',
       country: '',
       postalCode: '',
@@ -43,7 +44,7 @@ export function DirectionForm () {
   return (
     <form className='mt-8' onSubmit={formik.handleSubmit}>
       <div className='space-y-12'>
-        <div className='grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3'>
+        <div className='grid grid-cols-1 gap-x-8 gap-y-10 border-b border-default-900/10 pb-12 md:grid-cols-3'>
           <div>
             <h2 className='text-base font-semibold leading-7 text-default-900'>Shipping Information</h2>
             <p className='mt-1 text-sm leading-6 text-default-500'>Please provide your shipping details to complete your purchase.</p>
@@ -135,6 +136,20 @@ export function DirectionForm () {
                 placeholder='Apartment, studio, or floor'
                 variant='flat'
                 value={formik.values.apt}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </div>
+
+            <div className='col-span-1 sm:col-span-2'>
+              <Input
+                id='reference'
+                name='reference'
+                label='Reference'
+                labelPlacement='outside'
+                placeholder='Reference details'
+                variant='flat'
+                value={formik.values.reference}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
