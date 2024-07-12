@@ -6,6 +6,7 @@ import { Button } from '@nextui-org/react'
 export function AvatarForm () {
   const defaultAvatarUrl = 'http://localhost:8000/media/thumbnails/account/profile_image/bippPiLLAcesbKtDrbtduF_tiny.jpg'
   const [avatarUrl, setAvatarUrl] = useState(defaultAvatarUrl) // URL de la imagen de perfil actual
+  const [isNewAvatarSelected, setIsNewAvatarSelected] = useState(false) // Estado para controlar si se ha seleccionado una nueva imagen
 
   const handleAvatarChange = (event) => {
     const file = event.target.files[0]
@@ -13,6 +14,7 @@ export function AvatarForm () {
       const reader = new window.FileReader()
       reader.onloadend = () => {
         setAvatarUrl(reader.result)
+        setIsNewAvatarSelected(true)
       }
       reader.readAsDataURL(file)
     }
@@ -65,6 +67,7 @@ export function AvatarForm () {
                 onPress={handleUpdateAvatar}
                 color='primary'
                 size='sm'
+                isDisabled={!isNewAvatarSelected}
               >
                 Update Avatar
               </Button>
