@@ -1,4 +1,4 @@
-import { LateralBar } from '../components/LateralBar'
+import { LateralBar } from '../components/LateralBar/LateralBar'
 
 export function AccountLayout ({ children }) {
   return (

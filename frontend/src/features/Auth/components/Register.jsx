@@ -304,7 +304,7 @@ export function Register () {
           <p className='shrink-0 text-tiny text-default-500'>OR</p>
           <Divider className='flex-1' />
         </div>
-        <p className='text-center text-small'>
+        <p className='text-center text-small cursor-pointer'>
           Already have an account?&nbsp;
           <Link
             size='sm'

@@ -1,5 +1,5 @@
 import { Chip } from '@nextui-org/react'
-import { accountUrls } from '../../../routes/urls/accountUrls'
+import { accountUrls } from '../../../../routes/urls/accountUrls'
 
 export const sectionItems = [
   {

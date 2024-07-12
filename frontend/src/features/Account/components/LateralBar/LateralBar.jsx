@@ -2,14 +2,14 @@ import { Avatar, Button, Spacer, useDisclosure } from '@nextui-org/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Icon } from '@iconify/react'
 
-import { AcmeLogo } from '../../../assets/AcmeLogo'
+import { AcmeLogo } from '../../../../assets/AcmeLogo'
 import { sectionItems } from './SidebarItems'
-import { accountUrls } from '../../../routes/urls/accountUrls'
-import { useSwapTheme } from '../../../store/ThemeStore'
-import { homeUrls } from '../../../routes/urls/homeUrls'
-import SidebarDrawer from './SidebarDrawer'
+import { accountUrls } from '../../../../routes/urls/accountUrls'
+import { useSwapTheme } from '../../../../store/ThemeStore'
+import { homeUrls } from '../../../../routes/urls/homeUrls'
+import { useAuthStore } from '../../../../store/AuthStore'
 import Sidebar from './Sidebar'
-import { useAuthStore } from '../../../store/AuthStore'
+import SidebarDrawer from './SidebarDrawer'
 
 const BASE_URL = import.meta.env.VITE_BASE_API_URL
 
