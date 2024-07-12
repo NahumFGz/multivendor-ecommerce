@@ -29,18 +29,18 @@ export function AvatarForm () {
   return (
     <form className='mt-8'>
       <div className='space-y-12'>
-        <div className='grid grid-cols-1 gap-x-8 gap-y-10 border-b border-default-900/10 pb-12 md:grid-cols-3'>
+        <div className='grid grid-cols-1 gap-x-8 gap-y-10 border-b border-default-900/10 pb-4 md:grid-cols-3'>
           <div>
             <h2 className='text-base font-semibold leading-7 text-default-900'>Change Avatar</h2>
             <p className='mt-1 text-sm leading-6 text-default-500'>Upload a new avatar to change your avatar.</p>
           </div>
-          <div className='grid max-w-2xl grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 md:col-span-2 items-center'>
-            <div className='flex flex-col items-center'>
-              <img
-                src={avatarUrl}
-                alt='Current Avatar'
-                className='h-24 w-24 rounded-full border'
-              />
+          <div className='flex items-center max-w-2xl gap-x-6 gap-y-8 md:col-span-2'>
+            <img
+              src={avatarUrl}
+              alt='Current Avatar'
+              className='h-24 w-24 rounded-full border'
+            />
+            <div className='flex flex-row gap-4'>
               <input
                 id='avatarInput'
                 type='file'
@@ -56,19 +56,19 @@ export function AvatarForm () {
                   }
                   variant='flat'
                   as='span'
-                  className='mt-4'
+                  className='mb-2'
                 >
                   Attach
                 </Button>
               </label>
+              <Button
+                onPress={handleUpdateAvatar}
+                color='primary'
+                size='sm'
+              >
+                Update Avatar
+              </Button>
             </div>
-            <Button
-              className='mt-4 sm:mt-0 mx-10'
-              onPress={handleUpdateAvatar}
-              color='primary'
-            >
-              Update Avatar
-            </Button>
           </div>
         </div>
       </div>
