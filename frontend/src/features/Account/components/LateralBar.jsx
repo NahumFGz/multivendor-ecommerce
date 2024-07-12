@@ -45,7 +45,7 @@ export function LateralBar ({ children }) {
         return 'Mis compras'
       case accountUrls.security:
         return 'Seguridad'
-      case accountUrls.payments:
+      case accountUrls.paymentMethods:
         return 'Formas de pago'
       case accountUrls.tracking:
         return 'Tracking'
