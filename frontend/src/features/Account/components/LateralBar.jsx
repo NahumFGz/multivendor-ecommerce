@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Avatar, Button, Spacer, useDisclosure } from '@nextui-org/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Icon } from '@iconify/react'
@@ -10,12 +10,26 @@ import { useSwapTheme } from '../../../store/ThemeStore'
 import { homeUrls } from '../../../routes/urls/homeUrls'
 import SidebarDrawer from './SidebarDrawer'
 import Sidebar from './Sidebar'
+import { useAuthStore } from '../../../store/AuthStore'
 
 export function LateralBar ({ children }) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
-  const { handleSwapTheme, theme } = useSwapTheme()
   const location = useLocation()
   const navigate = useNavigate()
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const { handleSwapTheme, theme } = useSwapTheme()
+
+  const profile = useAuthStore((state) => state.profile)
+  const logout = useAuthStore((state) => state.cleanStore)
+
+  const handleLogout = () => {
+    logout()
+    navigate(homeUrls.home)
+  }
+
+  useEffect(() => {
+    console.log('Profile:', profile)
+  }, [])
 
   const getPageTitle = () => {
     switch (location.pathname) {
@@ -63,8 +77,8 @@ export function LateralBar ({ children }) {
       <div className='flex items-center gap-3 px-3'>
         <Avatar isBordered size='sm' src='https://i.pravatar.cc/150?u=a04258114e29026708c' />
         <div className='flex flex-col'>
-          <p className='text-small font-medium text-default-600'>John Doe</p>
-          <p className='text-tiny text-default-400'>Product Designer</p>
+          <p className='text-small font-medium text-default-600'>{`${profile.first_name} ${profile.last_name}`}</p>
+          <p className='text-tiny text-default-400'>Premium user</p>
         </div>
       </div>
 
@@ -122,6 +136,7 @@ export function LateralBar ({ children }) {
             />
           }
           variant='light'
+          onPress={() => handleLogout()}
         >
           Log Out
         </Button>
