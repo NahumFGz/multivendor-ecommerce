@@ -17,7 +17,7 @@ import { ProfilePage } from '../features/Account/pages/ProfilePage'
 import { SellingHistoryPage } from '../features/Account/pages/SellingHistoryPage'
 import { ShoppinghistoryPage } from '../features/Account/pages/ShoppinghistoryPage'
 import { SecurityPage } from '../features/Account/pages/SecurityPage'
-import { PaymentsPage } from '../features/Account/pages/PaymentsPage'
+import { PaymentMethodsPage } from '../features/Account/pages/PaymentMethodsPage'
 import { TrackingPage } from '../features/Account/pages/TrackingPage'
 import { PublishProductPage } from '../features/Account/pages/PublishProductPage'
 
@@ -63,7 +63,7 @@ export function Navigation () {
           <Route path={accountUrls.selling} element={<AccountLayout><SellingHistoryPage /></AccountLayout>} />
           <Route path={accountUrls.shopping} element={<AccountLayout><ShoppinghistoryPage /></AccountLayout>} />
           <Route path={accountUrls.security} element={<AccountLayout><SecurityPage /></AccountLayout>} />
-          <Route path={accountUrls.payments} element={<AccountLayout><PaymentsPage /></AccountLayout>} />
+          <Route path={accountUrls.paymentMethods} element={<AccountLayout><PaymentMethodsPage /></AccountLayout>} />
           <Route path={accountUrls.tracking} element={<AccountLayout><TrackingPage /></AccountLayout>} />
           <Route path={accountUrls.publishProduct} element={<AccountLayout><PublishProductPage /></AccountLayout>} />
 

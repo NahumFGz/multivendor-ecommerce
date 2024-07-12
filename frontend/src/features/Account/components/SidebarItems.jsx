@@ -26,7 +26,7 @@ export const sectionItems = [
       },
       {
         key: 'payments',
-        to: '',
+        to: accountUrls.paymentMethods,
         icon: 'solar:wallet-outline',
         title: 'Formas de pago',
         endContent: (
@@ -41,12 +41,6 @@ export const sectionItems = [
     key: 'marketplace',
     title: 'Marketplace',
     items: [
-      {
-        key: 'statistics',
-        to: accountUrls.dashboard,
-        icon: 'solar:chart-outline',
-        title: 'Mis estadísticas'
-      },
       {
         key: 'publish_product',
         to: accountUrls.publishProduct,
@@ -67,9 +61,20 @@ export const sectionItems = [
       },
       {
         key: 'tracking',
-        to: '',
+        to: accountUrls.tracking,
         icon: 'solar:pin-outline',
         title: 'Tracking',
+        endContent: (
+          <Chip size='sm' variant='flat'>
+            Soon
+          </Chip>
+        )
+      },
+      {
+        key: 'statistics',
+        to: accountUrls.dashboard,
+        icon: 'solar:chart-outline',
+        title: 'Mis estadísticas',
         endContent: (
           <Chip size='sm' variant='flat'>
             Soon

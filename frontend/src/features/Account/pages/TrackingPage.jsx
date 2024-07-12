@@ -1,7 +1,5 @@
 export function TrackingPage () {
   return (
-    <div>
-      Tracking Page
-    </div>
+    <h1>Tracking Page</h1>
   )
 }
