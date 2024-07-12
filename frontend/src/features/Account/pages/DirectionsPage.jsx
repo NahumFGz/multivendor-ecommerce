@@ -1,7 +1,9 @@
+import { DirectionForm } from '../components/Directions/DirectionForm'
+
 export function DirectionsPage () {
   return (
     <div>
-      <h1>Directions Page</h1>
+      <DirectionForm />
     </div>
   )
 }
