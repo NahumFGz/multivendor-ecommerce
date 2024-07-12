@@ -36,8 +36,8 @@ export function ShopingHistoryForm () {
     <div className='space-y-12'>
       <div className='grid grid-cols-1 gap-x-8 gap-y-10 border-b border-default-900/10 pb-12 md:grid-cols-3'>
         <div>
-          <h2 className='text-base font-semibold leading-7 text-default-900'>Recent Purchases</h2>
-          <p className='mt-1 text-sm leading-6 text-default-500'>Here are your latest 10 purchases.</p>
+          <h2 className='text-base font-semibold leading-7 text-default-900'>Compras recientes</h2>
+          <p className='mt-1 text-sm leading-6 text-default-500'>Aquí podras ver tus ultimas 10 compras</p>
         </div>
         <div className='grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2'>
           <Accordion className='col-span-full'>
@@ -48,7 +48,7 @@ export function ShopingHistoryForm () {
                 title={`Order #${purchase.id} - ${purchase.totalAmount}`}
                 subtitle={`Date: ${purchase.date}`}
                 startContent={
-                  <Icon icon='solar:box-bold' width={24} />
+                  <Icon icon='ic:baseline-shopping-cart' width={24} />
                 }
               >
                 <div>
