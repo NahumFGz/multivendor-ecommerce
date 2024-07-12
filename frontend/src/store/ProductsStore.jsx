@@ -74,7 +74,7 @@ export function useProducts () {
   const debouncedFetchProducts = useCallback(
     debounce((params) => {
       fetchProducts(params)
-    }, 500), [fetchProducts]
+    }, 0), [fetchProducts]
   )
 
   return {
