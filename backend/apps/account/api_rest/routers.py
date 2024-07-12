@@ -13,11 +13,11 @@ from .views import (
     UserApiViewSet,
 )
 
-# router = routers.DefaultRouter()
-# router.register(prefix="account", viewset=UserApiViewSet, basename="account")
+router = routers.DefaultRouter()
+router.register(prefix="account", viewset=UserApiViewSet, basename="account")
 
 urlpatterns = [
-    # path("", include(router.urls)),
+    path("", include(router.urls)),
     path("auth/me/", UserApiAuthMeView.as_view(), name="auth_me"),
     path("auth/register/", RegisterUserAPIView.as_view(), name="register"),
     path("auth/login-refresh/", TokenRefreshView.as_view(), name="token_refresh"),

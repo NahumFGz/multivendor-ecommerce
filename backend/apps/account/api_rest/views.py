@@ -22,7 +22,7 @@ class UserApiViewSet(ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
-    http_method_names = ["get", "post", "patch", "delete"]
+    http_method_names = ["get", "patch", "delete"]
 
     def destroy(self, request, *args, **kwargs):
         user = request.user
