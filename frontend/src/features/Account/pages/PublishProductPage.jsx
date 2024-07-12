@@ -1,7 +1,7 @@
+import { PublishProductForm } from '../components/PublishProduct/PublishProductForm'
+
 export function PublishProductPage () {
   return (
-    <div>
-      Publish Product Page
-    </div>
+    <PublishProductForm />
   )
 }

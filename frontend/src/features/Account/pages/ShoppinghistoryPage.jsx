@@ -1,7 +1,7 @@
+import { ShopingHistoryForm } from '../components/ShoppingHistory/ShopingHistoryForm'
+
 export function ShoppinghistoryPage () {
   return (
-    <div>
-      <h1>Shoppinghistory Page</h1>
-    </div>
+    <ShopingHistoryForm />
   )
 }
