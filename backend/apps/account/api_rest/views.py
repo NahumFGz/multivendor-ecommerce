@@ -28,6 +28,8 @@ class UserApiViewSet(ModelViewSet):
         user = self.request.user
         if user.is_superuser:
             return User.objects.all()
+        if not user.is_superuser and "pk" in self.kwargs and int(self.kwargs["pk"]) != user.id:
+            raise PermissionDenied("You do not have permission to view this user.")
         return User.objects.filter(id=user.id)
 
     def destroy(self, request, *args, **kwargs):
