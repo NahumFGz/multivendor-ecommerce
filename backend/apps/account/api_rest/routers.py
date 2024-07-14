@@ -22,12 +22,12 @@ urlpatterns = [
     path("auth/register/", RegisterUserAPIView.as_view(), name="register"),
     path("auth/login-refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("auth/login-access/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("auth/change-password/", PasswordChangeView.as_view(), name="change_password"),
-    path("auth/logout-all/", LogoutAllDevicesView.as_view(), name="logout_all"),
     path("auth/password-reset/", PasswordResetView.as_view(), name="password_reset"),
     path(
         "auth/password-reset-confirm/<uidb64>/<token>/",
         PasswordResetConfirmView.as_view(),
         name="password_reset_confirm",
     ),
+    path("account/logout-all/", LogoutAllDevicesView.as_view(), name="logout_all"),
+    path("account/change-password/", PasswordChangeView.as_view(), name="change_password"),
 ]
