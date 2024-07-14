@@ -24,6 +24,12 @@ class UserApiViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     http_method_names = ["get", "patch", "delete"]
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser:
+            return User.objects.all()
+        return User.objects.filter(id=user.id)
+
     def destroy(self, request, *args, **kwargs):
         user = request.user
         if not user.is_superuser:
@@ -35,6 +41,12 @@ class UserApiViewSet(ModelViewSet):
         if not user.is_superuser:
             raise PermissionDenied("You do not have permission to create a user.")
         return super().create(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        user = request.user
+        if not user.is_superuser:
+            raise PermissionDenied("You do not have permission to update this user.")
+        return super().partial_update(request, *args, **kwargs)
 
 
 class RegisterUserAPIView(APIView):
