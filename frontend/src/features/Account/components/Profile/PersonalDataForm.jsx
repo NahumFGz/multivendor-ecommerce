@@ -27,7 +27,6 @@ export function PersonalDataForm () {
       documentNumber: '',
       phoneCountryCode: '',
       phoneNumber: '',
-      email: '',
       country: ''
     },
     validationSchema: Yup.object({
@@ -39,14 +38,13 @@ export function PersonalDataForm () {
       documentNumber: Yup.string().required('Document number is required'),
       phoneCountryCode: Yup.string().required('Phone country code is required'),
       phoneNumber: Yup.string().required('Phone number is required'),
-      email: Yup.string().email('Invalid email address').required('Email is required'),
       country: Yup.string().required('Country is required')
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
         console.log(values)
         // Aquí puedes manejar el envío de datos, por ejemplo a un servidor
-        resetForm()
+        // resetForm()
         toast.success('Personal data submitted successfully')
       } catch (error) {
         console.log('Error submitting personal data')

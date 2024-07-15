@@ -72,9 +72,9 @@ export function LateralBar ({ children }) {
       </div>
       <Spacer y={8} />
       <div className='flex items-center gap-3 px-3'>
-        <Avatar isBordered size='sm' src={`${BASE_URL}${profile.profile_images.tiny}`} />
+        <Avatar isBordered size='sm' src={`${BASE_URL}${profile?.profile_images?.tiny}`} />
         <div className='flex flex-col'>
-          <p className='text-small font-medium text-default-600'>{`${profile.first_name} ${profile.last_name}`}</p>
+          <p className='text-small font-medium text-default-600'>{`${profile?.first_name} ${profile?.last_name}`}</p>
           <p className='text-tiny text-default-400'>Premium user</p>
         </div>
       </div>

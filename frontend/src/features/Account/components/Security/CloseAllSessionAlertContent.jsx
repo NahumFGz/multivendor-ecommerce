@@ -34,8 +34,8 @@ export function CloseAllSessionAlertContent ({ closeModal }) {
 
       <div>
         <p className='mt-3 text-sm text-default-500'>
-          ¿Está seguro de que desea cerrar todas las sesiones activas en todos los dispositivos?.
-          Esta acción no se puede deshacer.
+          ¿Está seguro?.
+          Esta acción cerrará las sesiones activas en todos los dispositivos.
         </p>
       </div>
 
