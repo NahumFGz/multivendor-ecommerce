@@ -27,7 +27,7 @@ export function PersonalDataForm () {
       documentNumber: '',
       phoneCountryCode: '',
       phoneNumber: '',
-      country: 'PE'
+      country: ''
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required('First name is required'),
@@ -40,6 +40,7 @@ export function PersonalDataForm () {
       phoneNumber: Yup.string().required('Phone number is required'),
       country: Yup.string().required('Country is required')
     }),
+    validateOnMount: true,
     onSubmit: async (values, { resetForm }) => {
       try {
         console.log(values)
@@ -258,7 +259,6 @@ export function PersonalDataForm () {
                   </AutocompleteItem>
                 )}
               </Autocomplete>
-
               {formik.touched.country && formik.errors.country && (
                 <p className='ml-3 text-tiny text-[#f31260]'>{formik.errors.country}</p>
               )}
@@ -268,7 +268,7 @@ export function PersonalDataForm () {
               <Button
                 type='submit'
                 color='primary'
-                isDisabled={!formik.isValid}
+                isDisabled={!formik.dirty || !formik.isValid}
               >
                 Submit
               </Button>
