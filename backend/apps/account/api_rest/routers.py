@@ -17,7 +17,11 @@ router = routers.DefaultRouter()
 router.register(prefix="account", viewset=UserApiViewSet, basename="account")
 
 urlpatterns = [
+    # Account API
+    path("account/logout-all/", LogoutAllDevicesView.as_view(), name="logout_all"),
+    path("account/change-password/", PasswordChangeView.as_view(), name="change_password"),
     path("", include(router.urls)),
+    # Auth API
     path("auth/me/", UserApiAuthMeView.as_view(), name="auth_me"),
     path("auth/register/", RegisterUserAPIView.as_view(), name="register"),
     path("auth/login-refresh/", TokenRefreshView.as_view(), name="token_refresh"),
@@ -28,6 +32,4 @@ urlpatterns = [
         PasswordResetConfirmView.as_view(),
         name="password_reset_confirm",
     ),
-    path("account/logout-all/", LogoutAllDevicesView.as_view(), name="logout_all"),
-    path("account/change-password/", PasswordChangeView.as_view(), name="change_password"),
 ]
