@@ -238,8 +238,8 @@ export function PersonalDataForm () {
                 placeholder='Select country'
                 showScrollIndicators={false}
                 variant='flat'
-                value={formik.values.country}
-                onSelectionChange={(key) => formik.setFieldValue('country', key.anchorKey)}
+                selectedKey={formik.values.country}
+                onSelectionChange={(key) => formik.setFieldValue('country', key)}
                 onBlur={formik.handleBlur}
                 color={formik.touched.country && formik.errors.country ? 'danger' : 'default'}
               >
@@ -252,13 +252,14 @@ export function PersonalDataForm () {
                         className='h-6 w-6'
                         src={`https://flagcdn.com/${item.code.toLowerCase()}.svg`}
                       />
-                    }
+      }
                     value={item.code}
                   >
                     {item.name}
                   </AutocompleteItem>
                 )}
               </Autocomplete>
+
               {formik.touched.country && formik.errors.country && (
                 <p className='ml-3 text-tiny text-[#f31260]'>{formik.errors.country}</p>
               )}
