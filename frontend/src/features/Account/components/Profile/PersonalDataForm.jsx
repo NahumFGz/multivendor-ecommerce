@@ -27,7 +27,7 @@ export function PersonalDataForm () {
       documentNumber: '',
       phoneCountryCode: '',
       phoneNumber: '',
-      country: ''
+      country: 'PE'
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required('First name is required'),
@@ -54,7 +54,7 @@ export function PersonalDataForm () {
   })
 
   return (
-    <form className='mt-8' onSubmit={formik.handleSubmit}>
+    <form className='mt-8' onSubmit={formik.handleSubmit} noValidate>
       <div className='space-y-12'>
         <div className='grid grid-cols-1 gap-x-8 gap-y-10  md:grid-cols-3'>
           <div>
@@ -193,6 +193,7 @@ export function PersonalDataForm () {
               <Input
                 id='phoneCountryCode'
                 name='phoneCountryCode'
+                autoComplete='tel-country-code'
                 isRequired
                 label='Phone country code'
                 labelPlacement='outside'
@@ -246,13 +247,11 @@ export function PersonalDataForm () {
                 {(item) => (
                   <AutocompleteItem
                     key={item.code}
-                    startContent={
-                      <Avatar
-                        alt='Country Flag'
-                        className='h-6 w-6'
-                        src={`https://flagcdn.com/${item.code.toLowerCase()}.svg`}
-                      />
-      }
+                    startContent={<Avatar
+                      alt='Country Flag'
+                      className='h-6 w-6'
+                      src={`https://flagcdn.com/${item.code.toLowerCase()}.svg`}
+                                  />}
                     value={item.code}
                   >
                     {item.name}
