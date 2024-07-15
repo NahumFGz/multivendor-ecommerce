@@ -11,9 +11,9 @@ const GENDER_CHOICES = [
 ]
 
 const DOC_CHOICES = [
-  { label: 'Passport', value: 'passport' },
-  { label: 'ID Card', value: 'id_card' },
-  { label: 'Driver License', value: 'driver_license' }
+  { label: 'DNI', value: 'dni' },
+  { label: 'Pasaporte', value: 'passport' },
+  { label: 'Carné de extranjería', value: 'driver_license' }
 ]
 
 export function PersonalDataForm () {
