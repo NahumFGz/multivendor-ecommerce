@@ -1,6 +1,6 @@
 import { Button } from '@nextui-org/react'
 
-export function CloseAllSessions ({ setOpen }) {
+export function CloseAllSessions ({ openModal }) {
   return (
     <div className='grid grid-cols-1 gap-x-8 gap-y-10 border-b border-default-900/10 pb-12 md:grid-cols-3'>
       <div>
@@ -11,7 +11,7 @@ export function CloseAllSessions ({ setOpen }) {
         <div className='col-span-full'>
           <Button
             color='danger'
-            onClick={() => setOpen(true)}
+            onClick={() => openModal(true)}
           >
             Cerrar todas las sesiones
           </Button>
