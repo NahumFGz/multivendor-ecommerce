@@ -54,6 +54,11 @@ export function PersonalDataForm () {
     }
   })
 
+  const handlePhoneCountryCodeChange = (e) => {
+    const value = e.target.value.replace(/\D/g, '') // Remove all non-numeric characters
+    formik.setFieldValue('phoneCountryCode', `+${value}`)
+  }
+
   return (
     <form className='mt-8' onSubmit={formik.handleSubmit} noValidate>
       <div className='space-y-12'>
@@ -201,7 +206,7 @@ export function PersonalDataForm () {
                 placeholder='Enter phone country code'
                 variant='flat'
                 value={formik.values.phoneCountryCode}
-                onChange={formik.handleChange}
+                onChange={handlePhoneCountryCodeChange}
                 onBlur={formik.handleBlur}
                 color={formik.touched.phoneCountryCode && formik.errors.phoneCountryCode ? 'danger' : 'default'}
               />
