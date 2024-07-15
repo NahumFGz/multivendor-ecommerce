@@ -4,8 +4,11 @@ import { toast } from 'react-toastify'
 import { Button, Input } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
+import { useAccountAPI } from '../../hooks/useAccountApi'
 
 export function ChangePasswordForm () {
+  const { changePasswordApiCall } = useAccountAPI()
+
   const [isCurrentVisible, setIsCurrentVisible] = useState(false)
   const [isNewVisible, setIsNewVisible] = useState(false)
   const [isConfirmVisible, setIsConfirmVisible] = useState(false)
@@ -41,9 +44,9 @@ export function ChangePasswordForm () {
       }
       try {
         console.log(changePasswordData)
-        // await changePassword(changePasswordData)
-        resetForm()
+        await changePasswordApiCall(changePasswordData)
         toast.success('Password changed successfully')
+        resetForm()
       } catch (error) {
         console.log('Error changing')
         toast.error('Error changing password')
