@@ -1,26 +1,27 @@
-import { changePasswordApi, logoutAllApi } from '../../../services/api/account/securityAPI'
 import { useAuthStore } from '../../../store/AuthStore'
+import { getAccountApi, patchAccountApi } from '../../../services/api/account/profileAPI'
 
-export function useAccountSecurityAPI () {
+export function useProfileAPI () {
   const token = useAuthStore((state) => state.token)
-  //   const profile = useAuthStore((state) => state.profile)
+  const profile = useAuthStore((state) => state.profile)
 
-  const changePasswordApiCall = async (changePasswordForm) => {
+  const getAccountApiCall = async () => {
     try {
-      const res = await changePasswordApi(token, changePasswordForm)
+      const res = await getAccountApi(token, profile.id)
       return res
     } catch (error) {
-      throw new Error('Change password failed')
+      throw new Error('Get account failed')
     }
   }
 
-  const logoutAllApiCall = async () => {
+  const patchAccountApiCall = async (accountData) => {
     try {
-      await logoutAllApi(token)
+      const res = await patchAccountApi(token, profile.id, accountData)
+      return res
     } catch (error) {
-      throw new Error('Logout all failed')
+      throw new Error('Patch account failed')
     }
   }
 
-  return { logoutAllApiCall, changePasswordApiCall }
+  return { getAccountApiCall, patchAccountApiCall }
 }
