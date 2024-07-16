@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { toast } from 'react-toastify'
 import { Button } from '@nextui-org/react'
@@ -6,15 +6,23 @@ import { useProfileApi } from '../../hooks/useProfileApi'
 import { useAuthStore } from '../../../../store/AuthStore'
 import { useAuthAPI } from '../../../Auth/hooks/useAuthAPI'
 
+const BASE_URL = import.meta.env.VITE_BASE_API_URL
+
 export function AvatarForm () {
-  const defaultAvatarUrl = 'http://localhost:8000/media/thumbnails/account/profile_image/bippPiLLAcesbKtDrbtduF_tiny.jpg'
-  const [avatarUrl, setAvatarUrl] = useState(defaultAvatarUrl) // URL de la imagen de perfil actual
+  const { authMe } = useAuthAPI()
+  const profile = useAuthStore((state) => state.profile)
+  const setProfile = useAuthStore((state) => state.setProfile)
+
+  const [avatarUrl, setAvatarUrl] = useState() // URL de la imagen de perfil actual
   const [isNewAvatarSelected, setIsNewAvatarSelected] = useState(false) // Estado para controlar si se ha seleccionado una nueva imagen
   const [selectedFile, setSelectedFile] = useState(null) // Estado para almacenar el archivo seleccionado
   const { updateProfileImageApiCall } = useProfileApi()
 
-  const { authMe } = useAuthAPI()
-  const setProfile = useAuthStore((state) => state.setProfile)
+  useEffect(() => {
+    if (profile) {
+      setAvatarUrl(`${BASE_URL}${profile.profile_images.tiny}`)
+    }
+  }, [profile])
 
   const handleAvatarChange = (event) => {
     const file = event.target.files[0]
