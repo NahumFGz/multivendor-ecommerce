@@ -75,7 +75,7 @@ export function LateralBar ({ children }) {
         <Avatar isBordered size='sm' src={`${BASE_URL}${profile?.profile_images?.tiny}`} />
         <div className='flex flex-col'>
           <p className='text-small font-medium text-default-600'>{`${profile?.first_name} ${profile?.last_name}`}</p>
-          <p className='text-tiny text-default-400'>Premium user</p>
+          <p className='text-tiny text-default-400'>{profile?.email}</p>
         </div>
       </div>
 
