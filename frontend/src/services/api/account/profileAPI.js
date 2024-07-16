@@ -54,3 +54,26 @@ export async function patchAccountApi (accessToken, id, accountData) {
     throw new Error('Patch account failed')
   }
 }
+
+export async function updateProfileImageApi (accessToken, id, profileImage) {
+  try {
+    const formData = new FormData()
+    formData.append('profile_image', profileImage)
+
+    const axiosInstance = createAxiosAuthInstance(accessToken)
+    const response = await axiosInstance.patch(`/api/account/${id}/`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    const { data, status } = response
+
+    if (status === 200) {
+      return data
+    } else {
+      throw new Error('Update profile image failed')
+    }
+  } catch (error) {
+    throw new Error('Update profile image failed')
+  }
+}

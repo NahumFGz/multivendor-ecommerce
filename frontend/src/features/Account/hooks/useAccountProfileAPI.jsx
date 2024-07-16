@@ -1,5 +1,5 @@
 import { useAuthStore } from '../../../store/AuthStore'
-import { getAccountApi, patchAccountApi } from '../../../services/api/account/profileAPI'
+import { getAccountApi, patchAccountApi, updateProfileImageApi } from '../../../services/api/account/profileAPI'
 
 export function useAccountProfileAPI () {
   const token = useAuthStore((state) => state.token)
@@ -23,5 +23,14 @@ export function useAccountProfileAPI () {
     }
   }
 
-  return { getAccountApiCall, patchAccountApiCall }
+  const updateProfileImageApiCall = async (profileImage) => {
+    try {
+      const res = await updateProfileImageApi(token, profile.id, profileImage)
+      return res
+    } catch (error) {
+      throw new Error('Update profile image failed')
+    }
+  }
+
+  return { getAccountApiCall, patchAccountApiCall, updateProfileImageApiCall }
 }
