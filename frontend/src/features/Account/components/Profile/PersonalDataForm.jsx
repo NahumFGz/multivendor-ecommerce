@@ -3,6 +3,8 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
 import countries from '../../../../assets/Countries'
+import { useAccountProfileAPI } from '../../hooks/useAccountProfileAPI'
+import { useEffect, useState } from 'react'
 
 const GENDER_CHOICES = [
   { label: 'Male', value: 'M' },
@@ -11,12 +13,16 @@ const GENDER_CHOICES = [
 ]
 
 const DOC_CHOICES = [
-  { label: 'DNI', value: 'dni' },
-  { label: 'Pasaporte', value: 'passport' },
-  { label: 'Carné de extranjería', value: 'driver_license' }
+  { label: 'DNI', value: 'DNI' },
+  { label: 'Pasaporte', value: 'PA' },
+  { label: 'Carné de extranjería', value: 'CE' }
 ]
 
 export function PersonalDataForm () {
+  const [flag, setFlag] = useState(false)
+  const [accountData, setAccountData] = useState()
+  const { getAccountApiCall, patchAccountApiCall } = useAccountProfileAPI()
+
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -54,6 +60,37 @@ export function PersonalDataForm () {
     }
   })
 
+  useEffect(() => {
+    async function fetchData () {
+      try {
+        const data = await getAccountApiCall()
+        setAccountData(data)
+        setFlag(true)
+        console.log(data)
+      } catch (error) {
+        console.log('Error fetching account data')
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    if (accountData) {
+      formik.setValues({
+        firstName: accountData.firstName || '',
+        lastName: accountData.lastName || '',
+        birthDate: accountData.birthDate || '',
+        gender: accountData.gender || '',
+        documentType: accountData.documentType || '',
+        documentNumber: accountData.documentNumber || '',
+        phoneCountryCode: accountData.phoneCountryCode || '',
+        phoneNumber: accountData.phoneNumber || '',
+        country: accountData.country || ''
+      })
+    }
+  }, [flag])
+
   const handlePhoneCountryCodeChange = (e) => {
     const value = e.target.value.replace(/\D/g, '') // Remove all non-numeric characters
     formik.setFieldValue('phoneCountryCode', `+${value}`)
@@ -62,7 +99,7 @@ export function PersonalDataForm () {
   return (
     <form className='mt-8' onSubmit={formik.handleSubmit} noValidate>
       <div className='space-y-12'>
-        <div className='grid grid-cols-1 gap-x-8 gap-y-10  md:grid-cols-3'>
+        <div className='grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3'>
           <div>
             <h2 className='text-base font-semibold leading-7 text-default-900'>Personal Data</h2>
             <p className='mt-1 text-sm leading-6 text-default-500'>Update your personal data.</p>
@@ -135,8 +172,8 @@ export function PersonalDataForm () {
                 labelPlacement='outside'
                 placeholder='Select your gender'
                 variant='flat'
-                value={formik.values.gender}
-                onChange={formik.handleChange}
+                selectedKeys={[formik.values.gender]}
+                onSelectionChange={(keys) => formik.setFieldValue('gender', keys.values().next().value)}
                 onBlur={formik.handleBlur}
                 color={formik.touched.gender && formik.errors.gender ? 'danger' : 'default'}
               >
@@ -160,8 +197,8 @@ export function PersonalDataForm () {
                 labelPlacement='outside'
                 placeholder='Select document type'
                 variant='flat'
-                value={formik.values.documentType}
-                onChange={formik.handleChange}
+                selectedKeys={[formik.values.documentType]}
+                onSelectionChange={(keys) => formik.setFieldValue('documentType', keys.values().next().value)}
                 onBlur={formik.handleBlur}
                 color={formik.touched.documentType && formik.errors.documentType ? 'danger' : 'default'}
               >
@@ -253,11 +290,13 @@ export function PersonalDataForm () {
                 {(item) => (
                   <AutocompleteItem
                     key={item.code}
-                    startContent={<Avatar
-                      alt='Country Flag'
-                      className='h-6 w-6'
-                      src={`https://flagcdn.com/${item.code.toLowerCase()}.svg`}
-                                  />}
+                    startContent={
+                      <Avatar
+                        alt='Country Flag'
+                        className='h-6 w-6'
+                        src={`https://flagcdn.com/${item.code.toLowerCase()}.svg`}
+                      />
+                    }
                     value={item.code}
                   >
                     {item.name}
@@ -270,11 +309,7 @@ export function PersonalDataForm () {
             </div>
 
             <div className='col-span-2'>
-              <Button
-                type='submit'
-                color='primary'
-                isDisabled={!formik.dirty || !formik.isValid}
-              >
+              <Button type='submit' color='primary' isDisabled={!formik.dirty || !formik.isValid}>
                 Submit
               </Button>
             </div>

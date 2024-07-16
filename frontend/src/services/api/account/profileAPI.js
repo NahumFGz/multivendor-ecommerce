@@ -7,7 +7,18 @@ export async function getAccountApi (accessToken, id) {
     const { data, status } = response
 
     if (status === 200) {
-      return data
+      return {
+        id: data.id,
+        birthDate: data.birth_date,
+        documentType: data.document_type,
+        documentNumber: data.document_number,
+        firstName: data.first_name,
+        lastName: data.last_name,
+        gender: data.gender,
+        country: data.country,
+        phoneCountryCode: data.phone_country_code,
+        phoneNumber: data.phone_number
+      }
     } else {
       throw new Error('Get account failed')
     }
