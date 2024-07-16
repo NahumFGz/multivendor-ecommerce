@@ -22,7 +22,7 @@ class UserApiViewSet(ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
-    http_method_names = ["get", "patch", "delete"]
+    http_method_names = ["get", "post", "patch", "delete"]
 
     def get_queryset(self):
         user = self.request.user
@@ -43,6 +43,12 @@ class UserApiViewSet(ModelViewSet):
         if not user.is_superuser:
             raise PermissionDenied("You do not have permission to create a user.")
         return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        user = request.user
+        if not user.is_superuser:
+            raise PermissionDenied("You do not have permission to update this user.")
+        return super().update(request, *args, **kwargs)
 
     def partial_update(self, request, *args, **kwargs):
         user = request.user
