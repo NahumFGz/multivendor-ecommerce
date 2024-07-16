@@ -1,4 +1,4 @@
-import { logoutAllApi, changePasswordApi } from '../../../services/api/accountAPI'
+import { changePasswordApi, logoutAllApi } from '../../../services/api/account/securityAPI'
 import { useAuthStore } from '../../../store/AuthStore'
 
 export function useAccountAPI () {

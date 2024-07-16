@@ -1,4 +1,4 @@
-import { createAxiosAuthInstance } from './axiosInstance'
+import { createAxiosAuthInstance } from '../axiosInstance'
 
 export async function logoutAllApi (accessToken) {
   try {
