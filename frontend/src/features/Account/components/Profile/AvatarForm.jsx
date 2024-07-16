@@ -3,6 +3,8 @@ import { Icon } from '@iconify/react'
 import { toast } from 'react-toastify'
 import { Button } from '@nextui-org/react'
 import { useProfileApi } from '../../hooks/useProfileApi'
+import { useAuthStore } from '../../../../store/AuthStore'
+import { useAuthAPI } from '../../../Auth/hooks/useAuthAPI'
 
 export function AvatarForm () {
   const defaultAvatarUrl = 'http://localhost:8000/media/thumbnails/account/profile_image/bippPiLLAcesbKtDrbtduF_tiny.jpg'
@@ -10,6 +12,9 @@ export function AvatarForm () {
   const [isNewAvatarSelected, setIsNewAvatarSelected] = useState(false) // Estado para controlar si se ha seleccionado una nueva imagen
   const [selectedFile, setSelectedFile] = useState(null) // Estado para almacenar el archivo seleccionado
   const { updateProfileImageApiCall } = useProfileApi()
+
+  const { authMe } = useAuthAPI()
+  const setProfile = useAuthStore((state) => state.setProfile)
 
   const handleAvatarChange = (event) => {
     const file = event.target.files[0]
@@ -27,7 +32,13 @@ export function AvatarForm () {
   const handleUpdateAvatar = async () => {
     if (selectedFile) {
       try {
+        // Actualiza la imagen de perfil
         await updateProfileImageApiCall(selectedFile)
+
+        // Actualiza los datos del perfil
+        const responseMe = await authMe()
+        setProfile(responseMe)
+
         toast.success('Avatar updated successfully')
       } catch (error) {
         console.log('Error updating avatar:', error)

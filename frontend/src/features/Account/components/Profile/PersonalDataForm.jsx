@@ -5,6 +5,8 @@ import * as Yup from 'yup'
 import { toast } from 'react-toastify'
 import countries from '../../../../assets/Countries'
 import { useProfileApi } from '../../hooks/useProfileApi'
+import { useAuthAPI } from '../../../Auth/hooks/useAuthAPI'
+import { useAuthStore } from '../../../../store/AuthStore'
 
 const GENDER_CHOICES = [
   { label: 'Male', value: 'M' },
@@ -22,6 +24,9 @@ export function PersonalDataForm () {
   const [flag, setFlag] = useState(false)
   const [accountData, setAccountData] = useState()
   const { getAccountApiCall, patchAccountApiCall } = useProfileApi()
+
+  const { authMe } = useAuthAPI()
+  const setProfile = useAuthStore((state) => state.setProfile)
 
   const formik = useFormik({
     initialValues: {
@@ -52,7 +57,14 @@ export function PersonalDataForm () {
         console.log(values)
         // Aquí puedes manejar el envío de datos, por ejemplo a un servidor
         // resetForm()
+
+        // Patch para actualizar los datos personales
         await patchAccountApiCall(values)
+
+        // Actualiza los datos del perfil
+        const responseMe = await authMe()
+        setProfile(responseMe)
+
         toast.success('Personal data submitted successfully')
       } catch (error) {
         console.log('Error submitting personal data')
