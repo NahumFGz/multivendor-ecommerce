@@ -22,7 +22,7 @@ class UserApiViewSet(ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
-    http_method_names = ["get", "post", "patch", "delete"]
+    http_method_names = ["get", "patch", "delete"]
 
     def get_queryset(self):
         user = self.request.user
@@ -55,6 +55,21 @@ class UserApiViewSet(ModelViewSet):
         if not user.is_superuser:
             raise PermissionDenied("You do not have permission to update this user.")
         return super().partial_update(request, *args, **kwargs)
+
+
+class UpdateAvatarView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request, *args, **kwargs):
+        user = request.user
+        serializer = UserMeSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"profile_images": serializer.data.get("profile_images")},
+                status=status.HTTP_200_OK,
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class RegisterUserAPIView(APIView):
