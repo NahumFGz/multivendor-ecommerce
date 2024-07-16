@@ -9,7 +9,6 @@ from .views import (
     PasswordResetConfirmView,
     PasswordResetView,
     RegisterUserAPIView,
-    UpdateAvatarView,
     UserApiAuthMeView,
     UserApiViewSet,
 )
@@ -19,7 +18,6 @@ router.register(prefix="account", viewset=UserApiViewSet, basename="account")
 
 urlpatterns = [
     # Account API
-    path("account/update-avatar/", UpdateAvatarView.as_view(), name="update_avatar"),
     path("account/logout-all/", LogoutAllDevicesView.as_view(), name="logout_all"),
     path("account/change-password/", PasswordChangeView.as_view(), name="change_password"),
     path("", include(router.urls)),

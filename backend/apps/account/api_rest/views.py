@@ -57,21 +57,6 @@ class UserApiViewSet(ModelViewSet):
         return super().partial_update(request, *args, **kwargs)
 
 
-class UpdateAvatarView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def patch(self, request, *args, **kwargs):
-        user = request.user
-        serializer = UserMeSerializer(user, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {"profile_images": serializer.data.get("profile_images")},
-                status=status.HTTP_200_OK,
-            )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 class RegisterUserAPIView(APIView):
     serializer_class = UserSerializer
     permission_classes = []
