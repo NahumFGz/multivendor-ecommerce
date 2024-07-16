@@ -28,6 +28,7 @@ class User(AbstractUser, TimeStampModel):
     gender = models.CharField(max_length=255, choices=GENDER_CHOICES, blank=True, null=True)
     document_type = models.CharField(max_length=255, choices=DOC_CHOISES, blank=True, null=True)
     document_number = models.CharField(max_length=255, blank=True, null=True)
+    country = models.CharField(max_length=255, blank=True, null=True)
     phone_country_code = models.CharField(max_length=10, null=True, blank=True)
     phone_number = models.CharField(max_length=255, null=True, blank=True)
 

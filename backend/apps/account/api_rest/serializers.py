@@ -50,6 +50,7 @@ class UserSerializer(serializers.ModelSerializer):
             "gender",
             "document_type",
             "document_number",
+            "country",
             "phone_country_code",
             "phone_number",
             "is_email_verified",
