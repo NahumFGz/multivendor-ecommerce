@@ -59,33 +59,35 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def validate(self, data):
-        if data["password"] != data["password2"]:
-            raise serializers.ValidationError({"password": "Passwords do not match."})
-        validate_password(data["password"])
+        password = data.get("password")
+        password2 = data.get("password2")
+
+        if password or password2:
+            if password != password2:
+                raise serializers.ValidationError({"password": "Passwords do not match."})
+            validate_password(password)
+
         return data
 
     def create(self, validated_data):
-        validated_data.pop("password2")
-        validated_data["password"] = make_password(validated_data["password"])
+        validated_data.pop("password2", None)
+        if "password" in validated_data:
+            validated_data["password"] = make_password(validated_data["password"])
+
         return User.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
+        validated_data.pop("password2", None)
         if "password" in validated_data:
-            validated_data.pop("password2", None)
             validated_data["password"] = make_password(validated_data["password"])
         for key, value in validated_data.items():
             setattr(instance, key, value)
+
         instance.save()
         return instance
 
     def partial_update(self, instance, validated_data):
-        if "password" in validated_data:
-            validated_data.pop("password2", None)
-            validated_data["password"] = make_password(validated_data["password"])
-        for key, value in validated_data.items():
-            setattr(instance, key, value)
-        instance.save()
-        return instance
+        return self.update(instance, validated_data)
 
 
 class UserMeSerializer(serializers.ModelSerializer):
