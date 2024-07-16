@@ -2,6 +2,8 @@ from apps.account.managers import UserManager
 from apps.core.models import TimeStampModel
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from thumbnails.fields import ImageField
 
 
@@ -47,5 +49,11 @@ class User(AbstractUser, TimeStampModel):
 
     @property
     def profile_image_tiny_size(self):
-        tiny_url = self.profile_image.thumbnails.tiny.url
-        return tiny_url
+        return self.profile_image.thumbnails.tiny.url
+
+
+@receiver(post_save, sender=User)
+def generate_thumbnails(sender, instance, **kwargs):
+    if instance.profile_image:
+        for size in ["tiny", "small"]:
+            getattr(instance.profile_image.thumbnails, size)
