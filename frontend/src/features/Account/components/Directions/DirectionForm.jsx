@@ -1,13 +1,17 @@
+import { useState } from 'react'
 import { Autocomplete, AutocompleteItem, Avatar, Input, Button } from '@nextui-org/react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
 import countries from '../../../../assets/Countries'
+import { useAuthStore } from '../../../../store/AuthStore'
 
 export function DirectionForm () {
+  const profile = useAuthStore((state) => state.profile)
+  const [email] = useState(profile.email)
+
   const formik = useFormik({
     initialValues: {
-      email: '',
       firstName: '',
       lastName: '',
       address: '',
@@ -19,7 +23,6 @@ export function DirectionForm () {
       phoneNumber: ''
     },
     validationSchema: Yup.object({
-      email: Yup.string().email('Invalid email address').required('Email is required'),
       firstName: Yup.string().required('First name is required'),
       lastName: Yup.string().required('Last name is required'),
       address: Yup.string().required('Address is required'),
@@ -31,8 +34,9 @@ export function DirectionForm () {
     onSubmit: async (values, { resetForm }) => {
       try {
         console.log(values)
-        // Aquí puedes manejar el envío de datos, por ejemplo a un servidor
-        resetForm()
+        // Aquí puedes manejar el envío de datos, por ejemplo a un servidor, excluyendo el campo de correo
+        console.log(values)
+        // resetForm()
         toast.success('Shipping information submitted successfully')
       } catch (error) {
         console.log('Error submitting shipping information')
@@ -47,27 +51,23 @@ export function DirectionForm () {
         <div className='grid grid-cols-1 gap-x-8 gap-y-10 border-b border-default-900/10 pb-12 md:grid-cols-3'>
           <div>
             <h2 className='text-base font-semibold leading-7 text-default-900'>Shipping Information</h2>
-            <p className='mt-1 text-sm leading-6 text-default-500'>Please provide your shipping details to complete your purchase.</p>
+            <p className='mt-1 text-sm leading-6 text-default-500'>
+              Please provide your shipping details to complete your purchase.
+            </p>
           </div>
           <div className='grid max-w-2xl grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 md:col-span-2'>
             <div className='col-span-1 sm:col-span-2'>
               <Input
                 id='email'
                 name='email'
-                isRequired
                 label='Email address'
                 labelPlacement='outside'
                 placeholder='Enter your email'
                 type='email'
                 variant='flat'
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                color={formik.touched.email && formik.errors.email ? 'danger' : 'default'}
+                value={email}
+                isDisabled
               />
-              {formik.touched.email && formik.errors.email && (
-                <p className='ml-3 text-tiny text-[#f31260]'>{formik.errors.email}</p>
-              )}
             </div>
 
             <div className='col-span-1'>
@@ -185,8 +185,8 @@ export function DirectionForm () {
                 placeholder='Select country'
                 showScrollIndicators={false}
                 variant='flat'
-                value={formik.values.country}
-                onSelectionChange={(key) => formik.setFieldValue('country', key.anchorKey)}
+                selectedKey={formik.values.country}
+                onSelectionChange={(key) => formik.setFieldValue('country', key)}
                 onBlur={formik.handleBlur}
                 color={formik.touched.country && formik.errors.country ? 'danger' : 'default'}
               >
@@ -250,11 +250,7 @@ export function DirectionForm () {
             </div>
 
             <div className='col-span-2'>
-              <Button
-                type='submit'
-                color='primary'
-                isDisabled={!formik.isValid}
-              >
+              <Button type='submit' color='primary' isDisabled={!formik.isValid}>
                 Submit
               </Button>
             </div>
