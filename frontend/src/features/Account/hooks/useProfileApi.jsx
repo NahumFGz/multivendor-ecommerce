@@ -25,8 +25,7 @@ export function useProfileApi () {
 
   const updateProfileImageApiCall = async (profileImage) => {
     try {
-      const res = await updateProfileImageApi(token, profileImage)
-      console.log('3res: ', res)
+      const res = await updateProfileImageApi(token, profile.id, profileImage)
       return res
     } catch (error) {
       throw new Error('Update profile image failed')
