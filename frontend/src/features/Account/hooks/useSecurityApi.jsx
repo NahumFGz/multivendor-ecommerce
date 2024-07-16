@@ -1,7 +1,7 @@
 import { changePasswordApi, logoutAllApi } from '../../../services/api/account/securityAPI'
 import { useAuthStore } from '../../../store/AuthStore'
 
-export function useAccountSecurityApi () {
+export function useSecurityApi () {
   const token = useAuthStore((state) => state.token)
   //   const profile = useAuthStore((state) => state.profile)
 
@@ -18,7 +18,7 @@ export function useAccountSecurityApi () {
     try {
       await logoutAllApi(token)
     } catch (error) {
-      throw new Error('Logout all failed')
+      throw new Error('Logout all sessions failed')
     }
   }
 

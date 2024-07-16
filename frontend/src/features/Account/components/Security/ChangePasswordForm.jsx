@@ -4,10 +4,10 @@ import { toast } from 'react-toastify'
 import { Button, Input } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
-import { useAccountSecurityAPI } from '../../hooks/useAccountSecurityAPI'
+import { useSecurityApi } from '../../hooks/useSecurityApi'
 
 export function ChangePasswordForm () {
-  const { changePasswordApiCall } = useAccountSecurityAPI()
+  const { changePasswordApiCall } = useSecurityApi()
 
   const [isCurrentVisible, setIsCurrentVisible] = useState(false)
   const [isNewVisible, setIsNewVisible] = useState(false)

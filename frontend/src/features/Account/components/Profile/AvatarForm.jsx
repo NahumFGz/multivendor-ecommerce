@@ -2,14 +2,14 @@ import { useState } from 'react'
 import { Icon } from '@iconify/react'
 import { toast } from 'react-toastify'
 import { Button } from '@nextui-org/react'
-import { useAccountProfileAPI } from '../../hooks/useAccountProfileAPI'
+import { useProfileApi } from '../../hooks/useProfileApi'
 
 export function AvatarForm () {
   const defaultAvatarUrl = 'http://localhost:8000/media/thumbnails/account/profile_image/bippPiLLAcesbKtDrbtduF_tiny.jpg'
   const [avatarUrl, setAvatarUrl] = useState(defaultAvatarUrl) // URL de la imagen de perfil actual
   const [isNewAvatarSelected, setIsNewAvatarSelected] = useState(false) // Estado para controlar si se ha seleccionado una nueva imagen
   const [selectedFile, setSelectedFile] = useState(null) // Estado para almacenar el archivo seleccionado
-  const { updateProfileImageApiCall } = useAccountProfileAPI()
+  const { updateProfileImageApiCall } = useProfileApi()
 
   const handleAvatarChange = (event) => {
     const file = event.target.files[0]

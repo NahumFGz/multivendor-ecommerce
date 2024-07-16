@@ -1,10 +1,10 @@
+import { useEffect, useState } from 'react'
 import { Autocomplete, AutocompleteItem, Input, Button, Select, SelectItem, Avatar } from '@nextui-org/react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
 import countries from '../../../../assets/Countries'
-import { useAccountProfileAPI } from '../../hooks/useAccountProfileAPI'
-import { useEffect, useState } from 'react'
+import { useProfileApi } from '../../hooks/useProfileApi'
 
 const GENDER_CHOICES = [
   { label: 'Male', value: 'M' },
@@ -21,7 +21,7 @@ const DOC_CHOICES = [
 export function PersonalDataForm () {
   const [flag, setFlag] = useState(false)
   const [accountData, setAccountData] = useState()
-  const { getAccountApiCall, patchAccountApiCall } = useAccountProfileAPI()
+  const { getAccountApiCall, patchAccountApiCall } = useProfileApi()
 
   const formik = useFormik({
     initialValues: {

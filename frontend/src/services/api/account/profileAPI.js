@@ -55,13 +55,13 @@ export async function patchAccountApi (accessToken, id, accountData) {
   }
 }
 
-export async function updateProfileImageApi (accessToken, id, profileImage) {
+export async function updateProfileImageApi (accessToken, profileImage) {
   try {
     const formData = new FormData()
     formData.append('profile_image', profileImage)
 
     const axiosInstance = createAxiosAuthInstance(accessToken)
-    const response = await axiosInstance.patch(`/api/account/${id}/`, formData, {
+    const response = await axiosInstance.patch('/api/account/update-avatar/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
