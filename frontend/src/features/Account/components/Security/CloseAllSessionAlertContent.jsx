@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react'
 import { useNavigate } from 'react-router-dom'
 import { homeUrls } from '../../../../routes/urls/homeUrls'
 import { useAuthStore } from '../../../../store/AuthStore'
-import { useAccountSecurityAPI } from '../../hooks/useAccountSecurityApi'
+import { useAccountSecurityAPI } from '../../hooks/useAccountSecurityAPI'
 
 export function CloseAllSessionAlertContent ({ closeModal }) {
   const navigate = useNavigate()
