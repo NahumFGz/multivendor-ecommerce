@@ -29,8 +29,20 @@ export async function getAccountApi (accessToken, id) {
 
 export async function patchAccountApi (accessToken, id, accountData) {
   try {
+    const formatAccountData = {
+      birth_date: accountData.birthDate,
+      document_type: accountData.documentType,
+      document_number: accountData.documentNumber,
+      first_name: accountData.firstName,
+      last_name: accountData.lastName,
+      gender: accountData.gender,
+      country: accountData.country,
+      phone_country_code: accountData.phoneCountryCode,
+      phone_number: accountData.phoneNumber
+    }
+
     const axiosInstance = createAxiosAuthInstance(accessToken)
-    const response = await axiosInstance.patch(`/api/account/${id}/`, accountData)
+    const response = await axiosInstance.patch(`/api/account/${id}/`, formatAccountData)
     const { data, status } = response
 
     if (status === 200) {

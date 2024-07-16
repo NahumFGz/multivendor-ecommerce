@@ -52,6 +52,7 @@ export function PersonalDataForm () {
         console.log(values)
         // Aquí puedes manejar el envío de datos, por ejemplo a un servidor
         // resetForm()
+        await patchAccountApiCall(values)
         toast.success('Personal data submitted successfully')
       } catch (error) {
         console.log('Error submitting personal data')
