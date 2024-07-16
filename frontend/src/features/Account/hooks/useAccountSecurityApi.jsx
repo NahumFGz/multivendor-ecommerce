@@ -1,7 +1,7 @@
 import { changePasswordApi, logoutAllApi } from '../../../services/api/account/securityAPI'
 import { useAuthStore } from '../../../store/AuthStore'
 
-export function useAccountAPI () {
+export function useAccountSecurityAPI () {
   const token = useAuthStore((state) => state.token)
   //   const profile = useAuthStore((state) => state.profile)
 

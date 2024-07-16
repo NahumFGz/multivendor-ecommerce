@@ -3,12 +3,12 @@ import { Icon } from '@iconify/react'
 import { useNavigate } from 'react-router-dom'
 import { homeUrls } from '../../../../routes/urls/homeUrls'
 import { useAuthStore } from '../../../../store/AuthStore'
-import { useAccountAPI } from '../../hooks/useAccountApi'
+import { useAccountSecurityAPI } from '../../hooks/useAccountSecurityApi'
 
 export function CloseAllSessionAlertContent ({ closeModal }) {
   const navigate = useNavigate()
   const cleanStore = useAuthStore((store) => store.cleanStore)
-  const { logoutAllApiCall } = useAccountAPI()
+  const { logoutAllApiCall } = useAccountSecurityAPI()
 
   const handleCloseAllSessions = async () => {
     try {
