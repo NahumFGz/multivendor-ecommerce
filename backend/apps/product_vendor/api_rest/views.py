@@ -5,14 +5,16 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from ..models import ProductVendor
-from .serializers import ProductVendorDetailSerializer, ProductVendorSerializer
+from .serializers import ProductVendorSerializer
 
 
-class ProductVendorListView(generics.ListAPIView):
+class ProductVendorListView(viewsets.ModelViewSet):
     queryset = ProductVendor.objects.all()
     serializer_class = ProductVendorSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    http_method_names = ["get", "post", "patch", "delete"]
+    pagination_class = None
 
     # Configurar los campos de búsqueda
     search_fields = ["title", "description"]
@@ -23,32 +25,3 @@ class ProductVendorListView(generics.ListAPIView):
     # Configurar los campos de ordenamiento y ordenamiento predeterminado
     ordering_fields = ["price", "rating", "created_at"]
     ordering = ["created_at"]
-
-
-class ProductVendorDetailView(generics.RetrieveAPIView):
-    """
-    RetrieveAPIView es una clase de vista genérica que
-    proporciona una interfaz de solo lectura para un recurso.
-    """
-
-    lookup_field = "slug"
-    queryset = ProductVendor.objects.all()
-    serializer_class = ProductVendorDetailSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-
-class ProductVendorCRUDView(
-    mixins.CreateModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    generics.GenericAPIView,
-):
-    queryset = ProductVendor.objects.all()
-    serializer_class = ProductVendorSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-    def patch(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
