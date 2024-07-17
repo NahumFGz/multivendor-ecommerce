@@ -1,21 +1,57 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Autocomplete, AutocompleteItem, Avatar, Input, Button } from '@nextui-org/react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
 import countries from '../../../../assets/Countries'
 import { useAuthStore } from '../../../../store/AuthStore'
+import { useShippingInformationApi } from '../../hooks/useShippingInformationApi'
 
 export function DirectionForm () {
   const profile = useAuthStore((state) => state.profile)
   const [email] = useState(profile.email)
+
+  const [flag, setFlag] = useState(false)
+  const [shippingInformation, setShippingInformation] = useState()
+  const { getShippingInformationApiCall, patchShippingInformationApiCall } = useShippingInformationApi()
+
+  useEffect(() => {
+    const getShippingInformation = async () => {
+      try {
+        const shippingInformation = await getShippingInformationApiCall()
+        setShippingInformation(shippingInformation)
+        setFlag(true)
+      } catch (error) {
+        console.log('Error getting shipping information')
+        toast.error('Error getting shipping information')
+      }
+    }
+
+    getShippingInformation()
+  }, [])
+
+  useEffect(() => {
+    if (shippingInformation) {
+      formik.setValues({
+        firstName: shippingInformation.firstName || '',
+        lastName: shippingInformation.lastName || '',
+        address: shippingInformation.address || '',
+        addressNumber: shippingInformation.addressNumber || '',
+        reference: shippingInformation.reference || '',
+        city: shippingInformation.city || '',
+        country: shippingInformation.country || '',
+        postalCode: shippingInformation.postalCode || '',
+        phoneNumber: shippingInformation.phoneNumber || ''
+      })
+    }
+  }, [flag, shippingInformation])
 
   const formik = useFormik({
     initialValues: {
       firstName: '',
       lastName: '',
       address: '',
-      apt: '',
+      addressNumber: '',
       reference: '',
       city: '',
       country: '',
@@ -31,12 +67,10 @@ export function DirectionForm () {
       postalCode: Yup.string().required('Postal code is required'),
       phoneNumber: Yup.string().required('Phone number is required')
     }),
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       try {
         console.log(values)
-        // Aquí puedes manejar el envío de datos, por ejemplo a un servidor, excluyendo el campo de correo
-        console.log(values)
-        // resetForm()
+        await patchShippingInformationApiCall(values)
         toast.success('Shipping information submitted successfully')
       } catch (error) {
         console.log('Error submitting shipping information')
@@ -129,13 +163,13 @@ export function DirectionForm () {
 
             <div className='col-span-1'>
               <Input
-                id='apt'
-                name='apt'
+                id='addressNumber'
+                name='addressNumber'
                 label='Apt, suite, etc.'
                 labelPlacement='outside'
                 placeholder='Apartment, studio, or floor'
                 variant='flat'
-                value={formik.values.apt}
+                value={formik.values.addressNumber}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
