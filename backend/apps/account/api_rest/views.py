@@ -28,33 +28,41 @@ class UserApiViewSet(ModelViewSet):
         user = self.request.user
         if user.is_superuser:
             return User.objects.all()
-        if not user.is_superuser and "pk" in self.kwargs and int(self.kwargs["pk"]) != user.id:
-            raise PermissionDenied("You do not have permission to view this user.")
         return User.objects.filter(id=user.id)
 
+    def get_object(self):
+        obj = super().get_object()
+        user = self.request.user
+        if not user.is_superuser and obj != user:
+            raise PermissionDenied("You do not have permission to access this user.")
+        return obj
+
     def destroy(self, request, *args, **kwargs):
-        user = request.user
-        if not user.is_superuser:
+        obj = self.get_object()
+        user = self.request.user
+        if not user.is_superuser and obj != user:
             raise PermissionDenied("You do not have permission to delete this user.")
         return super().destroy(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        obj = self.get_object()
+        user = self.request.user
+        if not user.is_superuser and obj != user:
+            raise PermissionDenied("You do not have permission to update this user.")
+        return super().update(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        obj = self.get_object()
+        user = self.request.user
+        if not user.is_superuser and obj != user:
+            raise PermissionDenied("You do not have permission to partially update this user.")
+        return super().partial_update(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
         user = request.user
         if not user.is_superuser:
             raise PermissionDenied("You do not have permission to create a user.")
         return super().create(request, *args, **kwargs)
-
-    def update(self, request, *args, **kwargs):
-        user = request.user
-        if not user.is_superuser:
-            raise PermissionDenied("You do not have permission to update this user.")
-        return super().update(request, *args, **kwargs)
-
-    def partial_update(self, request, *args, **kwargs):
-        user = request.user
-        if not user.is_superuser:
-            raise PermissionDenied("You do not have permission to update this user.")
-        return super().partial_update(request, *args, **kwargs)
 
 
 class RegisterUserAPIView(APIView):
