@@ -1,12 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Input, Textarea, Button, Select, SelectItem } from '@nextui-org/react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
 import { Icon } from '@iconify/react'
+import { useFilters } from '../../../../store/FiltersStore'
+import { getCategories, getSubCategoryByCategoryId } from '../../../Home/hooks/useInfoAPI'
 
-export function PublishProductForm ({ categories = [], subCategories = [] }) {
+export function PublishProductForm () {
+  const { filters } = useFilters()
   const [selectedImage, setSelectedImage] = useState(null)
+  const [categories, setCategories] = useState([])
+  const [subCategories, setSubCategories] = useState([])
+
+  useEffect(() => {
+    console.log('filters... ', filters)
+    console.log('categories... ', getCategories(filters))
+    console.log('subCategories... ', getSubCategoryByCategoryId(filters))
+    setCategories(getCategories(filters))
+    setSubCategories(getSubCategoryByCategoryId(filters))
+  }, [filters])
 
   const formik = useFormik({
     initialValues: {
@@ -73,8 +86,8 @@ export function PublishProductForm ({ categories = [], subCategories = [] }) {
                 color={formik.touched.category && formik.errors.category ? 'danger' : 'default'}
               >
                 {categories.map((category) => (
-                  <SelectItem key={category.id} value={category.id} textValue={category.name}>
-                    {category.name}
+                  <SelectItem key={category.categoryId} value={category.categoryId} textValue={category.categoryName}>
+                    {category.categoryName}
                   </SelectItem>
                 ))}
               </Select>
@@ -95,8 +108,8 @@ export function PublishProductForm ({ categories = [], subCategories = [] }) {
                 color={formik.touched.subCategory && formik.errors.subCategory ? 'danger' : 'default'}
               >
                 {subCategories.map((subCategory) => (
-                  <SelectItem key={subCategory.id} value={subCategory.id} textValue={subCategory.name}>
-                    {subCategory.name}
+                  <SelectItem key={subCategory.subCategoryId} value={subCategory.subCategoryId} textValue={subCategory.subCategoryName}>
+                    {subCategory.subCategoryName}
                   </SelectItem>
                 ))}
               </Select>
