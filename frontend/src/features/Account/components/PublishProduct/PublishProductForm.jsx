@@ -8,14 +8,17 @@ import { useFilters } from '../../../../store/FiltersStore'
 import { getCategories, getSubCategoryByCategoryId } from '../../../Home/hooks/useInfoAPI'
 
 export function PublishProductForm () {
-  const { filters } = useFilters()
+  const { filters, initializeFilters } = useFilters()
   const [selectedImage, setSelectedImage] = useState(null)
   const [categories, setCategories] = useState([])
   const [subCategories, setSubCategories] = useState([])
 
   useEffect(() => {
-    console.log('filters... ', filters)
-    setCategories(getCategories(filters))
+    if (filters.length > 0) {
+      setCategories(getCategories(filters))
+    } else {
+      initializeFilters()
+    }
   }, [filters])
 
   const handleCategoriesChange = (value) => {
