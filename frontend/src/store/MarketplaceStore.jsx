@@ -26,9 +26,10 @@ const useMarketplaceStore = create(
     fetchProducts: async (params) => {
       try {
         const { getProducts } = useProductsAPI()
+        const searchQuery = ''
         const vendorType = 2
         set({ isLoading: true })
-        const response = await getProducts(params.currentPage, params.pageSize, params.ordering, params.selectedCategories, params.selectedSubCategories, vendorType)
+        const response = await getProducts(params.currentPage, params.pageSize, params.ordering, params.selectedCategories, params.selectedSubCategories, searchQuery, vendorType)
         set({ products: response.products, totalProducts: response.totalProducts, isLoading: false })
       } catch (error) {
         console.error('Fetch products failed', error)
