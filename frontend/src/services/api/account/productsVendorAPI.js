@@ -1,6 +1,6 @@
 import { createAxiosInstance } from './axiosInstance'
 
-export async function getProductsVendorApi () {
+export async function getPublishedProducts (accessToken, id) {
   try {
     const axiosInstance = createAxiosInstance()
     const response = await axiosInstance.get('/api/products/')
