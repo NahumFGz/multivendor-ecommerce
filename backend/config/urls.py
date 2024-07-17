@@ -44,6 +44,7 @@ urlpatterns = [
     path("api/", include("apps.account.api_rest.routers")),
     path("api/", include("apps.product.api_rest.routers")),
     path("api/", include("apps.product_vendor.api_rest.routers")),
+    path("api/", include("apps.shipping_information.api_rest.routers")),
 ]
 
 if settings.DEBUG:
