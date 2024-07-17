@@ -9,7 +9,7 @@ import { getCategories, getSubCategoryByCategoryId } from '../../../Home/hooks/u
 
 export function PublishProductForm () {
   const { filters, initializeFilters } = useFilters()
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedImagePreview, setSelectedImagePreview] = useState(null)
   const [categories, setCategories] = useState([])
   const [subCategories, setSubCategories] = useState([])
 
@@ -37,7 +37,8 @@ export function PublishProductForm () {
       title: '',
       shortDescription: '',
       price: '',
-      stock: ''
+      stock: '',
+      image: null // Añadir el campo de imagen
     },
     validationSchema: Yup.object({
       category: Yup.string().required('Category is required'),
@@ -51,7 +52,15 @@ export function PublishProductForm () {
       try {
         console.log(values)
         // Aquí puedes manejar el envío de datos, por ejemplo a un servidor
+        const formData = new FormData()
+        for (const key in values) {
+          formData.append(key, values[key])
+        }
+        // Llama a tu API con formData
+        // await api.post('/your-endpoint', formData)
+
         resetForm()
+        setSelectedImagePreview(null)
         toast.success('Product information submitted successfully')
       } catch (error) {
         console.log('Error submitting product information')
@@ -65,9 +74,10 @@ export function PublishProductForm () {
     if (file) {
       const reader = new window.FileReader()
       reader.onloadend = () => {
-        setSelectedImage(reader.result)
+        setSelectedImagePreview(reader.result)
       }
       reader.readAsDataURL(file)
+      formik.setFieldValue('image', file) // Almacenar la imagen en Formik
     }
   }
 
@@ -115,6 +125,7 @@ export function PublishProductForm () {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 color={formik.touched.subCategory && formik.errors.subCategory ? 'danger' : 'default'}
+                disabled={!formik.values.category} // Desactivar el select si no hay una categoría seleccionada
               >
                 {subCategories.map((subCategory) => (
                   <SelectItem key={subCategory.subCategoryId} value={subCategory.subCategoryId} textValue={subCategory.subCategoryName}>
@@ -168,9 +179,9 @@ export function PublishProductForm () {
                 Product image
               </label>
               <div className='mt-2 flex items-center gap-x-3'>
-                {selectedImage
+                {selectedImagePreview
                   ? (
-                    <img src={selectedImage} alt='Selected' className='h-36 w-36 rounded' />
+                    <img src={selectedImagePreview} alt='Selected' className='h-36 w-36 rounded' />
                     )
                   : (
                     <img src='https://via.placeholder.com/150' alt='Default' className='h-36 w-36 rounded' />
