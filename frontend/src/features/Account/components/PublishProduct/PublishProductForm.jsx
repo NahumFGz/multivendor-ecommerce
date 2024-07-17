@@ -15,11 +15,17 @@ export function PublishProductForm () {
 
   useEffect(() => {
     console.log('filters... ', filters)
-    console.log('categories... ', getCategories(filters))
-    console.log('subCategories... ', getSubCategoryByCategoryId(filters))
     setCategories(getCategories(filters))
-    setSubCategories(getSubCategoryByCategoryId(filters))
   }, [filters])
+
+  const handleCategoriesChange = (value) => {
+    console.log('value... ', [value.toString()])
+    console.log('subCategories... ', getSubCategoryByCategoryId(filters, [value.toString()]))
+
+    formik.setFieldValue('category', value)
+    formik.setFieldValue('subCategory', '')
+    setSubCategories(getSubCategoryByCategoryId(filters, [value.toString()]))
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -81,7 +87,7 @@ export function PublishProductForm () {
                 label='Category'
                 placeholder='Select a category'
                 value={formik.values.category}
-                onChange={formik.handleChange}
+                onChange={(e) => handleCategoriesChange(e.target.value)}
                 onBlur={formik.handleBlur}
                 color={formik.touched.category && formik.errors.category ? 'danger' : 'default'}
               >
@@ -143,7 +149,7 @@ export function PublishProductForm () {
                 label='Short Description'
                 labelPlacement='outside'
                 placeholder='Enter a short description of the product'
-                rows={3}
+                rows={4}
                 value={formik.values.shortDescription}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
